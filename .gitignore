@@ -1,0 +1,36 @@
+# Nested repos (standalone projects)
+BB-Tech-main/
+Northside Smoke/
+OpenHub-main/
+UL2-main/
+Uplift-Venture-main/
+deterministic-brain-main/
+UsersUserAppDataLocalTempmath-x/
+aetherdesk_scaffold/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# DB files
+*.db
+*.db-shm
+*.db-wal
+
+# Env files (keep .env.example)
+.env
+.env.local
+
+# Build output
+dist/
+htmlcov/
+playwright-report/
+test-results/
+
+# IDE/OS
+.vscode/
+.idea/
+*.log
+nul
