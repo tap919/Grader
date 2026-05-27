@@ -1,24 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./features/auth/AuthContext";
+import Login from "./features/auth/Login";
+import Dashboard from "./features/dashboard/Dashboard";
 import LandingPage from "./components/LandingPage";
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
-export default function App() {
-  const [view, setView] = useState<'landing' | 'login' | 'dashboard'>('landing');
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+function PrivateRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+}
 
-  useEffect(() => {
-    // Check for token in URL (from OAuth redirect)
-    const urlParams = new URLSearchParams(window.location.search);
-    const tokenFromUrl = urlParams.get('token');
-    
-    if (tokenFromUrl) {
-      localStorage.setItem('authToken', tokenFromUrl);
-      window.history.replaceState({}, document.title, "/dashboard");
-      setIsAuthenticated(true);
-      setView('dashboard');
-      return;
-    }
+function App() {
+  return (
+    <ErrorBoundary>
+      <Router>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login onBack={() => window.history.back()} />} />
+            <Route
+              path="/dashboard"
+              element={(
+                <PrivateRoute>
+                  <Dashboard onLogout={() => window.location.href = "/"} />
+                </PrivateRoute>
+              )}
+            />
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </ErrorBoundary>
+  );
+}
+
+export default App;
 
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -51,5 +67,5 @@ export default function App() {
     return <Login onLogin={handleLogin} onBack={() => navigateTo('landing')} />;
   }
 
-  return <LandingPage onNavigateToLogin={() => navigateTo('login')} />;
+  return <LandingPage onLogin={() => navigateTo('login')} />;
 }
