@@ -9,12 +9,19 @@ export const getPool = () => pgPool;
 export const initDb = async () => {
   pgPool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
+    max: parseInt(process.env.DB_POOL_MAX ?? "10", 10),
+    idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT ?? "30000", 10),
+    connectionTimeoutMillis: parseInt(process.env.DB_CONNECTION_TIMEOUT ?? "5000", 10),
   });
   
-  const schemaPath = path.join(process.cwd(), "src/server/db/schema.sql");
-  const schema = fs.readFileSync(schemaPath, "utf-8");
-  await pgPool.query(schema);
-  console.log("[initDb] PostgreSQL Database initialized and schema applied.");
+  if (!process.env.SKIP_SCHEMA_ON_BOOT) {
+    const schemaPath = path.join(process.cwd(), "src/server/db/schema.sql");
+    const schema = fs.readFileSync(schemaPath, "utf-8");
+    await pgPool.query(schema);
+    console.log("[initDb] PostgreSQL Database initialized and schema applied.");
+  } else {
+    console.log("[initDb] PostgreSQL Database initialized (schema boot skipped).");
+  }
 };
 
 // Unified Query interface

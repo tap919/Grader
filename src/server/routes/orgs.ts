@@ -81,8 +81,8 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
     );
 
     res.status(201).json(org);
-  } catch (error: any) {
-    if ((error as any)?.code === "23505") {
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error && (error as Record<string, unknown>).code === "23505") {
       return res.status(409).json({ error: "Organization slug already exists" });
     }
 

@@ -35,17 +35,4 @@ export class ApiKeyService {
     return crypto.createHash("sha256").update(key).digest("hex");
   }
 
-  /**
-   * Verify an API key against stored hash
-   */
-  static verifyKey(key: string, hash: string): boolean {
-    const computedHash = this.hashKey(key);
-    if (computedHash.length !== hash.length) {
-      return false;
-    }
-    return crypto.timingSafeEqual(
-      Buffer.from(computedHash),
-      Buffer.from(hash)
-    );
-  }
 }

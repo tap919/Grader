@@ -22,25 +22,38 @@ passport.use(
       try {
         // Check if user exists
         const { rows: userRows } = await query(
-          `SELECT * FROM users WHERE github_id = $1`, [profile.id]
+          `SELECT id, email, display_name, avatar_url FROM users WHERE github_id = $1`, [profile.id]
         );
         
         if (userRows && userRows.length > 0) {
           const user = userRows[0];
-          const token = generateToken({ userId: user.id });
+          const { rows: memberRows } = await query(
+            `SELECT org_id FROM org_members WHERE user_id = $1 LIMIT 1`,
+            [user.id]
+          );
+          const orgId = memberRows?.[0]?.org_id;
+          const token = generateToken({ userId: user.id, orgId });
           return done(null, { user, token });
         }
         
         // Create new user
-        const { rows: newUserRows } = await query(
-          `INSERT INTO users (github_id, email, display_name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING *`,
-          [profile.id, profile.emails?.[0]?.value || "", profile.displayName, profile.photos?.[0]?.value]
-        );
-        
-        if (!newUserRows || newUserRows.length === 0) {
-          throw new Error("Failed to create user");
+        const email = profile.emails?.[0]?.value || "";
+        let newUser;
+        try {
+          const { rows: newUserRows } = await query(
+            `INSERT INTO users (github_id, email, display_name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING id, email, display_name, avatar_url`,
+            [profile.id, email, profile.displayName, profile.photos?.[0]?.value]
+          );
+          if (!newUserRows || newUserRows.length === 0) {
+            throw new Error("Failed to create user");
+          }
+          newUser = newUserRows[0];
+        } catch (insertErr: any) {
+          if ((insertErr as any)?.code === "23505") {
+            return done(new Error("A user with this email address already exists. Please log in with your existing account or use a different GitHub account with a different email."));
+          }
+          throw insertErr;
         }
-        const newUser = newUserRows[0];
         
         // Create personal org for the user
         const orgName = `${profile.username}'s Workspace`;

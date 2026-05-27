@@ -182,7 +182,7 @@ export const orgAccessMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const requestedOrgId = req.params.orgId || req.query.orgId;
+    const requestedOrgId = req.params.orgId || req.query.orgId || req.params.id;
     const userOrgId = req.orgId;
 
     if (!requestedOrgId) {

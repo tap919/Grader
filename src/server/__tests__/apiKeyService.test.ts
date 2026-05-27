@@ -47,22 +47,7 @@ describe("ApiKeyService", () => {
     });
   });
 
-  describe("verifyKey", () => {
-    it("returns true for matching key and hash", () => {
-      const key = "gr_my_test_key_abc123";
-      const hash = ApiKeyService.hashKey(key);
-      expect(ApiKeyService.verifyKey(key, hash)).toBe(true);
-    });
-
-    it("returns false for non-matching key and hash", () => {
-      const hash = ApiKeyService.hashKey("gr_real_key");
-      expect(ApiKeyService.verifyKey("gr_wrong_key", hash)).toBe(false);
-    });
-
-  it("returns false for empty inputs", () => {
-    expect(ApiKeyService.verifyKey("", "")).toBe(false);
-    expect(ApiKeyService.verifyKey("gr_key", "")).toBe(false);
-    expect(ApiKeyService.verifyKey("", "somehash")).toBe(false);
-  });
-  });
+  // verifyKey was removed because authMiddleware uses DB-side hash comparison (key_hash = $1 in SQL),
+  // which is functionally equivalent and doesn't need a separate timing-safe comparison.
+  // The `crypto.timingSafeEqual` based verifyKey was never called from any route.
 });

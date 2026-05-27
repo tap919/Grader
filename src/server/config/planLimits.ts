@@ -1,7 +1,7 @@
 export const PLAN_LIMITS = {
   free: {
     scansPerMonth: 3,
-    apiCallsPerHour: 0,
+    apiCallsPerHour: 10,
     teamMembers: 1,
   },
   starter: {

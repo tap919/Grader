@@ -37,12 +37,13 @@ function setInCache<T>(key: string, data: T): void {
   }
 }
 
-// Periodic cache cleanup every 10 minutes
+// Periodic cache cleanup and rate_limits purge every 10 minutes
 setInterval(() => {
   const now = Date.now();
   for (const [key, value] of gitHubCache) {
     if (now - value.timestamp > CACHE_TTL_MS) gitHubCache.delete(key);
   }
+  query(`DELETE FROM rate_limits WHERE period_start < date_trunc('month', NOW())`).catch(() => {});
 }, 10 * 60 * 1000).unref();
 type Request = express.Request;
 type Response = express.Response;
@@ -92,7 +93,7 @@ router.post(
       const scan = scanRows[0];
 
       // Grade the repo (fire-and-forget — response returns immediately with status "processing")
-      gradeRepoAsync(scan.id, owner, repo, repoUrl, req.orgId);
+      gradeRepoAsync(scan.id, owner, repo, repoUrl, req.orgId, req.userId);
 
       res.status(201).json({
         id: scan.id,
@@ -241,7 +242,8 @@ async function gradeRepoAsync(
   owner: string,
   repo: string,
   repoUrl: string,
-  orgId: string
+  orgId: string,
+  userId?: string
 ) {
   // Mark scan as processing
   try {
@@ -405,9 +407,9 @@ async function gradeRepoAsync(
     }
 
     await query(
-      `INSERT INTO usage_log (org_id, action, resource, created_at)
-        VALUES ($1, 'scan_completed', $2, NOW())`,
-      [orgId, `${owner}/${repo}`]
+      `INSERT INTO usage_log (org_id, user_id, action, resource, created_at)
+        VALUES ($1, $2, 'scan_completed', $3, NOW())`,
+      [orgId, userId || null, `${owner}/${repo}`]
     );
 
     console.log(`[scans] [scanId:${scanId}] Scan completed successfully`);

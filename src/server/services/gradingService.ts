@@ -144,7 +144,7 @@ export class GradingService {
     const response = await client.models.generateContent({
       model: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
       contents: prompt,
-      config: { responseMimeType: "application/json", temperature: 0.7 },
+      config: { responseMimeType: "application/json", temperature: 0.2 },
     });
 
     const text = response.text ?? "";
@@ -230,6 +230,7 @@ Return ONLY valid JSON matching this exact schema:
 }
 
 Rules:
+- This analysis is AI-generated based on limited public data (README, file listing, package.json). It is not a substitute for a professional security audit or code review.
 - Return ONLY raw JSON. No markdown, no code fences, no commentary.
 - If you cannot determine a value, use null for nullable fields, 0 for numbers, "" for strings, [] for arrays.
 - Do not invent data. If package.json was not fetched, say "Not retrieved" in explanations.

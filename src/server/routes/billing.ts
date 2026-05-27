@@ -16,7 +16,13 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 
 const router = Router();
 
-const PRICING_TIERS = {
+const STRIPE_PRICES: Record<string, string | undefined> = {
+  starter: process.env.STRIPE_PRICE_STARTER,
+  professional: process.env.STRIPE_PRICE_PROFESSIONAL,
+  enterprise: process.env.STRIPE_PRICE_ENTERPRISE,
+};
+
+const PRICING_TIERS: Record<string, { name: string; monthlyPrice: number; scansPerMonth: number }> = {
   free: { name: "Free", monthlyPrice: 0, scansPerMonth: 3 },
   starter: { name: "Starter", monthlyPrice: 9, scansPerMonth: 30 },
   professional: { name: "Professional", monthlyPrice: 29, scansPerMonth: 150 },
@@ -32,6 +38,11 @@ router.post("/checkout", authMiddleware, async (req: Request, res: Response) => 
 
   if (!orgId || !req.userId) {
     return res.status(400).json({ error: "orgId required" });
+  }
+
+  const priceId = STRIPE_PRICES[planTier as string];
+  if (!priceId) {
+    return res.status(400).json({ error: `Invalid plan tier: ${planTier}. Valid tiers: ${Object.keys(STRIPE_PRICES).join(", ")}` });
   }
 
   try {
@@ -69,10 +80,13 @@ router.post("/checkout", authMiddleware, async (req: Request, res: Response) => 
       customer: customerId,
       payment_method_types: ["card"],
       line_items: [{
-        price: planTier,
+        price: priceId,
         quantity: 1,
       }],
       mode: "subscription",
+      subscription_data: {
+        metadata: { orgId, planTier },
+      },
       success_url: `${process.env.FRONTEND_URL}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.FRONTEND_URL}/billing/cancel`,
     });
@@ -136,13 +150,46 @@ router.post("/webhook", async (req: Request, res: Response) => {
   try {
     switch (event.type) {
       case "invoice.paid": {
-        const invoice = event.data.object as Stripe.Invoice;
+        const invoice = event.data.object as any;
         await query("UPDATE invoices SET status = 'paid' WHERE stripe_invoice_id = $1", [invoice.id]);
+        const subId = invoice.subscription;
+        if (subId && invoice.customer) {
+          const sub = await stripe.subscriptions.retrieve(subId);
+          const planTier = sub.metadata?.planTier || sub.items?.data?.[0]?.price?.metadata?.planTier;
+          if (planTier) {
+            const customerId = invoice.customer as string;
+            await query(
+              `UPDATE orgs SET plan_tier = $1, updated_at = NOW() WHERE stripe_customer_id = $2`,
+              [planTier, customerId]
+            );
+          }
+          await query(
+            `UPDATE subscriptions SET status = $1, plan_tier = $2, current_period_start = $3, current_period_end = $4, updated_at = NOW() WHERE stripe_subscription_id = $5`,
+            [sub.status, planTier || sub.items?.data?.[0]?.price?.nickname || "starter",
+             new Date((sub as any).current_period_start * 1000).toISOString(),
+             new Date((sub as any).current_period_end * 1000).toISOString(),
+             sub.id]
+          );
+        }
         break;
       }
       case "customer.subscription.updated": {
-        const sub = event.data.object as Stripe.Subscription;
-        await query("UPDATE subscriptions SET status = $1 WHERE stripe_subscription_id = $2", [sub.status, sub.id]);
+        const sub = event.data.object as any;
+        const planTier = sub.metadata?.planTier || sub.items?.data?.[0]?.price?.metadata?.planTier;
+        const customerId = sub.customer as string;
+        await query(
+          `UPDATE subscriptions SET status = $1, plan_tier = $2, current_period_start = $3, current_period_end = $4, updated_at = NOW() WHERE stripe_subscription_id = $5`,
+          [sub.status, planTier || sub.items?.data?.[0]?.price?.nickname || "starter",
+           new Date((sub as any).current_period_start * 1000).toISOString(),
+           new Date((sub as any).current_period_end * 1000).toISOString(),
+           sub.id]
+        );
+        if (planTier && sub.status === "active") {
+          await query(
+            `UPDATE orgs SET plan_tier = $1, updated_at = NOW() WHERE stripe_customer_id = $2`,
+            [planTier, customerId]
+          );
+        }
         break;
       }
     }
