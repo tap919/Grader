@@ -15,12 +15,10 @@ export default function Login({ onBack }: LoginProps) {
     setIsLoading(true);
     setError(null);
     try {
-      // In a real app, this would redirect to GitHub OAuth
-      // For demo purposes, we'll simulate a successful login
-      const mockToken = "mock-github-token-" + Math.random().toString(36).substring(2);
-      login(mockToken);
+      // Redirect to GitHub OAuth
+      window.location.href = `${import.meta.env.VITE_API_URL || window.location.origin}/api/auth/github`;
     } catch (err) {
-      setError("Failed to login with GitHub. Please try again.");
+      setError("Failed to initiate GitHub login. Please try again.");
     } finally {
       setIsLoading(false);
     }

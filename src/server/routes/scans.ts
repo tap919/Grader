@@ -44,8 +44,8 @@ router.post(
       // Create scan record
       const { rows: scanRows } = await query(
         `INSERT INTO scans (org_id, user_id, repo_url, owner, name, score, grade_category, report, created_at)
-         VALUES ($1, $2, $3, $4, $5, 0, 'pending', '{"status": "processing"}', NOW())
-         RETURNING id, repo_url, owner, name, created_at`,
+          VALUES ($1, $2, $3, $4, $5, 0, 'pending', '{"status": "processing"}', NOW())
+          RETURNING id, repo_url, owner, name, created_at`,
         [req.orgId, req.userId, repoUrl, owner, repo]
       );
 
@@ -56,7 +56,7 @@ router.post(
       const scan = scanRows[0];
 
       // Grade the repo (async, but return immediately)
-      gradeRepoAsync(scan.id, owner, repo, repoUrl, req.orgId);
+      await gradeRepoAsync(scan.id, owner, repo, repoUrl, req.orgId);
 
       res.status(201).json({
         id: scan.id,
@@ -89,10 +89,10 @@ router.get("/", authMiddleware, async (req: Request, res: Response) => {
 
     const { rows: scans } = await query(
       `SELECT id, repo_url, owner, name, score, grade_category, created_at, updated_at
-       FROM scans
-       WHERE org_id = $1
-       ORDER BY created_at DESC
-       LIMIT $2 OFFSET $3`,
+        FROM scans
+        WHERE org_id = $1
+        ORDER BY created_at DESC
+        LIMIT $2 OFFSET $3`,
       [req.orgId, limit, offset]
     );
 
@@ -132,8 +132,8 @@ router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
 
     const { rows } = await query(
       `SELECT id, org_id, user_id, repo_url, owner, name, score, grade_category, report, created_at, updated_at
-       FROM scans
-       WHERE id = $1 AND org_id = $2`,
+        FROM scans
+        WHERE id = $1 AND org_id = $2`,
       [id, req.orgId]
     );
 
@@ -209,15 +209,15 @@ async function gradeRepoAsync(
     // Update scan with results
     await query(
       `UPDATE scans 
-       SET score = $1, grade_category = $2, report = $3, updated_at = NOW()
-       WHERE id = $4`,
+        SET score = $1, grade_category = $2, report = $3, updated_at = NOW()
+        WHERE id = $4`,
       [report.score, report.grade, JSON.stringify(report), scanId]
     );
 
     // Log usage
     await query(
       `INSERT INTO usage_log (org_id, action, resource, created_at)
-       VALUES ($1, 'scan_completed', $2, NOW())`,
+        VALUES ($1, 'scan_completed', $2, NOW())`,
       [orgId, `${owner}/${repo}`]
     );
 
@@ -229,17 +229,17 @@ async function gradeRepoAsync(
     try {
       await query(
         `UPDATE scans 
-         SET grade_category = $1, report = $2, updated_at = NOW()
-         WHERE id = $3`,
-        [
-          "error",
-          JSON.stringify({
-            status: "error",
-            error: error instanceof Error ? error.message : "Unknown error",
-          }),
-          scanId,
-        ]
-      );
+          SET grade_category = $1, report = $2, updated_at = NOW()
+          WHERE id = $3`,
+      [
+        "error",
+        JSON.stringify({
+          status: "error",
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
+        scanId,
+      ]
+    );
     } catch (updateError) {
       console.error(`Failed to update error status for scan ${scanId}:`, updateError);
     }

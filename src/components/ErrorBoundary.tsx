@@ -38,7 +38,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             {this.props.fallback || (
               <div className="bg-slate-700 p-4 rounded-lg text-sm text-slate-300">
                 <p className="font-medium">Error details:</p>
-                <p className="mt-2">{this.state.error?.message}</n                {this.state.errorInfo?.componentStack && (
+                <p className="mt-2">{this.state.error?.message}</p>
+                {this.state.errorInfo?.componentStack && (
                   <details className="mt-4">
                     <summary className="cursor-pointer text-slate-400">Technical details</summary>
                     <pre className="mt-2 text-xs whitespace-pre-wrap">

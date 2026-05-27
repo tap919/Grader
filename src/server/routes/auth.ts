@@ -31,8 +31,15 @@ router.get(
       return res.redirect("/login?error=token_generation_failed");
     }
 
-    // Redirect to dashboard with token in query param
-    res.redirect(`/dashboard?token=${encodeURIComponent(token)}`);
+    // Set token as httpOnly cookie and redirect to dashboard
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      })
+      .redirect("/dashboard");
   }
 );
 
@@ -41,7 +48,7 @@ router.get(
  * Logout endpoint (client-side actually deletes token)
  */
 router.post("/logout", authMiddleware, (_req: Request, res: Response) => {
-  res.json({ message: "Logged out successfully" });
+  res.clearCookie("token").json({ message: "Logged out successfully" });
 });
 
 /**
@@ -69,10 +76,10 @@ router.get("/me", authMiddleware, async (req: Request, res: Response) => {
     // Get user's orgs
     const { rows: orgRows } = await query(
       `SELECT o.id, o.name, o.slug, o.plan_tier, om.role
-       FROM orgs o
-       JOIN org_members om ON o.id = om.org_id
-       WHERE om.user_id = $1
-       ORDER BY o.created_at DESC`,
+        FROM orgs o
+        JOIN org_members om ON o.id = om.org_id
+        WHERE om.user_id = $1
+        ORDER BY o.created_at DESC`,
       [req.userId]
     );
 
@@ -114,8 +121,8 @@ router.post("/api-keys", authMiddleware, async (req: Request, res: Response) => 
     // Store hashed key
     const { rows } = await query(
       `INSERT INTO api_keys (org_id, key_hash, prefix, name, created_at)
-       VALUES ($1, $2, $3, $4, NOW())
-       RETURNING id, prefix, name, created_at`,
+        VALUES ($1, $2, $3, $4, NOW())
+        RETURNING id, prefix, name, created_at`,
       [req.orgId, keyHash, prefix, name]
     );
 
@@ -126,7 +133,7 @@ router.post("/api-keys", authMiddleware, async (req: Request, res: Response) => 
     // Return plaintext key only once
     res.json({
       id: rows[0].id,
-      key, // Only returned here, never again!
+      key: key, // Only returned here, never again!
       prefix: rows[0].prefix,
       name: rows[0].name,
       createdAt: rows[0].created_at,
@@ -150,9 +157,9 @@ router.get("/api-keys", authMiddleware, async (req: Request, res: Response) => {
 
     const { rows } = await query(
       `SELECT id, prefix, name, last_used_at, created_at
-       FROM api_keys
-       WHERE org_id = $1
-       ORDER BY created_at DESC`,
+        FROM api_keys
+        WHERE org_id = $1
+        ORDER BY created_at DESC`,
       [req.orgId]
     );
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { LogOut, Plus, Search, Zap, AlertCircle, RefreshCw } from "lucide-react";
-import { ScoreGauge } from "../../components/ScoreGauge";
-import { QuickWinsList } from "../../components/QuickWinsList";
-import { RoadmapBoard } from "../../components/RoadmapBoard";
+import ScoreGauge from "../../components/ScoreGauge";
+import QuickWinsList from "../../components/QuickWinsList";
+import RoadmapBoard from "../../components/RoadmapBoard";
 
 interface Scan {
   id: string;
@@ -215,7 +215,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
-                      <ScoreGauge score={selectedScan.score} grade={selectedScan.grade} />
+                      <ScoreGauge score={selectedScan.score} category={selectedScan.grade} />
                       <button
                         onClick={handleRescan}
                         disabled={isRescanning}

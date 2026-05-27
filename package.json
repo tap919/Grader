@@ -33,6 +33,7 @@
     "pg-pool": "^3.14.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-router-dom": "^7.15.1",
     "stripe": "^22.1.1",
     "vite": "^6.2.3",
     "zod": "^4.4.3"
@@ -45,7 +46,7 @@
     "@types/node": "^22.14.0",
     "@types/supertest": "^7.2.0",
     "autoprefixer": "^10.4.21",
-    "dotenv-cli": "^8.1.0",
+    "dotenv-cli": "^8.0.0",
     "esbuild": "^0.25.0",
     "jsdom": "^29.1.1",
     "rimraf": "^6.0.1",

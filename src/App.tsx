@@ -35,37 +35,3 @@ function App() {
 }
 
 export default App;
-
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      setIsAuthenticated(true);
-      setView('dashboard');
-    }
-  }, []);
-
-  const handleLogin = (token: string) => {
-    localStorage.setItem('authToken', token);
-    setIsAuthenticated(true);
-    setView('dashboard');
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    setIsAuthenticated(false);
-    setView('landing');
-  };
-
-  const navigateTo = (path: 'landing' | 'login' | 'dashboard') => {
-    setView(path);
-  };
-
-  if (view === 'dashboard' && isAuthenticated) {
-    return <Dashboard onLogout={handleLogout} />;
-  }
-
-  if (view === 'login') {
-    return <Login onLogin={handleLogin} onBack={() => navigateTo('landing')} />;
-  }
-
-  return <LandingPage onLogin={() => navigateTo('login')} />;
-}

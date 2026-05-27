@@ -5,6 +5,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 import { HealthReport } from "../../types.ts";
+import { z } from "zod";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 if (!GEMINI_API_KEY) {
@@ -13,6 +14,64 @@ if (!GEMINI_API_KEY) {
 
 const client = new GoogleGenAI({
   apiKey: GEMINI_API_KEY,
+});
+
+// Define schema for HealthReport
+const healthReportSchema = z.object({
+  score: z.number().min(0).max(100),
+  grade: z.string().regex(/^[A-F]$/),
+  security: z.object({
+    score: z.number().min(0).max(100),
+    findings: z.array(z.any()),
+    summary: z.string()
+  }),
+  quality: z.object({
+    score: z.number().min(0).max(100),
+    testCoverage: z.number().min(0).max(100),
+    maintainability: z.number().min(0).max(100),
+    summary: z.string()
+  }),
+  market: z.object({
+    score: z.number().min(0).max(100),
+    stars: z.number().min(0),
+    forks: z.number().min(0),
+    activity: z.string().regex(/^(low|medium|high)$/),
+    summary: z.string()
+  }),
+  valuation: z.object({
+    replacementCost: z.number().min(0),
+    reliefFromRoyalty: z.number().min(0),
+    productivityDebt: z.number().min(0),
+    totalEstimate: z.number().min(0)
+  }),
+  oss: z.object({
+    licenses: z.array(z.any()),
+    conflicts: z.array(z.any()),
+    summary: z.string()
+  }),
+  architecture: z.object({
+    score: z.number().min(0).max(100),
+    complexity: z.string().regex(/^(low|medium|high)$/),
+    patterns: z.array(z.any()),
+    summary: z.string()
+  }),
+  iso5055: z.object({
+    reliability: z.number().min(0).max(100),
+    security: z.number().min(0).max(100),
+    maintainability: z.number().min(0).max(100),
+    performance: z.number().min(0).max(100)
+  }),
+  quickWins: z.array(z.object({
+    title: z.string(),
+    description: z.string(),
+    effort: z.string().regex(/^(1h|1d|3d|1w)$/),
+    impact: z.string().regex(/^(high|medium|low)$/)
+  })),
+  roadmap: z.array(z.object({
+    phase: z.string(),
+    tasks: z.array(z.any()),
+    timelineWeeks: z.number().min(0)
+  }))
 });
 
 export interface GradeInput {
@@ -25,186 +84,22 @@ export class GradingService {
   /**
    * Grade a GitHub repository using Gemini AI
    */
-import { z } from "zod";
+  static async gradeRepo(input: GradeInput): Promise<HealthReport> {
+    try {
+      const prompt = this.buildGradingPrompt(input);
 
-// Define schema for HealthReport
-const healthReportSchema = z.object({
-  score: z.number().min(0).max(100),
-  grade: z.string().regex(/^[A-F]$/),
-  security: z.object({
-    score: z.number().min(0).max(100),
-    findings: z.array(z.any()),
-    summary: z.string()
-  }),
-  quality: z.object({
-    score: z.number().min(0).max(100),
-    testCoverage: z.number().min(0).max(100),
-    maintainability: z.number().min(0).max(100),
-    summary: z.string()
-  }),
-  market: z.object({
-    score: z.number().min(0).max(100),
-    stars: z.number().min(0),
-    forks: z.number().min(0),
-    activity: z.string().regex(/^(low|medium|high)$/),
-    summary: z.string()
-  }),
-  valuation: z.object({
-    replacementCost: z.number().min(0),
-    reliefFromRoyalty: z.number().min(0),
-    productivityDebt: z.number().min(0),
-    totalEstimate: z.number().min(0)
-  }),
-  oss: z.object({
-    licenses: z.array(z.any()),
-    conflicts: z.array(z.any()),
-    summary: z.string()
-  }),
-  architecture: z.object({
-    score: z.number().min(0).max(100),
-    complexity: z.string().regex(/^(low|medium|high)$/),
-    patterns: z.array(z.any()),
-    summary: z.string()
-  }),
-  iso5055: z.object({
-    reliability: z.number().min(0).max(100),
-    security: z.number().min(0).max(100),
-    maintainability: z.number().min(0).max(100),
-    performance: z.number().min(0).max(100)
-  }),
-  quickWins: z.array(z.object({
-    title: z.string(),
-    description: z.string(),
-    effort: z.string().regex(/^(1h|1d|3d|1w)$/),
-    impact: z.string().regex(/^(high|medium|low)$/)
-  })),
-  roadmap: z.array(z.object({
-    phase: z.string(),
-    tasks: z.array(z.any()),
-    timelineWeeks: z.number().min(0)
-  }))
-});
+      const response = await client.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
 
-// Update the gradeRepo method to use the schema
-import { z } from "zod";
-
-// Define schema for HealthReport
-const healthReportSchema = z.object({
-  score: z.number().min(0).max(100),
-  grade: z.string().regex(/^[A-F]$/),
-  security: z.object({
-    score: z.number().min(0).max(100),
-    findings: z.array(z.any()),
-    summary: z.string()
-  }),
-  quality: z.object({
-    score: z.number().min(0).max(100),
-    testCoverage: z.number().min(0).max(100),
-    maintainability: z.number().min(0).max(100),
-    summary: z.string()
-  }),
-  market: z.object({
-    score: z.number().min(0).max(100),
-    stars: z.number().min(0),
-    forks: z.number().min(0),
-    activity: z.string().regex(/^(low|medium|high)$/),
-    summary: z.string()
-  }),
-  valuation: z.object({
-    replacementCost: z.number().min(0),
-    reliefFromRoyalty: z.number().min(0),
-    productivityDebt: z.number().min(0),
-    totalEstimate: z.number().min(0)
-  }),
-  oss: z.object({
-    licenses: z.array(z.any()),
-    conflicts: z.array(z.any()),
-    summary: z.string()
-  }),
-  architecture: z.object({
-    score: z.number().min(0).max(100),
-    complexity: z.string().regex(/^(low|medium|high)$/),
-    patterns: z.array(z.any()),
-    summary: z.string()
-  }),
-  iso5055: z.object({
-    reliability: z.number().min(0).max(100),
-    security: z.number().min(0).max(100),
-    maintainability: z.number().min(0).max(100),
-    performance: z.number().min(0).max(100)
-  }),
-  quickWins: z.array(z.object({
-    title: z.string(),
-    description: z.string(),
-    effort: z.string().regex(/^(1h|1d|3d|1w)$/),
-    impact: z.string().regex(/^(high|medium|low)$/)
-  })),
-  roadmap: z.array(z.object({
-    phase: z.string(),
-    tasks: z.array(z.any()),
-    timelineWeeks: z.number().min(0)
-  }))
-});
-
-// Update the gradeRepo method to use the schema
-static async gradeRepo(input: GradeInput): Promise<HealthReport> {
-  try {
-    const prompt = this.buildGradingPrompt(input);
-
-    const response = await client.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: prompt }],
-        },
-      ],
-    });
-
-    const responseText = response.response.text?.();
-    if (!responseText) {
-      throw new Error("Empty response from Gemini");
-    }
-
-    // Parse JSON response from Gemini
-    const jsonMatch = responseText.match(/\{[
-\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error("Could not parse JSON from Gemini response");
-    }
-
-    // Validate with Zod
-    const report = healthReportSchema.parse(JSON.parse(jsonMatch[0]));
-    return report;
-  } catch (error) {
-    console.error("Grading error:", error);
-    throw error;
-  }
-}
-
-    // Parse JSON response from Gemini
-    const jsonMatch = responseText.match(/\{[
-\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error("Could not parse JSON from Gemini response");
-    }
-
-    // Validate with Zod
-    const report = healthReportSchema.parse(JSON.parse(jsonMatch[0]));
-    return report;
-  } catch (error) {
-    console.error("Grading error:", error);
-    throw error;
-  }
-}
-
-      // Parse JSON response from Gemini
-      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) {
-        throw new Error("Could not parse JSON from Gemini response");
+      const responseText = response.text ?? "";
+      if (!responseText) {
+        throw new Error("Empty response from Gemini");
       }
 
-      const report = JSON.parse(jsonMatch[0]) as HealthReport;
+      // Parse JSON response from Gemini
+      const report = JSON.parse(responseText) as HealthReport;
       return report;
     } catch (error) {
       console.error("Grading error:", error);
@@ -248,14 +143,14 @@ IMPORTANT: Return ONLY a valid JSON object matching this exact structure:
     "totalEstimate": <$>
   },
   "oss": {
-    "licenses": [<license>],
+    "licenses": [],
     "conflicts": [],
     "summary": "<brief summary>"
   },
   "architecture": {
     "score": <0-100>,
     "complexity": "<low|medium|high>",
-    "patterns": [<pattern>],
+    "patterns": [],
     "summary": "<brief summary>"
   },
   "iso5055": {
@@ -264,21 +159,8 @@ IMPORTANT: Return ONLY a valid JSON object matching this exact structure:
     "maintainability": <0-100>,
     "performance": <0-100>
   },
-  "quickWins": [
-    {
-      "title": "<title>",
-      "description": "<description>",
-      "effort": "<1h|1d|3d|1w>",
-      "impact": "<high|medium|low>"
-    }
-  ],
-  "roadmap": [
-    {
-      "phase": "<Phase X>",
-      "tasks": [<task>],
-      "timelineWeeks": <weeks>
-    }
-  ]
+  "quickWins": [],
+  "roadmap": []
 }
 
 Grade this repo based on public information available on GitHub:
