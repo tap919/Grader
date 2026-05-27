@@ -4,11 +4,19 @@
  */
 
 import express from "express";
+import fs from "fs/promises";
+import path from "path";
+import os from "os";
+import { exec } from "child_process";
+import util from "util";
 import { authMiddleware } from "../middleware/auth.ts";
 import { scanLimitMiddleware, apiRateLimitMiddleware } from "../middleware/tenant.ts";
 import { query } from "../db/pool.ts";
 import { GradingService } from "../services/gradingService.ts";
 import { ComplianceService } from "../services/compliance/complianceService.ts";
+
+const execPromise = util.promisify(exec);
+
 const { Router } = express;
 
 // Bounded in-memory cache for GitHub API responses with 1-hour TTL
@@ -378,9 +386,57 @@ async function gradeRepoAsync(
       }
     }
 
+    // ── Local Security Scans (Gitleaks + Semgrep) ───────────────────────────
+    let gitleaksJson = "";
+    let semgrepJson  = "";
+    let tempDir      = "";
+
+    try {
+      tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "repo-scan-"));
+      const cloneDir = path.join(tempDir, "repo");
+
+      await execPromise(
+        `git clone --depth 1 "https://github.com/${owner}/${repo}.git" "${cloneDir}"`,
+        { timeout: 120_000 }
+      );
+
+      try {
+        const gitleaksOut = path.join(tempDir, "gitleaks.json");
+        await execPromise(
+          `gitleaks detect --source "${cloneDir}" --report-format json --report-path "${gitleaksOut}" --exit-code 0`,
+          { timeout: 60_000 }
+        );
+        gitleaksJson = await fs.readFile(gitleaksOut, "utf-8");
+        console.log(`[scans] [scanId:${scanId}] Gitleaks scan completed`);
+      } catch (gitleaksErr) {
+        console.warn(`[scans] [scanId:${scanId}] Gitleaks skipped:`, (gitleaksErr as Error).message);
+      }
+
+      try {
+        const semgrepOut = path.join(tempDir, "semgrep.json");
+        await execPromise(
+          `semgrep scan --config=auto --json --output "${semgrepOut}" "${cloneDir}"`,
+          { timeout: 120_000 }
+        );
+        semgrepJson = await fs.readFile(semgrepOut, "utf-8");
+        console.log(`[scans] [scanId:${scanId}] Semgrep scan completed`);
+      } catch (semgrepErr) {
+        console.warn(`[scans] [scanId:${scanId}] Semgrep skipped:`, (semgrepErr as Error).message);
+      }
+    } catch (setupErr) {
+      console.warn(`[scans] [scanId:${scanId}] Clone/scan setup failed:`, (setupErr as Error).message);
+    } finally {
+      if (tempDir) {
+        fs.rm(tempDir, { recursive: true, force: true }).catch((err) =>
+          console.error(`[scans] [scanId:${scanId}] Failed to clean temp dir ${tempDir}:`, err)
+        );
+      }
+    }
+    // ── End Security Scans ──────────────────────────────────────────────────
+
     const report = await GradingService.gradeRepo(
       { repoUrl, owner, repo },
-      { repoMeta, packageJsonStr, readmeStr, fileList }
+      { repoMeta, packageJsonStr, readmeStr, fileList, gitleaksJson, semgrepJson }
     );
 
     await query(

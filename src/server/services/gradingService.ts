@@ -131,6 +131,8 @@ interface RepoData {
   packageJsonStr?: string;
   readmeStr?: string;
   fileList?: string[];
+  gitleaksJson?: string;
+  semgrepJson?: string;
 }
 
 export class GradingService {
@@ -164,6 +166,8 @@ export class GradingService {
       readmeStr: repoData.readmeStr?.slice(0, 10000) || "",
       packageJsonStr: repoData.packageJsonStr?.slice(0, 5000) || "",
       fileList: repoData.fileList?.slice(0, 50) || [],
+      gitleaksJson: repoData.gitleaksJson?.slice(0, 10000) || "",
+      semgrepJson: repoData.semgrepJson?.slice(0, 20000) || "",
       repoMeta: repoData.repoMeta ? {
         name: repoData.repoMeta.name,
         full_name: repoData.repoMeta.full_name,
@@ -177,13 +181,64 @@ export class GradingService {
         license: repoData.repoMeta.license,
       } : null,
     } : null;
-    const dataSection = truncatedData ? `
-## Repository Data
-${JSON.stringify(truncatedData, null, 2)}
-` : "";
+
+    const { gitleaksJson, semgrepJson, ...dataWithoutScans } = truncatedData ?? {};
+
+    const dataSection = dataWithoutScans
+      ? `## Repository Data\n${JSON.stringify(dataWithoutScans, null, 2)}`
+      : "";
+
+    const hasGitleaks = !!gitleaksJson;
+    const hasSemgrep = !!semgrepJson;
+
+    const securitySection = (hasGitleaks || hasSemgrep)
+      ? `
+## Real Security Scan Results — USE THESE, DO NOT GUESS
+
+The following results come from automated security tools run against the actual cloned repository.
+Use these findings to populate the "security" section of your JSON response.
+Do NOT invent additional vulnerabilities beyond what is shown here.
+
+${hasGitleaks ? `### Gitleaks — Secret Detection
+Gitleaks v8 scanned the repository for leaked secrets, API keys, credentials, and tokens.
+Each object in the array below is a confirmed finding with file path and description.
+- If this array is non-empty → set secretLeakDetected: true
+- Extract "Description" and "File" from each finding into secretsDetails[]
+- If empty or null → secretLeakDetected: false, secretsDetails: []
+
+\`\`\`json
+${gitleaksJson}
+\`\`\`` : "Gitleaks scan was not available for this repository."}
+
+${hasSemgrep ? `### Semgrep — Static Analysis (SAST)
+Semgrep scanned the repository with --config=auto rules covering security anti-patterns.
+Each finding in results[] has: check_id (rule name), path, start.line, message, severity (ERROR/WARNING/INFO).
+- Map each finding to a vulnerability entry: use check_id as "package", message as "details"
+- Severity mapping: ERROR → "Critical", WARNING → "Medium", INFO → "Low"
+- vulnerabilityCount = total number of findings in results[]
+- highestSeverity = highest mapped severity across all findings, or "None" if empty
+
+\`\`\`json
+${semgrepJson}
+\`\`\`` : "Semgrep scan was not available for this repository."}
+`
+      : `
+## Security Analysis Note
+No local security scan data was provided for this repository.
+Base your security assessment on:
+- Dependencies visible in package.json (known vulnerable versions)
+- File structure indicators (e.g. .env files committed, hardcoded secrets patterns)
+- Repository metadata
+Clearly state in your summary that security results are heuristic estimates only,
+not confirmed findings from a real scan.
+`;
+
     return `
 You are an expert codebase auditor. Grade the GitHub repository "${input.owner}/${input.repo}".
+
 ${dataSection}
+
+${securitySection}
 
 Return ONLY valid JSON matching this exact schema:
 {
@@ -230,10 +285,11 @@ Return ONLY valid JSON matching this exact schema:
 }
 
 Rules:
-- This analysis is AI-generated based on limited public data (README, file listing, package.json). It is not a substitute for a professional security audit or code review.
+- This analysis is AI-generated. It is not a substitute for a professional security audit.
 - Return ONLY raw JSON. No markdown, no code fences, no commentary.
 - If you cannot determine a value, use null for nullable fields, 0 for numbers, "" for strings, [] for arrays.
 - Do not invent data. If package.json was not fetched, say "Not retrieved" in explanations.
+- For security: if real scan results were provided above, they are authoritative. Do not contradict them.
 `;
   }
 }
