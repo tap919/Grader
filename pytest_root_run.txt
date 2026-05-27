@@ -1,0 +1,1951 @@
+C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pytest_asyncio\plugin.py:207: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_auditor_imports PASSED [  0%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_run_audit_with_context PASSED [  0%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_run_audit_failing_command PASSED [  0%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_run_audit_no_commands PASSED [  0%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_score_success PASSED [  1%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_score_failure PASSED [  1%]
+tests/test_auditor_scorer.py::TestDeterministicAuditor::test_score_truthy PASSED [  1%]
+tests/test_auditor_scorer.py::TestDeterministicScorer::test_scorer_imports PASSED [  1%]
+tests/test_auditor_scorer.py::TestDeterministicScorer::test_all_pass_scores_high PASSED [  2%]
+tests/test_auditor_scorer.py::TestDeterministicScorer::test_audit_fail_scores_low PASSED [  2%]
+tests/test_auditor_scorer.py::TestDeterministicScorer::test_weights_sum_to_100 PASSED [  2%]
+tests/test_auditor_scorer.py::TestDeterministicScorer::test_score_with_file PASSED [  2%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_clean_text PASSED [  2%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_with_dollar_paren PASSED [  3%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_with_backtick_command PASSED [  3%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_with_path_traversal PASSED [  3%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_with_url_encoded_dollar PASSED [  3%]
+tests/test_auditor_scorer.py::TestPreAuditCheck::test_check_with_newline PASSED [  4%]
+tests/test_autodream.py::test_analyze_session_patterns PASSED            [  4%]
+tests/test_autodream.py::test_vacuum_traces PASSED                       [  4%]
+tests/test_autodream.py::test_vacuum_traces_dry_run PASSED               [  4%]
+tests/test_autodream.py::test_deduplicate_qdrant_no_client PASSED        [  4%]
+tests/test_autodream.py::test_optimize_neo4j_no_driver PASSED            [  5%]
+tests/test_autodream.py::test_analyze_and_correct PASSED                 [  5%]
+tests/test_autodream.py::test_detect_corrections_regression 
+-------------------------------- live log call --------------------------------
+WARNING  brain.correction_detector:correction_detector.py:64 Correction detected: react_skill - Skill 'react_skill' produced 2 error(s)
+PASSED                                                                   [  5%]
+tests/test_autodream.py::test_detect_corrections_drift 
+-------------------------------- live log call --------------------------------
+WARNING  brain.correction_detector:correction_detector.py:76 Drift detected: python_skill - Skill 'python_skill' consistently returning partial (possible drift)
+PASSED                                                                   [  5%]
+tests/test_autodream.py::test_detect_corrections_no_issues PASSED        [  6%]
+tests/test_autodream.py::test_write_corrections PASSED                   [  6%]
+tests/test_autodream.py::test_run_correction_detection 
+-------------------------------- live log call --------------------------------
+WARNING  brain.correction_detector:correction_detector.py:64 Correction detected: broken_skill - Skill 'broken_skill' produced 1 error(s)
+PASSED                                                                   [  6%]
+tests/test_autodream.py::test_clear_corrections PASSED                   [  6%]
+tests/test_brain.py::TestRouter::test_coding_routes PASSED               [  6%]
+tests/test_brain.py::TestRouter::test_business_logic_routes PASSED       [  7%]
+tests/test_brain.py::TestRouter::test_agent_brain_routes PASSED          [  7%]
+tests/test_brain.py::TestRouter::test_tool_calling_routes PASSED         [  7%]
+tests/test_brain.py::TestRouter::test_cross_domain_default PASSED        [  7%]
+tests/test_brain.py::TestRouter::test_same_query_same_lane PASSED        [  8%]
+tests/test_brain.py::TestMemory::test_init_state_keys PASSED             [  8%]
+tests/test_brain.py::TestMemory::test_session_id_deterministic PASSED    [  8%]
+tests/test_brain.py::TestMemory::test_different_queries_different_ids PASSED [  8%]
+tests/test_brain.py::TestRetrieval::test_returns_list PASSED             [  8%]
+tests/test_brain.py::TestRetrieval::test_static_fallback_non_empty PASSED [  9%]
+tests/test_brain.py::TestRetrieval::test_context_schema PASSED           [  9%]
+tests/test_brain.py::TestRetrieval::test_deterministic_fallback_order PASSED [  9%]
+tests/test_brain.py::TestMCTS::test_returns_ranked_list PASSED           [  9%]
+tests/test_brain.py::TestMCTS::test_deterministic PASSED                 [ 10%]
+tests/test_brain.py::TestMCTS::test_different_queries_different_order PASSED [ 10%]
+tests/test_brain.py::TestZ3::test_coding_passes_with_def_and_tests PASSED [ 10%]
+tests/test_brain.py::TestZ3::test_coding_fails_without_tests PASSED      [ 10%]
+tests/test_brain.py::TestZ3::test_business_logic_passes PASSED           [ 10%]
+tests/test_brain.py::TestZ3::test_business_logic_fails_on_conflict PASSED [ 11%]
+tests/test_brain.py::TestZ3::test_verdict_has_soft_score PASSED          [ 11%]
+tests/test_brain.py::TestPyReason::test_returns_tuple FAILED             [ 11%]
+tests/test_brain.py::TestPyReason::test_base_fact_always_present FAILED  [ 11%]
+tests/test_brain.py::TestPyReason::test_security_rule_fires FAILED       [ 12%]
+tests/test_brain.py::TestCodeExecutor::test_simple_pass PASSED           [ 12%]
+tests/test_brain.py::TestCodeExecutor::test_failing_assertion PASSED     [ 12%]
+tests/test_brain.py::TestCodeExecutor::test_syntax_error PASSED          [ 12%]
+tests/test_brain.py::TestCodeExecutor::test_static_analysis_flags_eval PASSED [ 12%]
+tests/test_brain.py::TestCodeExecutor::test_static_analysis_clean_code PASSED [ 13%]
+tests/test_brain.py::test_golden_scenario[Write python code for a deterministic router-coding] PASSED [ 13%]
+tests/test_brain.py::test_golden_scenario[Create a business rule approval policy for budget requests-business_logic] PASSED [ 13%]
+tests/test_brain.py::test_golden_scenario[Call a tool to validate data schema-tool_calling] PASSED [ 13%]
+tests/test_brain.py::test_golden_scenario[Analyze cross-domain trends in AI-cross_domain] PASSED [ 14%]
+tests/test_brain.py::test_determinism_full_pipeline PASSED               [ 14%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_initial_state_closed PASSED [ 14%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_call_success_returns_result PASSED [ 14%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_opens_on_threshold PASSED [ 14%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_blocks_when_open PASSED [ 15%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_half_open_after_cooldown PASSED [ 15%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_half_open_success_closes PASSED [ 15%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_half_open_failure_reopens PASSED [ 15%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_retry_on_failure PASSED [ 16%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_window_expires_failures PASSED [ 16%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_get_breaker_singleton PASSED [ 16%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_breaker_state_returns_none_for_unknown PASSED [ 16%]
+tests/test_circuit_breaker.py::TestCircuitBreaker::test_all_breaker_states_returns_dict PASSED [ 17%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_register_route PASSED [ 17%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_execute_returns_primary_when_confident PASSED [ 17%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_fallback_on_low_confidence PASSED [ 17%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_fallback_on_primary_exception PASSED [ 17%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_unknown_route_raises PASSED [ 18%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_layer_scores_in_result PASSED [ 18%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_weights_used_in_result PASSED [ 18%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_weight_adaptation PASSED [ 18%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_status_summary_structure PASSED [ 19%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_route_stats_list PASSED [ 19%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_semantic_evidence_scores_passed PASSED [ 19%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_default_semantic_evidence_when_not_provided PASSED [ 19%]
+tests/test_confidence_routing.py::TestConfidenceRouter::test_backward_compatible_alias PASSED [ 19%]
+tests/test_config.py::TestGetSettingSchema::test_returns_all_groups PASSED [ 20%]
+tests/test_config.py::TestGetSettingSchema::test_each_group_has_key_and_type PASSED [ 20%]
+tests/test_config.py::TestGetSettingSchema::test_model_options_present PASSED [ 20%]
+tests/test_config.py::TestPersistSetting::test_writes_new_setting PASSED [ 20%]
+tests/test_config.py::TestPersistSetting::test_updates_existing_setting PASSED [ 21%]
+tests/test_config.py::TestBrainConfig::test_defaults PASSED              [ 21%]
+tests/test_config.py::TestBrainConfig::test_env_override PASSED          [ 21%]
+tests/test_config.py::TestBrainConfig::test_summary_returns_dict PASSED  [ 21%]
+tests/test_config.py::TestBrainConfig::test_reload_config PASSED         [ 21%]
+tests/test_context_graph.py::TestRecordDecision::test_creates_node_with_correct_fields PASSED [ 22%]
+tests/test_context_graph.py::TestRecordDecision::test_appends_multiple_nodes PASSED [ 22%]
+tests/test_context_graph.py::TestRecordDecision::test_factors_are_copied_not_referenced PASSED [ 22%]
+tests/test_context_graph.py::TestWhyThisSkill::test_returns_aggregated_weights PASSED [ 22%]
+tests/test_context_graph.py::TestWhyThisSkill::test_ignores_rejected_outcomes PASSED [ 23%]
+tests/test_context_graph.py::TestWhyThisSkill::test_ignores_other_skills PASSED [ 23%]
+tests/test_context_graph.py::TestWhyThisSkill::test_empty_graph_returns_default PASSED [ 23%]
+tests/test_context_graph.py::TestWhyThisSkill::test_missing_factors_handled PASSED [ 23%]
+tests/test_context_graph.py::TestFailureAttribution::test_returns_grouped_factors PASSED [ 23%]
+tests/test_context_graph.py::TestFailureAttribution::test_ignores_accepted_outcomes PASSED [ 24%]
+tests/test_context_graph.py::TestFailureAttribution::test_no_matching_session_returns_empty PASSED [ 24%]
+tests/test_context_graph.py::TestFailureAttribution::test_empty_graph_returns_empty_list PASSED [ 24%]
+tests/test_context_graph.py::TestPrune::test_removes_oldest_nodes_when_limit_exceeded PASSED [ 24%]
+tests/test_context_graph.py::TestPrune::test_prune_returns_pruned_count PASSED [ 25%]
+tests/test_context_graph.py::TestPrune::test_no_prune_when_under_limit PASSED [ 25%]
+tests/test_context_graph.py::TestPrune::test_prune_during_load PASSED    [ 25%]
+tests/test_context_graph.py::TestStatus::test_returns_correct_summary PASSED [ 25%]
+tests/test_context_graph.py::TestStatus::test_empty_graph_status PASSED  [ 25%]
+tests/test_context_graph.py::TestPersistence::test_round_trip_preserves_all_nodes PASSED [ 26%]
+tests/test_context_graph.py::TestPersistence::test_isolation_between_instances PASSED [ 26%]
+tests/test_context_graph.py::TestPersistence::test_corrupted_line_skipped PASSED [ 26%]
+tests/test_context_graph.py::TestEdgeCases::test_missing_path_file PASSED [ 26%]
+tests/test_context_graph.py::TestEdgeCases::test_max_nodes_zero PASSED   [ 27%]
+tests/test_context_graph.py::TestEdgeCases::test_max_nodes_one PASSED    [ 27%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_red_zone_from_event_type PASSED [ 27%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_red_zone_from_severity PASSED [ 27%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_yellow_zone_build_failure PASSED [ 27%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_yellow_zone_from_severity PASSED [ 28%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_green_zone_cache_clear PASSED [ 28%]
+tests/test_coo_classifier.py::TestEventClassifierZoneClassification::test_green_zone_dependency_update PASSED [ 28%]
+tests/test_coo_classifier.py::TestEventClassifierPriorityScoring::test_priority_from_zone PASSED [ 28%]
+tests/test_coo_classifier.py::TestEventClassifierPriorityScoring::test_priority_from_tier PASSED [ 29%]
+tests/test_coo_classifier.py::TestEventClassifierDiagnosis::test_diagnosis_for_build_failure PASSED [ 29%]
+tests/test_coo_classifier.py::TestEventClassifierDiagnosis::test_diagnosis_for_exception PASSED [ 29%]
+tests/test_coo_classifier.py::TestEventClassifierDiagnosis::test_diagnosis_for_security_alert PASSED [ 29%]
+tests/test_coo_classifier.py::TestClassifierSingleton::test_get_classifier_returns_same_instance PASSED [ 29%]
+tests/test_coo_classifier.py::TestClassifierSingleton::test_classifier_is_event_classifier PASSED [ 30%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_green_event_auto_executes FAILED [ 30%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_yellow_event_opens_github_issue PASSED [ 30%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_red_event_escapes_immediately 
+-------------------------------- live log call --------------------------------
+WARNING  coo.orchestrator:orchestrator.py:187 COO RED: escalating '42275069232456f5' on product 'claw-protect' — immediate action required
+PASSED                                                                   [ 30%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_issue_close_resolves_yellow_card PASSED [ 31%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_unknown_product_is_skipped 
+-------------------------------- live log call --------------------------------
+WARNING  coo.orchestrator:orchestrator.py:72 COO: unknown product 'nonexistent-product' — skipping
+PASSED                                                                   [ 31%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_pending_decisions_returns_unresolved_only FAILED [ 31%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_full_pipeline_green_yellow_red 
+-------------------------------- live log call --------------------------------
+WARNING  coo.orchestrator:orchestrator.py:187 COO RED: escalating '586f9a6ee91b96f9' on product 'claw-protect' — immediate action required
+FAILED                                                                   [ 31%]
+tests/test_coo_e2e.py::TestE2EFullPipeline::test_tier_affects_priority_score PASSED [ 31%]
+tests/test_coo_github_queue.py::TestGitHubIssuePayload::test_build_issue_payload_yellow PASSED [ 32%]
+tests/test_coo_github_queue.py::TestGitHubIssuePayload::test_build_issue_payload_red PASSED [ 32%]
+tests/test_coo_github_queue.py::TestGitHubIssuePayload::test_build_pr_payload PASSED [ 32%]
+tests/test_coo_github_queue.py::TestGitHubQueue::test_requires_token PASSED [ 32%]
+tests/test_coo_github_queue.py::TestGitHubQueue::test_open_issue_creates_correct_payload PASSED [ 33%]
+tests/test_coo_github_queue.py::TestGitHubQueue::test_open_issue_retries_on_403 
+-------------------------------- live log call --------------------------------
+ERROR    coo.github_queue:github_queue.py:135 GitHubQueue POST failed: 403 Forbidden
+PASSED                                                                   [ 33%]
+tests/test_coo_github_queue.py::TestGitHubQueue::test_get_issue_returns_closed_state PASSED [ 33%]
+tests/test_coo_github_queue.py::TestGitHubQueue::test_close_issue_creates_resolution PASSED [ 33%]
+tests/test_coo_state.py::TestProductConfig::test_defaults PASSED         [ 34%]
+tests/test_coo_state.py::TestProductConfig::test_serialization_roundtrip PASSED [ 34%]
+tests/test_coo_state.py::TestPortfolioState::test_new_portfolio_empty PASSED [ 34%]
+tests/test_coo_state.py::TestPortfolioState::test_register_product PASSED [ 34%]
+tests/test_coo_state.py::TestPortfolioState::test_get_health_vector PASSED [ 34%]
+tests/test_coo_state.py::TestPortfolioState::test_get_unknown_product_raises PASSED [ 35%]
+tests/test_coo_state.py::TestTrafficLightZone::test_zone_from_severity PASSED [ 35%]
+tests/test_coo_state.py::TestTrafficLightZone::test_zone_autoaction PASSED [ 35%]
+tests/test_coo_state.py::TestConstitution::test_check_path_safe PASSED   [ 35%]
+tests/test_coo_state.py::TestConstitution::test_check_path_prohibited PASSED [ 36%]
+tests/test_coo_state.py::TestConstitution::test_check_spending_never PASSED [ 36%]
+tests/test_coo_state.py::TestConstitution::test_check_action_customer_communication_scripted PASSED [ 36%]
+tests/test_coo_state.py::TestConstitution::test_check_action_merge_conditions PASSED [ 36%]
+tests/test_coo_state.py::TestConstitution::test_get_constitution_summary PASSED [ 36%]
+tests/test_e2e.py::TestEndToEndPipeline::test_router_to_state_pipeline PASSED [ 37%]
+tests/test_e2e.py::TestEndToEndPipeline::test_task_parser_to_router_pipeline PASSED [ 37%]
+tests/test_e2e.py::TestEndToEndPipeline::test_reasoning_pipeline PASSED  [ 37%]
+tests/test_e2e.py::TestEndToEndPipeline::test_full_agent_handle 
+-------------------------------- live log call --------------------------------
+WARNING  knowledge.bank:bank.py:51 Qdrant storage locked (bank). Using in-memory fallback.
+WARNING  huggingface_hub.utils._http:_http.py:904 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+PASSED                                                                   [ 37%]
+tests/test_e2e.py::TestEndToEndPipeline::test_determinism_full_pipeline PASSED [ 38%]
+tests/test_e2e.py::TestSkillExecution::test_skill_registry_discovery PASSED [ 38%]
+tests/test_e2e.py::TestSkillExecution::test_skill_execution_local PASSED [ 38%]
+tests/test_e2e.py::TestSkillExecution::test_backend_routing PASSED       [ 38%]
+tests/test_e2e.py::TestLanes::test_coding_lane FAILED                    [ 38%]
+tests/test_e2e.py::TestLanes::test_business_logic_lane FAILED            [ 39%]
+tests/test_e2e.py::TestLanes::test_tool_calling_lane PASSED              [ 39%]
+tests/test_e2e.py::TestLanes::test_cross_domain_lane FAILED              [ 39%]
+tests/test_e2e.py::TestAPIServer::test_health_endpoint FAILED            [ 39%]
+tests/test_e2e.py::TestAPIServer::test_task_endpoint FAILED              [ 40%]
+tests/test_e2e.py::TestAPIServer::test_skills_endpoint FAILED            [ 40%]
+tests/test_e2e.py::TestSecurity::test_injection_blocked_in_preaudit PASSED [ 40%]
+tests/test_e2e.py::TestSecurity::test_template_injection_blocked PASSED  [ 40%]
+tests/test_e2e.py::TestSecurity::test_path_traversal_blocked PASSED      [ 40%]
+tests/test_e2e.py::TestDeterminism::test_same_query_same_session_id PASSED [ 41%]
+tests/test_e2e.py::TestDeterminism::test_different_query_different_session_id PASSED [ 41%]
+tests/test_e2e.py::TestDeterminism::test_same_lane_routing PASSED        [ 41%]
+tests/test_e2e.py::TestDeterminism::test_retrieval_deterministic PASSED  [ 41%]
+tests/test_event_bus.py::TestEventBus::test_subscribe_and_emit PASSED    [ 42%]
+tests/test_event_bus.py::TestEventBus::test_multiple_subscribers PASSED  [ 42%]
+tests/test_event_bus.py::TestEventBus::test_unsubscribe PASSED           [ 42%]
+tests/test_event_bus.py::TestEventBus::test_different_event_types PASSED [ 42%]
+tests/test_event_bus.py::TestEventBus::test_subscriber_exception_does_not_crash 
+-------------------------------- live log call --------------------------------
+WARNING  orchestration.event_bus:event_bus.py:94 EventBus subscriber <function TestEventBus.test_subscriber_exception_does_not_crash.<locals>._failing at 0x0000027F086C8FE0> failed: boom
+PASSED                                                                   [ 42%]
+tests/test_event_bus.py::TestEventBus::test_recent_events PASSED         [ 43%]
+tests/test_event_bus.py::TestEventBus::test_event_log_auto_prunes PASSED [ 43%]
+tests/test_event_bus.py::TestEventBus::test_thread_safety PASSED         [ 43%]
+tests/test_evolution.py::TestWeightStore::test_get_default PASSED        [ 43%]
+tests/test_evolution.py::TestWeightStore::test_set_and_get PASSED        [ 44%]
+tests/test_evolution.py::TestWeightStore::test_history_tracks_versions PASSED [ 44%]
+tests/test_evolution.py::TestWeightStore::test_history_empty_for_unknown PASSED [ 44%]
+tests/test_evolution.py::TestWeightStore::test_rollback PASSED           [ 44%]
+tests/test_evolution.py::TestWeightStore::test_rollback_invalid_version PASSED [ 44%]
+tests/test_evolution.py::TestWeightStore::test_all_weights PASSED        [ 45%]
+tests/test_evolution.py::TestWeightStore::test_export_import PASSED      [ 45%]
+tests/test_evolution.py::TestWeightStore::test_history_prunes_old PASSED [ 45%]
+tests/test_evolution.py::TestWeightStore::test_same_weight_no_history PASSED [ 45%]
+tests/test_evolution.py::TestSkillEvolver::test_track_new_skill PASSED   [ 46%]
+tests/test_evolution.py::TestSkillEvolver::test_evolve_below_min_samples PASSED [ 46%]
+tests/test_evolution.py::TestSkillEvolver::test_evolve_adjusts_weights PASSED [ 46%]
+tests/test_evolution.py::TestSkillEvolver::test_evolve_low_performer PASSED [ 46%]
+tests/test_evolution.py::TestSkillEvolver::test_weight_clamped PASSED    [ 46%]
+tests/test_evolution.py::TestSkillEvolver::test_deprecate PASSED         [ 47%]
+tests/test_evolution.py::TestSkillEvolver::test_suggest_alternative PASSED [ 47%]
+tests/test_evolution.py::TestSkillEvolver::test_suggest_alternative_none PASSED [ 47%]
+tests/test_evolution.py::TestSkillEvolver::test_all_stats_sorted PASSED  [ 47%]
+tests/test_evolution.py::TestNightlyScorer::test_run_daily_score PASSED  [ 48%]
+tests/test_evolution.py::TestNightlyScorer::test_generate_report_no_file PASSED [ 48%]
+tests/test_evolution.py::TestNightlyScorer::test_weight_histogram PASSED [ 48%]
+tests/test_gemma_integration.py::TestGemmaIntegrationRouter::test_generate_text_via_gemma FAILED [ 48%]
+tests/test_gemma_integration.py::TestGemmaIntegrationRouter::test_generate_code_via_gemma FAILED [ 48%]
+tests/test_gemma_integration.py::TestGemmaIntegrationRouter::test_gemma_before_openrouter SKIPPED [ 49%]
+tests/test_gemma_integration.py::TestGemmaIntegrationSemanticLayer::test_micro_llm_parse_ticket_schema PASSED [ 49%]
+tests/test_gemma_integration.py::TestGemmaIntegrationSemanticLayer::test_micro_llm_parse_email_schema PASSED [ 49%]
+tests/test_gemma_integration.py::TestGemmaIntegrationSemanticLayer::test_micro_llm_parse_pr_review_schema PASSED [ 49%]
+tests/test_gemma_integration.py::TestGemmaIntegrationSemanticLayer::test_micro_llm_parse_fallback PASSED [ 50%]
+tests/test_gemma_integration.py::TestGemmaIntegrationBackend::test_llm_fallback_prefers_gemma FAILED [ 50%]
+tests/test_gemma_integration.py::TestGemmaSkillResolver::test_resolve_with_gemma_disambiguation 
+-------------------------------- live log call --------------------------------
+WARNING  tools.skill_resolver:skill_resolver.py:61 Gemma unavailable, cannot resolve 'landing page'
+PASSED                                                                   [ 50%]
+tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_health_check FAILED [ 50%]
+tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_text_generation 
+-------------------------------- live log call --------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+FAILED                                                                   [ 51%]
+tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_json_parsing 
+-------------------------------- live log call --------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+FAILED                                                                   [ 51%]
+tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_code_generation 
+-------------------------------- live log call --------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+FAILED                                                                   [ 51%]
+tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_skill_name_mapping 
+-------------------------------- live log call --------------------------------
+WARNING  tools.skill_resolver:skill_resolver.py:61 Gemma unavailable, cannot resolve 'make a landing page for my product'
+PASSED                                                                   [ 51%]
+tests/test_integration_services.py::test_qdrant_and_neo4j_up SKIPPED     [ 51%]
+tests/test_knowledge_routes.py::TestKnowledgeRoutes::test_router_registered PASSED [ 52%]
+tests/test_knowledge_routes.py::TestKnowledgeRoutes::test_router_included_in_app PASSED [ 52%]
+tests/test_local_gemma.py::TestLocalGemmaClient::test_init_defaults PASSED [ 52%]
+tests/test_local_gemma.py::TestLocalGemmaClient::test_init_custom_url PASSED [ 52%]
+tests/test_local_gemma.py::TestLocalGemmaClient::test_is_available_returns_false_when_server_down PASSED [ 53%]
+tests/test_local_gemma.py::TestLocalGemmaClient::test_complete_returns_empty_when_server_down 
+-------------------------------- live log call --------------------------------
+ERROR    tools.local_gemma:local_gemma.py:40 Gemma inference failed: Failed to parse: http://localhost:99999/v1/chat/completions
+PASSED                                                                   [ 53%]
+tests/test_local_gemma.py::TestLiveGemma::test_live_inference SKIPPED    [ 53%]
+tests/test_local_gemma.py::TestGetGemma::test_get_gemma_returns_client PASSED [ 53%]
+tests/test_local_gemma.py::TestGetGemma::test_get_gemma_is_singleton PASSED [ 53%]
+tests/test_math_engine.py::TestConstraint::test_satisfied_passes PASSED  [ 54%]
+tests/test_math_engine.py::TestConstraint::test_satisfied_fails PASSED   [ 54%]
+tests/test_math_engine.py::TestConstraint::test_satisfied_exception_returns_false PASSED [ 54%]
+tests/test_math_engine.py::TestAlgebraicReasoner::test_add_variable PASSED [ 54%]
+tests/test_math_engine.py::TestAlgebraicReasoner::test_add_constraint PASSED [ 55%]
+tests/test_math_engine.py::TestAlgebraicReasoner::test_solve_returns_valid_assignment PASSED [ 55%]
+tests/test_math_engine.py::TestAlgebraicReasoner::test_solve_returns_none_on_failure PASSED [ 55%]
+tests/test_math_engine.py::TestAlgebraicReasoner::test_all_solutions PASSED [ 55%]
+tests/test_math_engine.py::TestDifferentialReasoner::test_gradient_calculation PASSED [ 55%]
+tests/test_math_engine.py::TestDifferentialReasoner::test_ascend_improves_score PASSED [ 56%]
+tests/test_math_engine.py::TestDifferentialReasoner::test_jacobian_returns_sorted PASSED [ 56%]
+tests/test_math_engine.py::TestLinearReasoner::test_encode_text PASSED   [ 56%]
+tests/test_math_engine.py::TestLinearReasoner::test_encode_text_removes_stopwords PASSED [ 56%]
+tests/test_math_engine.py::TestLinearReasoner::test_cosine_similarity PASSED [ 57%]
+tests/test_math_engine.py::TestLinearReasoner::test_cosine_similarity_different PASSED [ 57%]
+tests/test_math_engine.py::TestLinearReasoner::test_rank_texts_preserves_duplicates PASSED [ 57%]
+tests/test_math_engine.py::TestLinearReasoner::test_dominant_axes PASSED [ 57%]
+tests/test_math_engine.py::TestQuantumProbabilistic::test_collapse_returns_highest_prob PASSED [ 57%]
+tests/test_math_engine.py::TestQuantumProbabilistic::test_amplitudes_positive_interference PASSED [ 58%]
+tests/test_math_engine.py::TestQuantumProbabilistic::test_top_k PASSED   [ 58%]
+tests/test_math_engine.py::TestPreAudit::test_has_task_pass PASSED       [ 58%]
+tests/test_math_engine.py::TestPreAudit::test_has_task_fail PASSED       [ 58%]
+tests/test_math_engine.py::TestPreAudit::test_injection_blocks_shell PASSED [ 59%]
+tests/test_math_engine.py::TestPreAudit::test_injection_blocks_newline PASSED [ 59%]
+tests/test_math_engine.py::TestPreAudit::test_injection_blocks_template PASSED [ 59%]
+tests/test_math_engine.py::TestPreAudit::test_injection_blocks_path_traversal PASSED [ 59%]
+tests/test_math_engine.py::TestPreAudit::test_injection_blocks_url_encoded PASSED [ 59%]
+tests/test_math_engine.py::TestPreAudit::test_reasonable_length_pass FAILED [ 60%]
+tests/test_math_engine.py::TestPreAudit::test_reasonable_length_fail PASSED [ 60%]
+tests/test_math_engine.py::Test_check_injection::test_shell_chars FAILED [ 60%]
+tests/test_math_engine.py::Test_check_injection::test_newline PASSED     [ 60%]
+tests/test_math_engine.py::Test_check_injection::test_template_injection PASSED [ 61%]
+tests/test_math_engine.py::Test_check_injection::test_clean_input PASSED [ 61%]
+tests/test_math_engine.py::TestReasoningEngine::test_init_creates_instances PASSED [ 61%]
+tests/test_math_engine.py::TestReasoningEngine::test_decide_returns_decision_result PASSED [ 61%]
+tests/test_math_engine.py::TestReasoningEngine::test_decide_blocks_on_audit_failure FAILED [ 61%]
+tests/test_math_engine.py::TestReasoningEngine::test_decide_returns_breakdown PASSED [ 62%]
+tests/test_math_engine.py::TestDecisionResult::test_to_dict PASSED       [ 62%]
+tests/test_metrics.py::TestRecordRequest::test_increments_count PASSED   [ 62%]
+tests/test_metrics.py::TestRecordRequest::test_records_multiple_routes PASSED [ 62%]
+tests/test_metrics.py::TestRecordRequest::test_records_errors_on_4xx PASSED [ 63%]
+tests/test_metrics.py::TestRecordRequest::test_records_errors_on_5xx PASSED [ 63%]
+tests/test_metrics.py::TestRecordRequest::test_2xx_is_not_error PASSED   [ 63%]
+tests/test_metrics.py::TestRecordRequest::test_3xx_is_not_error PASSED   [ 63%]
+tests/test_metrics.py::TestRecordCache::test_cache_hit PASSED            [ 63%]
+tests/test_metrics.py::TestRecordCache::test_cache_miss PASSED           [ 64%]
+tests/test_metrics.py::TestRecordCache::test_both_counted_in_snapshot PASSED [ 64%]
+tests/test_metrics.py::TestRecordSqlite::test_tracks_cumulative_ms_and_calls PASSED [ 64%]
+tests/test_metrics.py::TestRecordSqlite::test_avg_ms PASSED              [ 64%]
+tests/test_metrics.py::TestLatencyPercentiles::test_empty_route_returns_zeros PASSED [ 65%]
+tests/test_metrics.py::TestLatencyPercentiles::test_single_sample PASSED [ 65%]
+tests/test_metrics.py::TestLatencyPercentiles::test_p50_p95_p99_correct PASSED [ 65%]
+tests/test_metrics.py::TestLatencyPercentiles::test_different_routes_independent PASSED [ 65%]
+tests/test_metrics.py::TestErrorRate::test_no_errors_returns_zero PASSED [ 65%]
+tests/test_metrics.py::TestErrorRate::test_errors_in_window PASSED       [ 66%]
+tests/test_metrics.py::TestErrorRate::test_all_errors PASSED             [ 66%]
+tests/test_metrics.py::TestErrorRate::test_no_requests_returns_zero PASSED [ 66%]
+tests/test_metrics.py::TestErrorRate::test_errors_outside_window_excluded PASSED [ 66%]
+tests/test_metrics.py::TestCacheRatio::test_no_activity_returns_zero PASSED [ 67%]
+tests/test_metrics.py::TestCacheRatio::test_all_hits PASSED              [ 67%]
+tests/test_metrics.py::TestCacheRatio::test_mixed PASSED                 [ 67%]
+tests/test_metrics.py::TestCacheRatio::test_no_hits PASSED               [ 67%]
+tests/test_metrics.py::TestCacheRatio::test_matches_snapshot PASSED      [ 68%]
+tests/test_metrics.py::TestPrune::test_prune_does_not_remove_few_samples PASSED [ 68%]
+tests/test_metrics.py::TestPrune::test_prune_trims_buckets_to_max PASSED [ 68%]
+tests/test_metrics.py::TestSnapshot::test_initial_snapshot_structure PASSED [ 68%]
+tests/test_metrics.py::TestSnapshot::test_snapshot_after_activity PASSED [ 68%]
+tests/test_metrics.py::TestSnapshot::test_uptime_increases PASSED        [ 69%]
+tests/test_metrics.py::TestBoundedBuckets::test_pops_oldest_when_over_max PASSED [ 69%]
+tests/test_metrics.py::TestBoundedBuckets::test_multiple_routes_independent_bounds PASSED [ 69%]
+tests/test_metrics.py::TestBoundedBuckets::test_errors_counted_on_bounded_buckets PASSED [ 69%]
+tests/test_metrics.py::TestResetMetrics::test_get_metrics_returns_singleton PASSED [ 70%]
+tests/test_metrics.py::TestResetMetrics::test_reset_creates_fresh_state PASSED [ 70%]
+tests/test_metrics.py::TestConcurrency::test_record_request_thread_safe PASSED [ 70%]
+tests/test_metrics.py::TestConcurrency::test_cache_thread_safe PASSED    [ 70%]
+tests/test_postgres.py::TestPostgresPool::test_available_false_by_default PASSED [ 70%]
+tests/test_postgres.py::TestPostgresPool::test_connect_returns_false_when_not_distributed PASSED [ 71%]
+tests/test_postgres.py::TestPostgresPool::test_execute_raises_when_not_available PASSED [ 71%]
+tests/test_postgres.py::TestPostgresPool::test_execute_many_raises_when_not_available PASSED [ 71%]
+tests/test_postgres.py::TestPostgresPool::test_get_pg_pool_singleton PASSED [ 71%]
+tests/test_postgres.py::TestPostgresPool::test_reset_pg_pool_clears_singleton PASSED [ 72%]
+tests/test_postgres.py::TestPostgresPool::test_available_stays_false_after_failed_connect PASSED [ 72%]
+tests/test_priority_allocator.py::test_priority_engine_basic PASSED      [ 72%]
+tests/test_priority_allocator.py::test_resource_allocator_allocate_release PASSED [ 72%]
+tests/test_redis_client.py::TestRedisClient::test_available_false_by_default PASSED [ 72%]
+tests/test_redis_client.py::TestRedisClient::test_connect_returns_false_when_not_distributed PASSED [ 73%]
+tests/test_redis_client.py::TestRedisClient::test_cache_get_set_in_memory PASSED [ 73%]
+tests/test_redis_client.py::TestRedisClient::test_cache_get_missing_returns_none PASSED [ 73%]
+tests/test_redis_client.py::TestRedisClient::test_cache_delete_removes_key PASSED [ 73%]
+tests/test_redis_client.py::TestRedisClient::test_cache_ttl_expiration PASSED [ 74%]
+tests/test_redis_client.py::TestRedisClient::test_cache_scan_delete_removes_by_prefix PASSED [ 74%]
+tests/test_redis_client.py::TestRedisClient::test_get_singleton PASSED   [ 74%]
+tests/test_redis_client.py::TestRedisClient::test_reset_redis_creates_new PASSED [ 74%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_initial_state_closed PASSED [ 74%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_opens_after_threshold PASSED [ 75%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_closed_under_threshold PASSED [ 75%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_adaptive_tightens_on_burst PASSED [ 75%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_half_open_on_cooldown PASSED [ 75%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_half_open_to_closed_on_success PASSED [ 76%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_half_open_to_open_on_failure PASSED [ 76%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_success_resets_counter PASSED [ 76%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_old_failures_expire PASSED [ 76%]
+tests/test_runtime_healer.py::TestCircuitBreaker::test_all_circuit_states PASSED [ 76%]
+tests/test_runtime_healer.py::TestRetry::test_success_on_first_attempt PASSED [ 77%]
+tests/test_runtime_healer.py::TestRetry::test_retry_on_failure_then_succeed PASSED [ 77%]
+tests/test_runtime_healer.py::TestRetry::test_circuit_open_blocks PASSED [ 77%]
+tests/test_runtime_healer.py::TestRetry::test_all_retries_exhausted PASSED [ 77%]
+tests/test_runtime_healer.py::TestHealFromCorrections::test_empty_file PASSED [ 78%]
+tests/test_runtime_healer.py::TestHealFromCorrections::test_deprecates_high_failure_skill PASSED [ 78%]
+tests/test_runtime_healer.py::TestHealFromCorrections::test_below_threshold_no_deprecation PASSED [ 78%]
+tests/test_runtime_healer.py::TestRecentHeals::test_logs_events PASSED   [ 78%]
+tests/test_runtime_healer.py::TestRecentHeals::test_prunes_old_events PASSED [ 78%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_capture_session_returns_none_for_unknown PASSED [ 79%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_replay_returns_error_for_unknown PASSED [ 79%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_list_sessions_returns_list PASSED [ 79%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_describe_returns_expected_schema PASSED [ 79%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_compute_delta_detects_changes PASSED [ 80%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_compute_delta_empty_prev PASSED [ 80%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_compute_delta_empty_curr PASSED [ 80%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_node_snapshot_dataclass PASSED [ 80%]
+tests/test_session_replay.py::TestSessionReplayEngine::test_replay_session_dataclass PASSED [ 80%]
+tests/test_skill_resolver.py::TestSkillResolver::test_init PASSED        [ 81%]
+tests/test_skill_resolver.py::TestSkillResolver::test_resolve_cache PASSED [ 81%]
+tests/test_skill_resolver.py::TestSkillResolver::test_matches_exact PASSED [ 81%]
+tests/test_skill_resolver.py::TestSkillResolver::test_resolve_with_gemma_falls_back 
+-------------------------------- live log call --------------------------------
+WARNING  tools.skill_resolver:skill_resolver.py:61 Gemma unavailable, cannot resolve 'nonexistent-skill'
+PASSED                                                                   [ 81%]
+tests/test_skill_resolver.py::TestGetResolver::test_singleton PASSED     [ 82%]
+tests/test_state_manager.py::TestCreateSession::test_returns_string_session_id PASSED [ 82%]
+tests/test_state_manager.py::TestCreateSession::test_creates_file_on_disk PASSED [ 82%]
+tests/test_state_manager.py::TestCreateSession::test_creates_valid_json PASSED [ 82%]
+tests/test_state_manager.py::TestCreateSession::test_sets_current_session PASSED [ 82%]
+tests/test_state_manager.py::TestCreateSession::test_deterministic_prefix_for_same_query PASSED [ 83%]
+tests/test_state_manager.py::TestCreateSession::test_creates_state_dir_if_not_exists PASSED [ 83%]
+tests/test_state_manager.py::TestLoadSession::test_returns_data_for_existing_session PASSED [ 83%]
+tests/test_state_manager.py::TestLoadSession::test_returns_none_for_missing PASSED [ 83%]
+tests/test_state_manager.py::TestLoadSession::test_sets_current_session_on_load PASSED [ 84%]
+tests/test_state_manager.py::TestLoadSession::test_returns_none_for_corrupt_file 
+-------------------------------- live log call --------------------------------
+ERROR    brain.state_manager:state_manager.py:181 Failed to load session corrupt123: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+PASSED                                                                   [ 84%]
+tests/test_state_manager.py::TestUpdateState::test_updates_state_correctly PASSED [ 84%]
+tests/test_state_manager.py::TestUpdateState::test_merges_with_existing_state PASSED [ 84%]
+tests/test_state_manager.py::TestUpdateState::test_saves_to_disk PASSED  [ 85%]
+tests/test_state_manager.py::TestUpdateState::test_returns_false_when_no_session PASSED [ 85%]
+tests/test_state_manager.py::TestUpdateState::test_adds_updated_at_timestamp PASSED [ 85%]
+tests/test_state_manager.py::TestAppendHistory::test_appends_entry PASSED [ 85%]
+tests/test_state_manager.py::TestAppendHistory::test_adds_timestamp PASSED [ 85%]
+tests/test_state_manager.py::TestAppendHistory::test_appends_multiple_entries PASSED [ 86%]
+tests/test_state_manager.py::TestAppendHistory::test_returns_false_when_no_session PASSED [ 86%]
+tests/test_state_manager.py::TestAddArtifact::test_appends_artifact PASSED [ 86%]
+tests/test_state_manager.py::TestAddArtifact::test_adds_created_at_timestamp PASSED [ 86%]
+tests/test_state_manager.py::TestAddArtifact::test_appends_multiple_artifacts PASSED [ 87%]
+tests/test_state_manager.py::TestAddArtifact::test_returns_false_when_no_session PASSED [ 87%]
+tests/test_state_manager.py::TestListSessions::test_returns_empty_when_no_sessions PASSED [ 87%]
+tests/test_state_manager.py::TestListSessions::test_returns_all_sessions PASSED [ 87%]
+tests/test_state_manager.py::TestListSessions::test_newest_first PASSED  [ 87%]
+tests/test_state_manager.py::TestListSessions::test_limit PASSED         [ 88%]
+tests/test_state_manager.py::TestListSessions::test_offset PASSED        [ 88%]
+tests/test_state_manager.py::TestListSessions::test_summary_fields PASSED [ 88%]
+tests/test_state_manager.py::TestListSessions::test_query_truncated_to_50_chars PASSED [ 88%]
+tests/test_state_manager.py::TestListSessions::test_skips_non_json_files PASSED [ 89%]
+tests/test_state_manager.py::TestDeleteSession::test_removes_file PASSED [ 89%]
+tests/test_state_manager.py::TestDeleteSession::test_returns_false_for_missing PASSED [ 89%]
+tests/test_state_manager.py::TestDeleteSession::test_removed_session_not_in_list PASSED [ 89%]
+tests/test_state_manager.py::TestDeleteSession::test_other_sessions_persist PASSED [ 89%]
+tests/test_state_manager.py::TestCorruptJson::test_skips_bad_files_in_list_sessions 
+-------------------------------- live log call --------------------------------
+WARNING  brain.state_manager:state_manager.py:303 Failed to load session file: C:\Users\User\AppData\Local\Temp\pytest-of-User\pytest-64\test_skips_bad_files_in_list_s0\bad_file.json
+PASSED                                                                   [ 90%]
+tests/test_state_manager.py::TestCorruptJson::test_skips_empty_json 
+-------------------------------- live log call --------------------------------
+WARNING  brain.state_manager:state_manager.py:303 Failed to load session file: C:\Users\User\AppData\Local\Temp\pytest-of-User\pytest-64\test_skips_empty_json0\empty.json
+PASSED                                                                   [ 90%]
+tests/test_state_manager.py::TestCorruptJson::test_skips_partial_json 
+-------------------------------- live log call --------------------------------
+WARNING  brain.state_manager:state_manager.py:303 Failed to load session file: C:\Users\User\AppData\Local\Temp\pytest-of-User\pytest-64\test_skips_partial_json0\partial.json
+PASSED                                                                   [ 90%]
+tests/test_state_manager.py::TestCorruptJson::test_skips_missing_keys_gracefully PASSED [ 90%]
+tests/test_state_manager.py::TestCorruptJson::test_skips_non_json_suffix_files PASSED [ 91%]
+tests/test_state_manager.py::TestThreadSafety::test_concurrent_create_session PASSED [ 91%]
+tests/test_state_manager.py::TestThreadSafety::test_concurrent_update_state PASSED [ 91%]
+tests/test_state_manager.py::TestThreadSafety::test_concurrent_append_history PASSED [ 91%]
+tests/test_state_manager.py::TestThreadSafety::test_concurrent_mixed_operations PASSED [ 91%]
+tests/test_state_manager.py::TestThreadSafety::test_concurrent_same_session_updates_all_visible PASSED [ 92%]
+tests/test_state_manager.py::TestEdgeCases::test_session_id_special_chars_handled PASSED [ 92%]
+tests/test_state_manager.py::TestEdgeCases::test_very_long_query_stored PASSED [ 92%]
+tests/test_state_manager.py::TestEdgeCases::test_unicode_in_query PASSED [ 92%]
+tests/test_state_manager.py::TestEdgeCases::test_history_with_arbitrary_dict_keys PASSED [ 93%]
+tests/test_state_manager.py::TestEdgeCases::test_artifact_with_all_fields_persisted PASSED [ 93%]
+tests/test_state_manager.py::TestEdgeCases::test_reload_preserves_all_data PASSED [ 93%]
+tests/test_task_queue.py::TestTaskQueue::test_register_and_execute PASSED [ 93%]
+tests/test_task_queue.py::TestTaskQueue::test_handler_not_found_returns_none 
+-------------------------------- live log call --------------------------------
+ERROR    tools.task_queue:task_queue.py:106 No handler registered for task type: missing
+PASSED                                                                   [ 93%]
+tests/test_task_queue.py::TestTaskQueue::test_exception_in_handler_logged 
+-------------------------------- live log call --------------------------------
+ERROR    tools.task_queue:task_queue.py:113 Task bad failed: boom
+PASSED                                                                   [ 94%]
+tests/test_task_queue.py::TestTaskQueue::test_multiple_handlers PASSED   [ 94%]
+tests/test_task_queue.py::TestTaskQueue::test_singleton PASSED           [ 94%]
+tests/test_task_queue.py::TestTaskQueue::test_reset_creates_new PASSED   [ 94%]
+tests/test_task_queue.py::TestTaskQueue::test_stop_all_clears_workers PASSED [ 95%]
+tests/test_tracing.py::TestTracingCore::test_log_and_get_trace PASSED    [ 95%]
+tests/test_tracing.py::TestTracingCore::test_log_event_serializes_complex_dict PASSED [ 95%]
+tests/test_tracing.py::TestTracingCore::test_get_trace_empty_session PASSED [ 95%]
+tests/test_tracing.py::TestTracingCore::test_get_trace_ordering PASSED   [ 95%]
+tests/test_tracing.py::TestTracingCore::test_log_event_timestamp_monotonic PASSED [ 96%]
+tests/test_tracing.py::TestTracingCore::test_list_sessions PASSED        [ 96%]
+tests/test_tracing.py::TestTracingCore::test_list_sessions_empty PASSED  [ 96%]
+tests/test_tracing.py::TestTracingCore::test_list_sessions_ignores_nulls PASSED [ 96%]
+tests/test_tracing.py::TestTracingCore::test_get_trace_returns_all_fields PASSED [ 97%]
+tests/test_tracing.py::TestTracingCore::test_checkpoint_state PASSED     [ 97%]
+tests/test_tracing.py::TestTracingCore::test_checkpoint_state_none PASSED [ 97%]
+tests/test_tracing.py::TestTracingCore::test_checkpoint_state_without_reasoning PASSED [ 97%]
+tests/test_tracing.py::TestTracingCore::test_checkpoint_non_dict_reasoning PASSED [ 97%]
+tests/test_tracing.py::TestTracingCore::test_log_event_with_otel_disabled_does_not_crash PASSED [ 98%]
+tests/test_tracing.py::TestConnectionPool::test_connection_reuse_in_same_thread PASSED [ 98%]
+tests/test_tracing.py::TestConnectionPool::test_connections_tracked_globally PASSED [ 98%]
+tests/test_tracing.py::TestConnectionPool::test_different_threads_different_connections PASSED [ 98%]
+tests/test_tracing.py::TestConnectionPool::test_close_connections_clears_set PASSED [ 99%]
+tests/test_tracing.py::TestConnectionPool::test_after_close_new_connection_works PASSED [ 99%]
+tests/test_tracing.py::TestConcurrentWrites::test_concurrent_writes PASSED [ 99%]
+tests/test_tracing.py::TestConcurrentWrites::test_concurrent_writes_multiple_sessions PASSED [ 99%]
+tests/test_tracing.py::TestConcurrentWrites::test_concurrent_writes_no_data_corruption PASSED [100%]
+
+================================== FAILURES ===================================
+_______________________ TestPyReason.test_returns_tuple _______________________
+
+self = <test_brain.TestPyReason object at 0x0000027F2AD67620>
+
+    def test_returns_tuple(self):
+>       from reasoning.pyreason_adapter import PyReasonAdapter
+
+tests\test_brain.py:199: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+reasoning\pyreason_adapter.py:15: in <module>
+    import pyreason as pr
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\__init__.py:33: in <module>
+    reason(timesteps=2)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1522: in reason
+    interp = _reason(timesteps, convergence_threshold, convergence_bound_threshold, queries)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1620: in _reason
+    interpretation = __program.reason(timesteps, convergence_threshold, convergence_bound_threshold, settings.verbose)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\program\program.py:48: in reason
+    self.interp.start_fp(self._tmax, self._facts_node, self._facts_edge, self._rules, verbose, convergence_threshold, convergence_bound_threshold)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:194: in start_fp
+    self._start_fp(rules, max_facts_time, verbose, again, restart)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:232: in _start_fp
+    fp_cnt, t = self.reason(self.interpretations_node, self.interpretations_edge, self.predicate_map_node, self.predicate_map_edge, self.tmax, self.prev_reasoning_data, rules, self.nodes, self.edges, self.neighbors, self.reverse_neighbors, self.rules_to_be_applied_node, self.rules_to_be_applied_edge, self.edges_to_be_added_node_rule, self.edges_to_be_added_edge_rule, self.rules_to_be_applied_node_trace, self.rules_to_be_applied_edge_trace, self.facts_to_be_applied_node, self.facts_to_be_applied_edge, self.facts_to_be_applied_node_trace, self.facts_to_be_applied_edge_trace, self.ipl, self.rule_trace_node, self.rule_trace_edge, self.rule_trace_node_atoms, self.rule_trace_edge_atoms, self.reverse_graph, self.atom_trace, self.save_graph_attributes_to_rule_trace, self.persistent, self.inconsistency_check, self.store_interpretation_changes, self.update_mode, self.allow_ground_rules, max_facts_time, self.annotation_functions, extended_ann_fn_flags, self.head_functions, self._convergence_mode, self._convergence_delta, self.num_ga, verbose, again, self.closed_world_predicates)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:424: in _compile_for_args
+    error_rewrite(e, 'typing')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+e = TypingError('Failed in nopython mode pipeline (step: Handle with contexts)\n\x1b[1mFailed in nopython mode pipeline (s...m\x1b[0m\n\n\x1b[0m\x1b[1mDuring: Pass nopython_type_inference\x1b[0m\n\x1b[0m\x1b[1mDuring: Pass with_lifting\x1b[0m')
+issue_type = 'typing'
+
+    def error_rewrite(e, issue_type):
+        """
+        Rewrite and raise Exception `e` with help supplied based on the
+        specified issue_type.
+        """
+        if config.SHOW_HELP:
+            help_msg = errors.error_extras[issue_type]
+            e.patch_message('\n'.join((str(e).rstrip(), help_msg)))
+        if config.FULL_TRACEBACKS:
+            raise e
+        else:
+>           raise e.with_traceback(None)
+E           numba.core.errors.TypingError: Failed in nopython mode pipeline (step: Handle with contexts)
+E           [1mFailed in nopython mode pipeline (step: nopython frontend)
+E           [1m[1m[1mCannot unify int64 and Tuple(uint16, unicode_type, Label, numba.IntervalType(('l', float64), ('u', float64), ('s', bool), ('prev_l', float64), ('prev_u', float64)), bool) for 'i.25', defined at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           [0m
+E           [0m[1mDuring: typing of assignment at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)[0m
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           
+E           [0m[1mDuring: Pass nopython_type_inference[0m
+E           [0m[1mDuring: Pass with_lifting[0m
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:365: TypingError
+---------------------------- Captured stdout call -----------------------------
+Imported PyReason for the first time. Initializing caches for faster runtimes ... this will take a minute
+Added  0 graph-attribute node facts and  7 graph_attribute edge facts.
+_________________ TestPyReason.test_base_fact_always_present __________________
+
+self = <test_brain.TestPyReason object at 0x0000027F2AD67BF0>
+
+    def test_base_fact_always_present(self):
+>       from reasoning.pyreason_adapter import PyReasonAdapter
+
+tests\test_brain.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+reasoning\pyreason_adapter.py:15: in <module>
+    import pyreason as pr
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\__init__.py:33: in <module>
+    reason(timesteps=2)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1522: in reason
+    interp = _reason(timesteps, convergence_threshold, convergence_bound_threshold, queries)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1620: in _reason
+    interpretation = __program.reason(timesteps, convergence_threshold, convergence_bound_threshold, settings.verbose)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\program\program.py:48: in reason
+    self.interp.start_fp(self._tmax, self._facts_node, self._facts_edge, self._rules, verbose, convergence_threshold, convergence_bound_threshold)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:194: in start_fp
+    self._start_fp(rules, max_facts_time, verbose, again, restart)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:232: in _start_fp
+    fp_cnt, t = self.reason(self.interpretations_node, self.interpretations_edge, self.predicate_map_node, self.predicate_map_edge, self.tmax, self.prev_reasoning_data, rules, self.nodes, self.edges, self.neighbors, self.reverse_neighbors, self.rules_to_be_applied_node, self.rules_to_be_applied_edge, self.edges_to_be_added_node_rule, self.edges_to_be_added_edge_rule, self.rules_to_be_applied_node_trace, self.rules_to_be_applied_edge_trace, self.facts_to_be_applied_node, self.facts_to_be_applied_edge, self.facts_to_be_applied_node_trace, self.facts_to_be_applied_edge_trace, self.ipl, self.rule_trace_node, self.rule_trace_edge, self.rule_trace_node_atoms, self.rule_trace_edge_atoms, self.reverse_graph, self.atom_trace, self.save_graph_attributes_to_rule_trace, self.persistent, self.inconsistency_check, self.store_interpretation_changes, self.update_mode, self.allow_ground_rules, max_facts_time, self.annotation_functions, extended_ann_fn_flags, self.head_functions, self._convergence_mode, self._convergence_delta, self.num_ga, verbose, again, self.closed_world_predicates)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:424: in _compile_for_args
+    error_rewrite(e, 'typing')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+e = TypingError('Failed in nopython mode pipeline (step: Handle with contexts)\n\x1b[1mFailed in nopython mode pipeline (s...m\x1b[0m\n\n\x1b[0m\x1b[1mDuring: Pass nopython_type_inference\x1b[0m\n\x1b[0m\x1b[1mDuring: Pass with_lifting\x1b[0m')
+issue_type = 'typing'
+
+    def error_rewrite(e, issue_type):
+        """
+        Rewrite and raise Exception `e` with help supplied based on the
+        specified issue_type.
+        """
+        if config.SHOW_HELP:
+            help_msg = errors.error_extras[issue_type]
+            e.patch_message('\n'.join((str(e).rstrip(), help_msg)))
+        if config.FULL_TRACEBACKS:
+            raise e
+        else:
+>           raise e.with_traceback(None)
+E           numba.core.errors.TypingError: Failed in nopython mode pipeline (step: Handle with contexts)
+E           [1mFailed in nopython mode pipeline (step: nopython frontend)
+E           [1m[1m[1mCannot unify int64 and Tuple(uint16, unicode_type, Label, numba.IntervalType(('l', float64), ('u', float64), ('s', bool), ('prev_l', float64), ('prev_u', float64)), bool) for 'i.25', defined at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           [0m
+E           [0m[1mDuring: typing of assignment at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)[0m
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           
+E           [0m[1mDuring: Pass nopython_type_inference[0m
+E           [0m[1mDuring: Pass with_lifting[0m
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:365: TypingError
+---------------------------- Captured stdout call -----------------------------
+Imported PyReason for the first time. Initializing caches for faster runtimes ... this will take a minute
+Added  0 graph-attribute node facts and  7 graph_attribute edge facts.
+____________________ TestPyReason.test_security_rule_fires ____________________
+
+self = <test_brain.TestPyReason object at 0x0000027F2AD65580>
+
+    def test_security_rule_fires(self):
+>       from reasoning.pyreason_adapter import PyReasonAdapter
+
+tests\test_brain.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+reasoning\pyreason_adapter.py:15: in <module>
+    import pyreason as pr
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\__init__.py:33: in <module>
+    reason(timesteps=2)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1522: in reason
+    interp = _reason(timesteps, convergence_threshold, convergence_bound_threshold, queries)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:1620: in _reason
+    interpretation = __program.reason(timesteps, convergence_threshold, convergence_bound_threshold, settings.verbose)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\program\program.py:48: in reason
+    self.interp.start_fp(self._tmax, self._facts_node, self._facts_edge, self._rules, verbose, convergence_threshold, convergence_bound_threshold)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:194: in start_fp
+    self._start_fp(rules, max_facts_time, verbose, again, restart)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py:232: in _start_fp
+    fp_cnt, t = self.reason(self.interpretations_node, self.interpretations_edge, self.predicate_map_node, self.predicate_map_edge, self.tmax, self.prev_reasoning_data, rules, self.nodes, self.edges, self.neighbors, self.reverse_neighbors, self.rules_to_be_applied_node, self.rules_to_be_applied_edge, self.edges_to_be_added_node_rule, self.edges_to_be_added_edge_rule, self.rules_to_be_applied_node_trace, self.rules_to_be_applied_edge_trace, self.facts_to_be_applied_node, self.facts_to_be_applied_edge, self.facts_to_be_applied_node_trace, self.facts_to_be_applied_edge_trace, self.ipl, self.rule_trace_node, self.rule_trace_edge, self.rule_trace_node_atoms, self.rule_trace_edge_atoms, self.reverse_graph, self.atom_trace, self.save_graph_attributes_to_rule_trace, self.persistent, self.inconsistency_check, self.store_interpretation_changes, self.update_mode, self.allow_ground_rules, max_facts_time, self.annotation_functions, extended_ann_fn_flags, self.head_functions, self._convergence_mode, self._convergence_delta, self.num_ga, verbose, again, self.closed_world_predicates)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:424: in _compile_for_args
+    error_rewrite(e, 'typing')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+e = TypingError('Failed in nopython mode pipeline (step: Handle with contexts)\n\x1b[1mFailed in nopython mode pipeline (s...m\x1b[0m\n\n\x1b[0m\x1b[1mDuring: Pass nopython_type_inference\x1b[0m\n\x1b[0m\x1b[1mDuring: Pass with_lifting\x1b[0m')
+issue_type = 'typing'
+
+    def error_rewrite(e, issue_type):
+        """
+        Rewrite and raise Exception `e` with help supplied based on the
+        specified issue_type.
+        """
+        if config.SHOW_HELP:
+            help_msg = errors.error_extras[issue_type]
+            e.patch_message('\n'.join((str(e).rstrip(), help_msg)))
+        if config.FULL_TRACEBACKS:
+            raise e
+        else:
+>           raise e.with_traceback(None)
+E           numba.core.errors.TypingError: Failed in nopython mode pipeline (step: Handle with contexts)
+E           [1mFailed in nopython mode pipeline (step: nopython frontend)
+E           [1m[1m[1mCannot unify int64 and Tuple(uint16, unicode_type, Label, numba.IntervalType(('l', float64), ('u', float64), ('s', bool), ('prev_l', float64), ('prev_u', float64)), bool) for 'i.25', defined at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           [0m
+E           [0m[1mDuring: typing of assignment at C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py (473)[0m
+E           [1m
+E           File "..\..\..\AppData\Roaming\Python\Python312\site-packages\pyreason\scripts\interpretation\interpretation.py", line 473:[0m
+E           [1m	def reason(interpretations_node, interpretations_edge, predicate_map_node, predicate_map_edge, tmax, prev_reasoning_data, rules, nodes, edges, neighbors, reverse_neighbors, rules_to_be_applied_node, rules_to_be_applied_edge, edges_to_be_added_node_rule, edges_to_be_added_edge_rule, rules_to_be_applied_node_trace, rules_to_be_applied_edge_trace, facts_to_be_applied_node, facts_to_be_applied_edge, facts_to_be_applied_node_trace, facts_to_be_applied_edge_trace, ipl, rule_trace_node, rule_trace_edge, rule_trace_node_atoms, rule_trace_edge_atoms, reverse_graph, atom_trace, save_graph_attributes_to_rule_trace, persistent, inconsistency_check, store_interpretation_changes, update_mode, allow_ground_rules, max_facts_time, annotation_functions, extended_ann_fn_flags, head_functions, convergence_mode, convergence_delta, num_ga, verbose, again, closed_world_predicates):
+E                <source elided>
+E           				# Remove from rules to be applied and edges to be applied lists after coming out from loop
+E           [1m				rules_to_be_applied_node[:] = numba.typed.List([rules_to_be_applied_node[i] for i in range(len(rules_to_be_applied_node)) if i not in rules_to_remove_idx])
+E           [0m    [1m^[0m[0m
+E           
+E           [0m[1mDuring: Pass nopython_type_inference[0m
+E           [0m[1mDuring: Pass with_lifting[0m
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\numba\core\dispatcher.py:365: TypingError
+---------------------------- Captured stdout call -----------------------------
+Imported PyReason for the first time. Initializing caches for faster runtimes ... this will take a minute
+Added  0 graph-attribute node facts and  7 graph_attribute edge facts.
+_____________ TestE2EFullPipeline.test_green_event_auto_executes ______________
+
+self = <test_coo_e2e.TestE2EFullPipeline object at 0x0000027F2B0D6960>
+mock_post = <MagicMock name='post' id='2746450958176'>
+orchestrator = <coo.orchestrator.COOOrchestrator object at 0x0000027F75494B30>
+
+    @patch("coo.github_queue.requests.post")
+    def test_green_event_auto_executes(self, mock_post, orchestrator):
+        """Green events should auto-execute without creating GitHub issues."""
+        mock_post.return_value = MagicMock(status_code=201, json=lambda: {"number": 100})
+    
+        card = orchestrator.process_event({
+            "event_type": "cache_clear",
+            "product_id": "claw-protect",
+            "severity": 0.0,
+            "summary": "Cache bloat detected — clearing",
+        })
+    
+        assert card is not None
+        assert card.zone == TrafficLightZone.GREEN
+>       assert card.outcome == "auto_executed"
+E       AssertionError: assert 'auto_executed_success' == 'auto_executed'
+E         
+E         - auto_executed
+E         + auto_executed_success
+E         ?              ++++++++
+
+tests\test_coo_e2e.py:58: AssertionError
+_____ TestE2EFullPipeline.test_pending_decisions_returns_unresolved_only ______
+
+self = <test_coo_e2e.TestE2EFullPipeline object at 0x0000027F2B139070>
+mock_post = <MagicMock name='post' id='2746453790832'>
+orchestrator = <coo.orchestrator.COOOrchestrator object at 0x0000027F75671DF0>
+
+    @patch("coo.github_queue.requests.post")
+    def test_pending_decisions_returns_unresolved_only(self, mock_post, orchestrator):
+        """get_pending_decisions should only return unresolved cards."""
+        mock_post.return_value = MagicMock(status_code=201, json=lambda: {"number": 150})
+    
+        # Create a yellow event
+        orchestrator.process_event({
+            "event_type": "build_failure",
+            "product_id": "openhub",
+            "severity": 0.3,
+            "summary": "Build failure",
+        })
+    
+        # Create a green event (auto-resolved)
+        orchestrator.process_event({
+            "event_type": "cache_clear",
+            "product_id": "claw-protect",
+            "severity": 0.0,
+            "summary": "Cache clear",
+        })
+    
+        pending = orchestrator.get_pending_decisions()
+>       assert len(pending) == 1
+E       AssertionError: assert 25 == 1
+E        +  where 25 = len([DecisionCard(event_id='6678914b17bcc080', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='Build failure', diagnosis='Unknown issue — additional telemetry required', proposed_fix='DIAGNOSIS: Unknown issue — additional telemetry required\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=150, github_pr_number=None, created_ts=1779606491.5164547, resolved_ts=None, outcome='pending_review'), DecisionCard(event_id='42275069232456f5', product_id='claw-protect', zone=<TrafficLightZone.RED: 'red'>, summary='Security alert: prompt injection', diagnosis='Prompt injection detected in user input', proposed_fix='HALT and escalate to principal. Security event detected — do not auto-remediate. Isolate affected service and await manual review.', code_change=None, github_issue_number=200, github_pr_number=None, created_ts=1779606491.4831698, resolved_ts=None, outcome='escalated'), DecisionCard(event_id='49293c173d9fa7f2', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='Build failure in main pipeline', diagnosis='..., github_pr_number=None, created_ts=1779606422.8962083, resolved_ts=None, outcome='escalated'), DecisionCard(event_id='52f5dcf56cb98f7f', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='CI failed', diagnosis='Unknown issue — additional telemetry required', proposed_fix='DIAGNOSIS: Unknown issue — additional telemetry required\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=999, github_pr_number=None, created_ts=1779606422.8795967, resolved_ts=None, outcome='pending_review'), DecisionCard(event_id='934d11cf446b4d89', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='Build failure', diagnosis='Unknown issue — additional telemetry required', proposed_fix='DIAGNOSIS: Unknown issue — additional telemetry required\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=150, github_pr_number=None, created_ts=1779606420.615785, resolved_ts=None, outcome='pending_review'), ...])
+
+tests\test_coo_e2e.py:160: AssertionError
+___________ TestE2EFullPipeline.test_full_pipeline_green_yellow_red ___________
+
+self = <test_coo_e2e.TestE2EFullPipeline object at 0x0000027F2B139550>
+mock_post = <MagicMock name='post' id='2746450988928'>
+orchestrator = <coo.orchestrator.COOOrchestrator object at 0x0000027F753C4680>
+
+    @patch("coo.github_queue.requests.post")
+    def test_full_pipeline_green_yellow_red(self, mock_post, orchestrator):
+        """Test all three zones in sequence."""
+        mock_post.return_value = MagicMock(status_code=201, json=lambda: {"number": 999})
+    
+        # Green
+        g = orchestrator.process_event({
+            "event_type": "dependency_update",
+            "product_id": "claw-protect",
+            "severity": 0.0,
+            "summary": "Update packages",
+        })
+        assert g.zone == TrafficLightZone.GREEN
+        assert g.resolved is True
+    
+        # Yellow
+        y = orchestrator.process_event({
+            "event_type": "build_failure",
+            "product_id": "openhub",
+            "severity": 0.3,
+            "summary": "CI failed",
+        })
+        assert y.zone == TrafficLightZone.YELLOW
+        assert y.resolved is False
+    
+        # Red
+        r = orchestrator.process_event({
+            "event_type": "security_alert",
+            "product_id": "claw-protect",
+            "severity": 0.9,
+            "error_message": "Data exfiltration pattern detected",
+            "summary": "Security alert",
+        })
+        assert r.zone == TrafficLightZone.RED
+        assert r.resolved is False
+    
+        # Decision log should have 3 entries
+        log = orchestrator.get_decision_log()
+>       assert len(log) == 3
+E       AssertionError: assert 47 == 3
+E        +  where 47 = len([DecisionCard(event_id='586f9a6ee91b96f9', product_id='claw-protect', zone=<TrafficLightZone.RED: 'red'>, summary='Security alert', diagnosis='Data exfiltration pattern detected', proposed_fix='HALT and escalate to principal. Security event detected — do not auto-remediate. Isolate affected service and await manual review.', code_change=None, github_issue_number=999, github_pr_number=None, created_ts=1779606492.9362733, resolved_ts=None, outcome='escalated'), DecisionCard(event_id='18a574c46e3c9f04', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='CI failed', diagnosis='Unknown issue — additional telemetry required', proposed_fix='DIAGNOSIS: Unknown issue — additional telemetry required\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=999, github_pr_number=None, created_ts=1779606492.9301555, resolved_ts=None, outcome='pending_review'), DecisionCard(event_id='0dcc9a9986b7dbc3', product_id='claw-protect', zone=<TrafficLightZone.GREEN: 'green'>, summary='Update packages', diagnosis='Unknown issue — additional telemetry re...ne, github_pr_number=None, created_ts=1779606491.533238, resolved_ts=1779606492.883317, outcome='auto_executed_success'), DecisionCard(event_id='6678914b17bcc080', product_id='openhub', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='Build failure', diagnosis='Unknown issue — additional telemetry required', proposed_fix='DIAGNOSIS: Unknown issue — additional telemetry required\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=150, github_pr_number=None, created_ts=1779606491.5164547, resolved_ts=None, outcome='pending_review'), DecisionCard(event_id='df6744da22b337a1', product_id='claw-protect', zone=<TrafficLightZone.YELLOW: 'yellow'>, summary='Build failure', diagnosis='ImportError in server.py', proposed_fix='DIAGNOSIS: ImportError in server.py\nPROPOSED: Review failing CI step. Identify root file(s). Apply minimal patch. Open GitHub Issue with PR preview. Await issue close to auto-merge.', code_change=None, github_issue_number=145, github_pr_number=None, created_ts=1779606491.499864, resolved_ts=1779606491.499864, outcome='approved'), ...])
+
+tests\test_coo_e2e.py:202: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  coo.orchestrator:orchestrator.py:187 COO RED: escalating '586f9a6ee91b96f9' on product 'claw-protect' — immediate action required
+_________________________ TestLanes.test_coding_lane __________________________
+
+self = <test_e2e.TestLanes object at 0x0000027F2B127050>
+
+    def test_coding_lane(self):
+        """Test coding lane run"""
+        from lanes.coding.lane import run
+        from brain.memory import init_state
+    
+        state = init_state("write a hello world function", "coding")
+>       result = run(state)
+
+tests\test_e2e.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+lanes\coding\lane.py:52: in run
+    candidate = _llm_generate_and_repair(state['query'], contexts)
+lanes\coding\lane.py:11: in _llm_generate_and_repair
+    code = generate_code(query, context_snippets=snippets)
+tools\llm\router.py:54: in generate_code
+    return oc.generate_code(task, context_snippets=context_snippets)
+tools\llm\opencode_client.py:54: in generate_code
+    return self._or.complete(
+tools\llm\openrouter_client.py:101: in complete
+    resp = self._client.chat.completions.create(**kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_utils\_utils.py:286: in wrapper
+    return func(*args, **kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\resources\chat\completions\completions.py:1204: in create
+    return self._post(
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1297: in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <openai.OpenAI object at 0x0000027F2AE6EDB0>
+cast_to = <class 'openai.types.chat.chat_completion.ChatCompletion'>
+options = FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeo...ation:'}], 'model': 'openai/o3', 'max_tokens': 2048, 'seed': 42, 'stream': False, 'temperature': 0.0}, extra_json=None)
+
+    def request(
+        self,
+        cast_to: Type[ResponseT],
+        options: FinalRequestOptions,
+        *,
+        stream: bool = False,
+        stream_cls: type[_StreamT] | None = None,
+    ) -> ResponseT | _StreamT:
+        cast_to = self._maybe_override_cast_to(cast_to, options)
+    
+        # create a copy of the options we were given so that if the
+        # options are mutated later & we then retry, the retries are
+        # given the original options
+        input_options = model_copy(options)
+        if input_options.idempotency_key is None and input_options.method.lower() != "get":
+            # ensure the idempotency key is reused between requests
+            input_options.idempotency_key = self._idempotency_key()
+    
+        response: httpx.Response | None = None
+        max_retries = input_options.get_max_retries(self.max_retries)
+    
+        retries_taken = 0
+        for retries_taken in range(max_retries + 1):
+            options = model_copy(input_options)
+            options = self._prepare_options(options)
+    
+            remaining_retries = max_retries - retries_taken
+            request = self._build_request(options, retries_taken=retries_taken)
+            self._prepare_request(request)
+    
+            kwargs: HttpxSendArgs = {}
+            if self.custom_auth is not None:
+                kwargs["auth"] = self.custom_auth
+    
+            if options.follow_redirects is not None:
+                kwargs["follow_redirects"] = options.follow_redirects
+    
+            log.debug("Sending HTTP Request: %s %s", request.method, request.url)
+    
+            response = None
+            try:
+                response = self._client.send(
+                    request,
+                    stream=stream or self._should_stream_response_body(request=request),
+                    **kwargs,
+                )
+            except httpx.TimeoutException as err:
+                log.debug("Encountered httpx.TimeoutException", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising timeout error")
+                raise APITimeoutError(request=request) from err
+            except Exception as err:
+                log.debug("Encountered Exception", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising connection error")
+                raise APIConnectionError(request=request) from err
+    
+            log.debug(
+                'HTTP Response: %s %s "%i %s" %s',
+                request.method,
+                request.url,
+                response.status_code,
+                response.reason_phrase,
+                response.headers,
+            )
+            log.debug("request_id: %s", response.headers.get("x-request-id"))
+    
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as err:  # thrown on 4xx and 5xx status code
+                log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
+    
+                if remaining_retries > 0 and self._should_retry(err.response):
+                    err.response.close()
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=response,
+                    )
+                    continue
+    
+                # If the response is streamed then we need to explicitly read the response
+                # to completion before attempting to access the response text.
+                if not err.response.is_closed:
+                    err.response.read()
+    
+                log.debug("Re-raising status error")
+>               raise self._make_status_error_from_response(err.response) from None
+E               openai.APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 2048 tokens, but can only afford 150. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_3BKpmWz0mdLOd2hliaoiNvEFyzU'}
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1070: APIStatusError
+_____________________ TestLanes.test_business_logic_lane ______________________
+
+self = <test_e2e.TestLanes object at 0x0000027F2B127560>
+
+    def test_business_logic_lane(self):
+        """Test business_logic lane run"""
+        from lanes.business_logic.lane import run
+        from brain.memory import init_state
+    
+        state = init_state("create approval policy for budgets over 1000", "business_logic")
+>       result = run(state)
+
+tests\test_e2e.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+lanes\business_logic\lane.py:38: in run
+    content = chat(system=_SYSTEM, user=user_msg, lane='business_logic')
+tools\llm\router.py:114: in chat
+    result = generate_text(user, lane=lane, system=system, max_tokens=max_tokens)
+tools\llm\router.py:96: in generate_text
+    return or_client.chat(system=system, user=prompt, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:150: in chat
+    return self.complete(messages, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:101: in complete
+    resp = self._client.chat.completions.create(**kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_utils\_utils.py:286: in wrapper
+    return func(*args, **kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\resources\chat\completions\completions.py:1204: in create
+    return self._post(
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1297: in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <openai.OpenAI object at 0x0000027F2AE6EDB0>
+cast_to = <class 'openai.types.chat.chat_completion.ChatCompletion'>
+options = FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeo...del': 'anthropic/claude-opus-4', 'max_tokens': 2048, 'seed': 42, 'stream': False, 'temperature': 0.0}, extra_json=None)
+
+    def request(
+        self,
+        cast_to: Type[ResponseT],
+        options: FinalRequestOptions,
+        *,
+        stream: bool = False,
+        stream_cls: type[_StreamT] | None = None,
+    ) -> ResponseT | _StreamT:
+        cast_to = self._maybe_override_cast_to(cast_to, options)
+    
+        # create a copy of the options we were given so that if the
+        # options are mutated later & we then retry, the retries are
+        # given the original options
+        input_options = model_copy(options)
+        if input_options.idempotency_key is None and input_options.method.lower() != "get":
+            # ensure the idempotency key is reused between requests
+            input_options.idempotency_key = self._idempotency_key()
+    
+        response: httpx.Response | None = None
+        max_retries = input_options.get_max_retries(self.max_retries)
+    
+        retries_taken = 0
+        for retries_taken in range(max_retries + 1):
+            options = model_copy(input_options)
+            options = self._prepare_options(options)
+    
+            remaining_retries = max_retries - retries_taken
+            request = self._build_request(options, retries_taken=retries_taken)
+            self._prepare_request(request)
+    
+            kwargs: HttpxSendArgs = {}
+            if self.custom_auth is not None:
+                kwargs["auth"] = self.custom_auth
+    
+            if options.follow_redirects is not None:
+                kwargs["follow_redirects"] = options.follow_redirects
+    
+            log.debug("Sending HTTP Request: %s %s", request.method, request.url)
+    
+            response = None
+            try:
+                response = self._client.send(
+                    request,
+                    stream=stream or self._should_stream_response_body(request=request),
+                    **kwargs,
+                )
+            except httpx.TimeoutException as err:
+                log.debug("Encountered httpx.TimeoutException", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising timeout error")
+                raise APITimeoutError(request=request) from err
+            except Exception as err:
+                log.debug("Encountered Exception", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising connection error")
+                raise APIConnectionError(request=request) from err
+    
+            log.debug(
+                'HTTP Response: %s %s "%i %s" %s',
+                request.method,
+                request.url,
+                response.status_code,
+                response.reason_phrase,
+                response.headers,
+            )
+            log.debug("request_id: %s", response.headers.get("x-request-id"))
+    
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as err:  # thrown on 4xx and 5xx status code
+                log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
+    
+                if remaining_retries > 0 and self._should_retry(err.response):
+                    err.response.close()
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=response,
+                    )
+                    continue
+    
+                # If the response is streamed then we need to explicitly read the response
+                # to completion before attempting to access the response text.
+                if not err.response.is_closed:
+                    err.response.read()
+    
+                log.debug("Re-raising status error")
+>               raise self._make_status_error_from_response(err.response) from None
+E               openai.APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 2048 tokens, but can only afford 16. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_3BKpmWz0mdLOd2hliaoiNvEFyzU'}
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1070: APIStatusError
+______________________ TestLanes.test_cross_domain_lane _______________________
+
+self = <test_e2e.TestLanes object at 0x0000027F2B127A70>
+
+    def test_cross_domain_lane(self):
+        """Test cross_domain lane run"""
+        from lanes.cross_domain.lane import run
+        from brain.memory import init_state
+    
+        state = init_state("analyze AI trends", "cross_domain")
+>       result = run(state)
+
+tests\test_e2e.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+lanes\cross_domain\lane.py:48: in run
+    synthesis = chat(system=_SYSTEM, user=user_msg, lane='cross_domain')
+tools\llm\router.py:114: in chat
+    result = generate_text(user, lane=lane, system=system, max_tokens=max_tokens)
+tools\llm\router.py:96: in generate_text
+    return or_client.chat(system=system, user=prompt, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:150: in chat
+    return self.complete(messages, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:101: in complete
+    resp = self._client.chat.completions.create(**kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_utils\_utils.py:286: in wrapper
+    return func(*args, **kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\resources\chat\completions\completions.py:1204: in create
+    return self._post(
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1297: in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <openai.OpenAI object at 0x0000027F2AE6EDB0>
+cast_to = <class 'openai.types.chat.chat_completion.ChatCompletion'>
+options = FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeo...model': 'google/gemini-2.5-pro', 'max_tokens': 2048, 'seed': 42, 'stream': False, 'temperature': 0.0}, extra_json=None)
+
+    def request(
+        self,
+        cast_to: Type[ResponseT],
+        options: FinalRequestOptions,
+        *,
+        stream: bool = False,
+        stream_cls: type[_StreamT] | None = None,
+    ) -> ResponseT | _StreamT:
+        cast_to = self._maybe_override_cast_to(cast_to, options)
+    
+        # create a copy of the options we were given so that if the
+        # options are mutated later & we then retry, the retries are
+        # given the original options
+        input_options = model_copy(options)
+        if input_options.idempotency_key is None and input_options.method.lower() != "get":
+            # ensure the idempotency key is reused between requests
+            input_options.idempotency_key = self._idempotency_key()
+    
+        response: httpx.Response | None = None
+        max_retries = input_options.get_max_retries(self.max_retries)
+    
+        retries_taken = 0
+        for retries_taken in range(max_retries + 1):
+            options = model_copy(input_options)
+            options = self._prepare_options(options)
+    
+            remaining_retries = max_retries - retries_taken
+            request = self._build_request(options, retries_taken=retries_taken)
+            self._prepare_request(request)
+    
+            kwargs: HttpxSendArgs = {}
+            if self.custom_auth is not None:
+                kwargs["auth"] = self.custom_auth
+    
+            if options.follow_redirects is not None:
+                kwargs["follow_redirects"] = options.follow_redirects
+    
+            log.debug("Sending HTTP Request: %s %s", request.method, request.url)
+    
+            response = None
+            try:
+                response = self._client.send(
+                    request,
+                    stream=stream or self._should_stream_response_body(request=request),
+                    **kwargs,
+                )
+            except httpx.TimeoutException as err:
+                log.debug("Encountered httpx.TimeoutException", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising timeout error")
+                raise APITimeoutError(request=request) from err
+            except Exception as err:
+                log.debug("Encountered Exception", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising connection error")
+                raise APIConnectionError(request=request) from err
+    
+            log.debug(
+                'HTTP Response: %s %s "%i %s" %s',
+                request.method,
+                request.url,
+                response.status_code,
+                response.reason_phrase,
+                response.headers,
+            )
+            log.debug("request_id: %s", response.headers.get("x-request-id"))
+    
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as err:  # thrown on 4xx and 5xx status code
+                log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
+    
+                if remaining_retries > 0 and self._should_retry(err.response):
+                    err.response.close()
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=response,
+                    )
+                    continue
+    
+                # If the response is streamed then we need to explicitly read the response
+                # to completion before attempting to access the response text.
+                if not err.response.is_closed:
+                    err.response.read()
+    
+                log.debug("Re-raising status error")
+>               raise self._make_status_error_from_response(err.response) from None
+E               openai.APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 2048 tokens, but can only afford 120. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_3BKpmWz0mdLOd2hliaoiNvEFyzU'}
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1070: APIStatusError
+_____________________ TestAPIServer.test_health_endpoint ______________________
+
+self = <test_e2e.TestAPIServer object at 0x0000027F2B127E30>
+
+    def test_health_endpoint(self):
+        """Test /health endpoint"""
+        from fastapi.testclient import TestClient
+        from api.server import app
+    
+>       client = TestClient(app)
+
+tests\test_e2e.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.testclient.TestClient object at 0x0000027F07DC6E40>
+app = <fastapi.applications.FastAPI object at 0x0000027F07D97950>
+base_url = 'http://testserver', raise_server_exceptions = True, root_path = ''
+backend = 'asyncio', backend_options = None, cookies = None
+headers = {'user-agent': 'testclient'}, follow_redirects = True
+
+    def __init__(
+        self,
+        app: ASGIApp,
+        base_url: str = "http://testserver",
+        raise_server_exceptions: bool = True,
+        root_path: str = "",
+        backend: typing.Literal["asyncio", "trio"] = "asyncio",
+        backend_options: dict[str, typing.Any] | None = None,
+        cookies: httpx._types.CookieTypes | None = None,
+        headers: dict[str, str] | None = None,
+        follow_redirects: bool = True,
+    ) -> None:
+        self.async_backend = _AsyncBackend(
+            backend=backend, backend_options=backend_options or {}
+        )
+        if _is_asgi3(app):
+            asgi_app = app
+        else:
+            app = typing.cast(ASGI2App, app)  # type: ignore[assignment]
+            asgi_app = _WrapASGI2(app)  # type: ignore[arg-type]
+        self.app = asgi_app
+        self.app_state: dict[str, typing.Any] = {}
+        transport = _TestClientTransport(
+            self.app,
+            portal_factory=self._portal_factory,
+            raise_server_exceptions=raise_server_exceptions,
+            root_path=root_path,
+            app_state=self.app_state,
+        )
+        if headers is None:
+            headers = {}
+        headers.setdefault("user-agent", "testclient")
+>       super().__init__(
+            app=self.app,
+            base_url=base_url,
+            headers=headers,
+            transport=transport,
+            follow_redirects=follow_redirects,
+            cookies=cookies,
+        )
+E       TypeError: Client.__init__() got an unexpected keyword argument 'app'
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\starlette\testclient.py:429: TypeError
+---------------------------- Captured stdout call -----------------------------
+DEBUG: Scheduler initialized
+DEBUG: Loading tasks from .scheduler_tasks.json
+DEBUG: Loaded 34 tasks from JSON
+DEBUG: Scheduling job for midnight-deep-work
+DEBUG: Scheduling job for learning-consolidation
+DEBUG: Scheduling job for morning-kickstart
+DEBUG: Scheduling job for agent-health-check
+DEBUG: Scheduling job for content-publish-morning
+DEBUG: Scheduling job for marketing-autopilot
+DEBUG: Scheduling job for content-publish-midday
+DEBUG: Scheduling job for content-publish-afternoon
+DEBUG: Scheduling job for ncsound-branding-wed
+DEBUG: Scheduling job for ncsound-branding-sat
+DEBUG: Scheduling job for weekly-report
+DEBUG: Scheduling job for repo-health
+DEBUG: Scheduling job for swarm-inventory-refresh
+DEBUG: Scheduling job for swarm-repo-audit
+DEBUG: Scheduling job for nightly-financial-sweep
+DEBUG: Scheduling job for news-briefing
+DEBUG: Scheduling job for market-pulse
+DEBUG: Scheduling job for morning-briefing
+DEBUG: Scheduling job for knowledge-scan
+DEBUG: Scheduling job for revenue-check
+DEBUG: Scheduling job for tech-scan
+DEBUG: Scheduling job for content-publish
+DEBUG: Scheduling job for ncsound-branding-post
+DEBUG: Scheduling job for weather-check
+DEBUG: Scheduling job for auto-social-post
+DEBUG: Scheduling job for marketing-content-calendar
+DEBUG: Scheduling job for promotion-cross-promote
+DEBUG: Scheduling job for networking-linkedin-presence
+DEBUG: Scheduling job for saas-revenue-optimize
+DEBUG: Scheduling job for system-evolve-bandit
+DEBUG: Scheduling job for autonomous-business-cycle
+DEBUG: Scheduling job for test
+DEBUG: Scheduling job for TestCron
+DEBUG: Scheduling job for NewCronTask
+---------------------------- Captured stderr call -----------------------------
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'cli_anything' with keywords: ['cli-anything', 'cli anything', 'generate cli', 'build a cli', 'wrap cli', 'refine cli']
+2026-05-24 03:08:57.469 | INFO     | skills.cli_anything:register_cli_anything_skill:93 - CLI-Anything skill wrapped and registered.
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'content_creation' with keywords: ['content creation', 'generate podcast', 'create video', 'write blog', 'hood alchemy', 'content engine']
+2026-05-24 03:08:57.469 | INFO     | skills.content_creation:register_content_creation_skill:110 - Content Creation skill wrapped and registered.
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'knowledge_synthesis' with keywords: ['knowledge synthesis', 'synthesize books', 'research topic', 'book synthesis', 'synthesize', 'book-synthesis-engine']
+2026-05-24 03:08:57.469 | INFO     | skills.knowledge_synthesis:register_knowledge_synthesis_skill:106 - Knowledge Synthesis skill wrapped and registered.
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'support_ticket' with keywords: ['ticket', 'issue', 'help', 'broken']
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'process_email' with keywords: ['email', 'message', 'inbox']
+2026-05-24 03:08:57.469 | INFO     | orchestration.intent_router:register_intent:19 - Registered intent 'pr_review' with keywords: ['review', 'pull request', 'pr', 'code']
+______________________ TestAPIServer.test_task_endpoint _______________________
+
+self = <test_e2e.TestAPIServer object at 0x0000027F2B114530>
+
+    def test_task_endpoint(self):
+        """Test /task endpoint"""
+        from fastapi.testclient import TestClient
+        from api.server import app
+    
+>       client = TestClient(app)
+
+tests\test_e2e.py:210: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.testclient.TestClient object at 0x0000027F09071970>
+app = <fastapi.applications.FastAPI object at 0x0000027F07D97950>
+base_url = 'http://testserver', raise_server_exceptions = True, root_path = ''
+backend = 'asyncio', backend_options = None, cookies = None
+headers = {'user-agent': 'testclient'}, follow_redirects = True
+
+    def __init__(
+        self,
+        app: ASGIApp,
+        base_url: str = "http://testserver",
+        raise_server_exceptions: bool = True,
+        root_path: str = "",
+        backend: typing.Literal["asyncio", "trio"] = "asyncio",
+        backend_options: dict[str, typing.Any] | None = None,
+        cookies: httpx._types.CookieTypes | None = None,
+        headers: dict[str, str] | None = None,
+        follow_redirects: bool = True,
+    ) -> None:
+        self.async_backend = _AsyncBackend(
+            backend=backend, backend_options=backend_options or {}
+        )
+        if _is_asgi3(app):
+            asgi_app = app
+        else:
+            app = typing.cast(ASGI2App, app)  # type: ignore[assignment]
+            asgi_app = _WrapASGI2(app)  # type: ignore[arg-type]
+        self.app = asgi_app
+        self.app_state: dict[str, typing.Any] = {}
+        transport = _TestClientTransport(
+            self.app,
+            portal_factory=self._portal_factory,
+            raise_server_exceptions=raise_server_exceptions,
+            root_path=root_path,
+            app_state=self.app_state,
+        )
+        if headers is None:
+            headers = {}
+        headers.setdefault("user-agent", "testclient")
+>       super().__init__(
+            app=self.app,
+            base_url=base_url,
+            headers=headers,
+            transport=transport,
+            follow_redirects=follow_redirects,
+            cookies=cookies,
+        )
+E       TypeError: Client.__init__() got an unexpected keyword argument 'app'
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\starlette\testclient.py:429: TypeError
+_____________________ TestAPIServer.test_skills_endpoint ______________________
+
+self = <test_e2e.TestAPIServer object at 0x0000027F2B117710>
+
+    def test_skills_endpoint(self):
+        """Test /skills endpoint"""
+        from fastapi.testclient import TestClient
+        from api.server import app
+    
+>       client = TestClient(app)
+
+tests\test_e2e.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <starlette.testclient.TestClient object at 0x0000027F086D2690>
+app = <fastapi.applications.FastAPI object at 0x0000027F07D97950>
+base_url = 'http://testserver', raise_server_exceptions = True, root_path = ''
+backend = 'asyncio', backend_options = None, cookies = None
+headers = {'user-agent': 'testclient'}, follow_redirects = True
+
+    def __init__(
+        self,
+        app: ASGIApp,
+        base_url: str = "http://testserver",
+        raise_server_exceptions: bool = True,
+        root_path: str = "",
+        backend: typing.Literal["asyncio", "trio"] = "asyncio",
+        backend_options: dict[str, typing.Any] | None = None,
+        cookies: httpx._types.CookieTypes | None = None,
+        headers: dict[str, str] | None = None,
+        follow_redirects: bool = True,
+    ) -> None:
+        self.async_backend = _AsyncBackend(
+            backend=backend, backend_options=backend_options or {}
+        )
+        if _is_asgi3(app):
+            asgi_app = app
+        else:
+            app = typing.cast(ASGI2App, app)  # type: ignore[assignment]
+            asgi_app = _WrapASGI2(app)  # type: ignore[arg-type]
+        self.app = asgi_app
+        self.app_state: dict[str, typing.Any] = {}
+        transport = _TestClientTransport(
+            self.app,
+            portal_factory=self._portal_factory,
+            raise_server_exceptions=raise_server_exceptions,
+            root_path=root_path,
+            app_state=self.app_state,
+        )
+        if headers is None:
+            headers = {}
+        headers.setdefault("user-agent", "testclient")
+>       super().__init__(
+            app=self.app,
+            base_url=base_url,
+            headers=headers,
+            transport=transport,
+            follow_redirects=follow_redirects,
+            cookies=cookies,
+        )
+E       TypeError: Client.__init__() got an unexpected keyword argument 'app'
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\starlette\testclient.py:429: TypeError
+___________ TestGemmaIntegrationRouter.test_generate_text_via_gemma ___________
+
+self = <test_gemma_integration.TestGemmaIntegrationRouter object at 0x0000027F2B11BBC0>
+
+    def test_generate_text_via_gemma(self):
+        """generate_text() should route to local Gemma and return a response."""
+        from tools.llm.router import generate_text
+>       result = generate_text("What is 2+2? Answer in one number.")
+
+tests\test_gemma_integration.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tools\llm\router.py:97: in generate_text
+    return or_client.generate_text(prompt, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:143: in generate_text
+    return self.complete(messages, lane=lane, max_tokens=max_tokens)
+tools\llm\openrouter_client.py:101: in complete
+    resp = self._client.chat.completions.create(**kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_utils\_utils.py:286: in wrapper
+    return func(*args, **kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\resources\chat\completions\completions.py:1204: in create
+    return self._post(
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1297: in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <openai.OpenAI object at 0x0000027F2AE6EDB0>
+cast_to = <class 'openai.types.chat.chat_completion.ChatCompletion'>
+options = FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeo...r.'}], 'model': 'openai/gpt-4o', 'max_tokens': 2048, 'seed': 42, 'stream': False, 'temperature': 0.0}, extra_json=None)
+
+    def request(
+        self,
+        cast_to: Type[ResponseT],
+        options: FinalRequestOptions,
+        *,
+        stream: bool = False,
+        stream_cls: type[_StreamT] | None = None,
+    ) -> ResponseT | _StreamT:
+        cast_to = self._maybe_override_cast_to(cast_to, options)
+    
+        # create a copy of the options we were given so that if the
+        # options are mutated later & we then retry, the retries are
+        # given the original options
+        input_options = model_copy(options)
+        if input_options.idempotency_key is None and input_options.method.lower() != "get":
+            # ensure the idempotency key is reused between requests
+            input_options.idempotency_key = self._idempotency_key()
+    
+        response: httpx.Response | None = None
+        max_retries = input_options.get_max_retries(self.max_retries)
+    
+        retries_taken = 0
+        for retries_taken in range(max_retries + 1):
+            options = model_copy(input_options)
+            options = self._prepare_options(options)
+    
+            remaining_retries = max_retries - retries_taken
+            request = self._build_request(options, retries_taken=retries_taken)
+            self._prepare_request(request)
+    
+            kwargs: HttpxSendArgs = {}
+            if self.custom_auth is not None:
+                kwargs["auth"] = self.custom_auth
+    
+            if options.follow_redirects is not None:
+                kwargs["follow_redirects"] = options.follow_redirects
+    
+            log.debug("Sending HTTP Request: %s %s", request.method, request.url)
+    
+            response = None
+            try:
+                response = self._client.send(
+                    request,
+                    stream=stream or self._should_stream_response_body(request=request),
+                    **kwargs,
+                )
+            except httpx.TimeoutException as err:
+                log.debug("Encountered httpx.TimeoutException", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising timeout error")
+                raise APITimeoutError(request=request) from err
+            except Exception as err:
+                log.debug("Encountered Exception", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising connection error")
+                raise APIConnectionError(request=request) from err
+    
+            log.debug(
+                'HTTP Response: %s %s "%i %s" %s',
+                request.method,
+                request.url,
+                response.status_code,
+                response.reason_phrase,
+                response.headers,
+            )
+            log.debug("request_id: %s", response.headers.get("x-request-id"))
+    
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as err:  # thrown on 4xx and 5xx status code
+                log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
+    
+                if remaining_retries > 0 and self._should_retry(err.response):
+                    err.response.close()
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=response,
+                    )
+                    continue
+    
+                # If the response is streamed then we need to explicitly read the response
+                # to completion before attempting to access the response text.
+                if not err.response.is_closed:
+                    err.response.read()
+    
+                log.debug("Re-raising status error")
+>               raise self._make_status_error_from_response(err.response) from None
+E               openai.APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 2048 tokens, but can only afford 120. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_3BKpmWz0mdLOd2hliaoiNvEFyzU'}
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1070: APIStatusError
+___________ TestGemmaIntegrationRouter.test_generate_code_via_gemma ___________
+
+self = <test_gemma_integration.TestGemmaIntegrationRouter object at 0x0000027F2B11B6E0>
+
+    def test_generate_code_via_gemma(self):
+        """generate_code() should route to local Gemma and return code."""
+        from tools.llm.router import generate_code
+>       result = generate_code("Write a Python function that returns 'hello world'")
+
+tests\test_gemma_integration.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tools\llm\router.py:54: in generate_code
+    return oc.generate_code(task, context_snippets=context_snippets)
+tools\llm\opencode_client.py:54: in generate_code
+    return self._or.complete(
+tools\llm\openrouter_client.py:101: in complete
+    resp = self._client.chat.completions.create(**kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_utils\_utils.py:286: in wrapper
+    return func(*args, **kwargs)
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\resources\chat\completions\completions.py:1204: in create
+    return self._post(
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1297: in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <openai.OpenAI object at 0x0000027F2AE6EDB0>
+cast_to = <class 'openai.types.chat.chat_completion.ChatCompletion'>
+options = FinalRequestOptions(method='post', url='/chat/completions', params={}, headers=NOT_GIVEN, max_retries=NOT_GIVEN, timeo...ation:"}], 'model': 'openai/o3', 'max_tokens': 2048, 'seed': 42, 'stream': False, 'temperature': 0.0}, extra_json=None)
+
+    def request(
+        self,
+        cast_to: Type[ResponseT],
+        options: FinalRequestOptions,
+        *,
+        stream: bool = False,
+        stream_cls: type[_StreamT] | None = None,
+    ) -> ResponseT | _StreamT:
+        cast_to = self._maybe_override_cast_to(cast_to, options)
+    
+        # create a copy of the options we were given so that if the
+        # options are mutated later & we then retry, the retries are
+        # given the original options
+        input_options = model_copy(options)
+        if input_options.idempotency_key is None and input_options.method.lower() != "get":
+            # ensure the idempotency key is reused between requests
+            input_options.idempotency_key = self._idempotency_key()
+    
+        response: httpx.Response | None = None
+        max_retries = input_options.get_max_retries(self.max_retries)
+    
+        retries_taken = 0
+        for retries_taken in range(max_retries + 1):
+            options = model_copy(input_options)
+            options = self._prepare_options(options)
+    
+            remaining_retries = max_retries - retries_taken
+            request = self._build_request(options, retries_taken=retries_taken)
+            self._prepare_request(request)
+    
+            kwargs: HttpxSendArgs = {}
+            if self.custom_auth is not None:
+                kwargs["auth"] = self.custom_auth
+    
+            if options.follow_redirects is not None:
+                kwargs["follow_redirects"] = options.follow_redirects
+    
+            log.debug("Sending HTTP Request: %s %s", request.method, request.url)
+    
+            response = None
+            try:
+                response = self._client.send(
+                    request,
+                    stream=stream or self._should_stream_response_body(request=request),
+                    **kwargs,
+                )
+            except httpx.TimeoutException as err:
+                log.debug("Encountered httpx.TimeoutException", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising timeout error")
+                raise APITimeoutError(request=request) from err
+            except Exception as err:
+                log.debug("Encountered Exception", exc_info=True)
+    
+                if remaining_retries > 0:
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=None,
+                    )
+                    continue
+    
+                log.debug("Raising connection error")
+                raise APIConnectionError(request=request) from err
+    
+            log.debug(
+                'HTTP Response: %s %s "%i %s" %s',
+                request.method,
+                request.url,
+                response.status_code,
+                response.reason_phrase,
+                response.headers,
+            )
+            log.debug("request_id: %s", response.headers.get("x-request-id"))
+    
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as err:  # thrown on 4xx and 5xx status code
+                log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
+    
+                if remaining_retries > 0 and self._should_retry(err.response):
+                    err.response.close()
+                    self._sleep_for_retry(
+                        retries_taken=retries_taken,
+                        max_retries=max_retries,
+                        options=input_options,
+                        response=response,
+                    )
+                    continue
+    
+                # If the response is streamed then we need to explicitly read the response
+                # to completion before attempting to access the response text.
+                if not err.response.is_closed:
+                    err.response.read()
+    
+                log.debug("Re-raising status error")
+>               raise self._make_status_error_from_response(err.response) from None
+E               openai.APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 2048 tokens, but can only afford 150. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_3BKpmWz0mdLOd2hliaoiNvEFyzU'}
+
+..\..\..\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py:1070: APIStatusError
+_________ TestGemmaIntegrationBackend.test_llm_fallback_prefers_gemma _________
+
+self = <test_gemma_integration.TestGemmaIntegrationBackend object at 0x0000027F2B10A7B0>
+
+    def test_llm_fallback_prefers_gemma(self):
+        """backends should try local Gemma before OpenRouter."""
+        from orchestration.backends import LocalSkillBackend
+        backend = LocalSkillBackend()
+        task = {"raw": "build a hello world Python script"}
+        result = backend._llm_fallback("hello-world", "# Hello World\n\nGenerate a hello world script.", task, {})
+>       assert result.get("success") is True
+E       assert False is True
+E        +  where False = <built-in method get of dict object at 0x0000027F0937CA00>('success')
+E        +    where <built-in method get of dict object at 0x0000027F0937CA00> = {'artifacts': [], 'logs': ["ERROR: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbLyV9yN6jWFLThdsqHHT'}"], 'output': "LLM call failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CbLyV9yN6jWFLThdsqHHT'}", 'success': False}.get
+
+tests\test_gemma_integration.py:92: AssertionError
+__________________ TestGemmaEndToEnd.test_gemma_health_check __________________
+
+self = <test_gemma_integration.TestGemmaEndToEnd object at 0x0000027F2B1093D0>
+
+    def test_gemma_health_check(self):
+        """Verify Gemma is running and responsive."""
+        gemma = get_gemma()
+>       assert gemma.is_available(), "Gemma/llama-server must be running at localhost:8088"
+E       AssertionError: Gemma/llama-server must be running at localhost:8088
+E       assert False
+E        +  where False = is_available()
+E        +    where is_available = <tools.local_gemma.LocalGemmaClient object at 0x0000027F2AE6E7E0>.is_available
+
+tests\test_gemma_integration.py:114: AssertionError
+________________ TestGemmaEndToEnd.test_gemma_text_generation _________________
+
+self = <test_gemma_integration.TestGemmaEndToEnd object at 0x0000027F2B109670>
+
+    def test_gemma_text_generation(self):
+        """Gemma should generate coherent text completions."""
+        gemma = get_gemma()
+        result = gemma.complete("Python is a", n_predict=32, temperature=0.1)
+>       assert result and len(result) > 0
+E       AssertionError: assert ('')
+
+tests\test_gemma_integration.py:120: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+__________________ TestGemmaEndToEnd.test_gemma_json_parsing __________________
+
+self = <test_gemma_integration.TestGemmaEndToEnd object at 0x0000027F2B1098E0>
+
+    def test_gemma_json_parsing(self):
+        """Gemma should produce parseable JSON when prompted."""
+        gemma = get_gemma()
+        prompt = (
+            'Parse this into JSON: "Issue: password reset broken, Priority: high, ID: USR-123"\n'
+            'Return ONLY valid JSON like: {"id":"...","issue":"...","priority":...}'
+        )
+        result = gemma.complete(prompt, n_predict=128, temperature=0.05)
+>       assert result and len(result) > 0
+E       AssertionError: assert ('')
+
+tests\test_gemma_integration.py:131: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+________________ TestGemmaEndToEnd.test_gemma_code_generation _________________
+
+self = <test_gemma_integration.TestGemmaEndToEnd object at 0x0000027F2B109C40>
+
+    def test_gemma_code_generation(self):
+        """Gemma should generate simple code snippets."""
+        gemma = get_gemma()
+        prompt = "Write a one-line Python function hello() that returns 'hi':\n```python\n"
+        result = gemma.complete(prompt, n_predict=64, temperature=0.1)
+>       assert result and len(result) > 0
+E       AssertionError: assert ('')
+
+tests\test_gemma_integration.py:138: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  tools.local_gemma:local_gemma.py:37 Ollama unreachable at http://localhost:11434
+__________________ TestPreAudit.test_reasonable_length_pass ___________________
+
+self = <test_math_engine.TestPreAudit object at 0x0000027F2B0BF050>
+
+    def test_reasonable_length_pass(self):
+        pa = PreAudit()
+        ok, issues = pa.run({"raw": "short input"})
+>       assert ok is True
+E       assert False is True
+
+tests\test_math_engine.py:239: AssertionError
+____________________ Test_check_injection.test_shell_chars ____________________
+
+self = <test_math_engine.Test_check_injection object at 0x0000027F2B0BC590>
+
+    def test_shell_chars(self):
+>       assert _check_injection("echo $PATH") is True
+E       AssertionError: assert False is True
+E        +  where False = _check_injection('echo $PATH')
+
+tests\test_math_engine.py:253: AssertionError
+___________ TestReasoningEngine.test_decide_blocks_on_audit_failure ___________
+
+self = <test_math_engine.TestReasoningEngine object at 0x0000027F2B0BCE60>
+
+    def test_decide_blocks_on_audit_failure(self):
+        re = ReasoningEngine()
+        result = re.decide(
+            task={"raw": "echo $PATH", "task": "test"},  # injection
+            skill_candidates=["skill1"],
+        )
+    
+>       assert result.audit_ok is False
+E       AssertionError: assert True is False
+E        +  where True = DecisionResult(skill='skill1', confidence=0.4, audit_ok=True).audit_ok
+
+tests\test_math_engine.py:294: AssertionError
+---------------------------- Captured stderr call -----------------------------
+\rLoading weights:   0%|          | 0/103 [00:00<?, ?it/s]\rLoading weights:   1%|          | 1/103 [00:00<?, ?it/s, Materializing param=embeddings.LayerNorm.bias]\rLoading weights:   1%|          | 1/103 [00:00<?, ?it/s, Materializing param=embeddings.LayerNorm.bias]\rLoading weights:   2%|\u258f         | 2/103 [00:00<?, ?it/s, Materializing param=embeddings.LayerNorm.weight]\rLoading weights:   2%|\u258f         | 2/103 [00:00<?, ?it/s, Materializing param=embeddings.LayerNorm.weight]\rLoading weights:   3%|\u258e         | 3/103 [00:00<00:00, 329.84it/s, Materializing param=embeddings.position_embeddings.weight]\rLoading weights:   3%|\u258e         | 3/103 [00:00<00:00, 329.84it/s, Materializing param=embeddings.position_embeddings.weight]\rLoading weights:   4%|\u258d         | 4/103 [00:00<00:00, 439.79it/s, Materializing param=embeddings.token_type_embeddings.weight]\rLoading weights:   4%|\u258d         | 4/103 [00:00<00:00, 391.37it/s, Materializing param=embeddings.token_type_embeddings.weight]\rLoading weights:   5%|\u258d         | 5/103 [00:00<00:00, 489.21it/s, Materializing param=embeddings.word_embeddings.weight]      \rLoading weights:   5%|\u258d         | 5/103 [00:00<00:00, 489.21it/s, Materializing param=embeddings.word_embeddings.weight]\rLoading weights:   6%|\u258c         | 6/103 [00:00<00:00, 587.05it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]\rLoading weights:   6%|\u258c         | 6/103 [00:00<00:00, 587.05it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]\rLoading weights:   7%|\u258b         | 7/103 [00:00<00:00, 684.90it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]\rLoading weights:   7%|\u258b         | 7/103 [00:00<00:00, 684.90it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]\rLoading weights:   8%|\u258a         | 8/103 [00:00<00:00, 782.74it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]      \rLoading weights:   8%|\u258a         | 8/103 [00:00<00:00, 782.74it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]\rLoading weights:   9%|\u258a         | 9/103 [00:00<00:00, 880.58it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]\rLoading weights:   9%|\u258a         | 9/103 [00:00<00:00, 880.58it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]\rLoading weights:  10%|\u2589         | 10/103 [00:00<00:00, 978.42it/s, Materializing param=encoder.layer.0.attention.self.key.bias]     \rLoading weights:  10%|\u2589         | 10/103 [00:00<00:00, 978.42it/s, Materializing param=encoder.layer.0.attention.self.key.bias]\rLoading weights:  11%|\u2588         | 11/103 [00:00<00:00, 1076.27it/s, Materializing param=encoder.layer.0.attention.self.key.weight]\rLoading weights:  11%|\u2588         | 11/103 [00:00<00:00, 1076.27it/s, Materializing param=encoder.layer.0.attention.self.key.weight]\rLoading weights:  12%|\u2588\u258f        | 12/103 [00:00<00:00, 1174.11it/s, Materializing param=encoder.layer.0.attention.self.query.bias]\rLoading weights:  12%|\u2588\u258f        | 12/103 [00:00<00:00, 1174.11it/s, Materializing param=encoder.layer.0.attention.self.query.bias]\rLoading weights:  13%|\u2588\u258e        | 13/103 [00:00<00:00, 1271.95it/s, Materializing param=encoder.layer.0.attention.self.query.weight]\rLoading weights:  13%|\u2588\u258e        | 13/103 [00:00<00:00, 1271.95it/s, Materializing param=encoder.layer.0.attention.self.query.weight]\rLoading weights:  14%|\u2588\u258e        | 14/103 [00:00<00:00, 1369.79it/s, Materializing param=encoder.layer.0.attention.self.value.bias]  \rLoading weights:  14%|\u2588\u258e        | 14/103 [00:00<00:00, 1369.79it/s, Materializing param=encoder.layer.0.attention.self.value.bias]\rLoading weights:  15%|\u2588\u258d        | 15/103 [00:00<00:00, 1467.63it/s, Materializing param=encoder.layer.0.attention.self.value.weight]\rLoading weights:  15%|\u2588\u258d        | 15/103 [00:00<00:00, 1467.63it/s, Materializing param=encoder.layer.0.attention.self.value.weight]\rLoading weights:  16%|\u2588\u258c        | 16/103 [00:00<00:00, 1565.48it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]    \rLoading weights:  16%|\u2588\u258c        | 16/103 [00:00<00:00, 1565.48it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]\rLoading weights:  17%|\u2588\u258b        | 17/103 [00:00<00:00, 1663.32it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]\rLoading weights:  17%|\u2588\u258b        | 17/103 [00:00<00:00, 1663.32it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]\rLoading weights:  17%|\u2588\u258b        | 18/103 [00:00<00:00, 1761.16it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]    \rLoading weights:  17%|\u2588\u258b        | 18/103 [00:00<00:00, 1761.16it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]\rLoading weights:  18%|\u2588\u258a        | 19/103 [00:00<00:00, 1859.00it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]\rLoading weights:  18%|\u2588\u258a        | 19/103 [00:00<00:00, 1859.00it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]\rLoading weights:  19%|\u2588\u2589        | 20/103 [00:00<00:00, 1956.85it/s, Materializing param=encoder.layer.0.output.dense.bias]      \rLoading weights:  19%|\u2588\u2589        | 20/103 [00:00<00:00, 1956.85it/s, Materializing param=encoder.layer.0.output.dense.bias]\rLoading weights:  20%|\u2588\u2588        | 21/103 [00:00<00:00, 2054.69it/s, Materializing param=encoder.layer.0.output.dense.weight]\rLoading weights:  20%|\u2588\u2588        | 21/103 [00:00<00:00, 2054.69it/s, Materializing param=encoder.layer.0.output.dense.weight]\rLoading weights:  21%|\u2588\u2588\u258f       | 22/103 [00:00<00:00, 2152.53it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]\rLoading weights:  21%|\u2588\u2588\u258f       | 22/103 [00:00<00:00, 2152.53it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]\rLoading weights:  22%|\u2588\u2588\u258f       | 23/103 [00:00<00:00, 2250.37it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]\rLoading weights:  22%|\u2588\u2588\u258f       | 23/103 [00:00<00:00, 2250.37it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]\rLoading weights:  23%|\u2588\u2588\u258e       | 24/103 [00:00<00:00, 2348.22it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]      \rLoading weights:  23%|\u2588\u2588\u258e       | 24/103 [00:00<00:00, 2348.22it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]\rLoading weights:  24%|\u2588\u2588\u258d       | 25/103 [00:00<00:00, 2446.06it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]\rLoading weights:  24%|\u2588\u2588\u258d       | 25/103 [00:00<00:00, 2446.06it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]\rLoading weights:  25%|\u2588\u2588\u258c       | 26/103 [00:00<00:00, 2543.90it/s, Materializing param=encoder.layer.1.attention.self.key.bias]      \rLoading weights:  25%|\u2588\u2588\u258c       | 26/103 [00:00<00:00, 2543.90it/s, Materializing param=encoder.layer.1.attention.self.key.bias]\rLoading weights:  26%|\u2588\u2588\u258c       | 27/103 [00:00<00:00, 2641.74it/s, Materializing param=encoder.layer.1.attention.self.key.weight]\rLoading weights:  26%|\u2588\u2588\u258c       | 27/103 [00:00<00:00, 2641.74it/s, Materializing param=encoder.layer.1.attention.self.key.weight]\rLoading weights:  27%|\u2588\u2588\u258b       | 28/103 [00:00<00:00, 2739.58it/s, Materializing param=encoder.layer.1.attention.self.query.bias]\rLoading weights:  27%|\u2588\u2588\u258b       | 28/103 [00:00<00:00, 2739.58it/s, Materializing param=encoder.layer.1.attention.self.query.bias]\rLoading weights:  28%|\u2588\u2588\u258a       | 29/103 [00:00<00:00, 2837.43it/s, Materializing param=encoder.layer.1.attention.self.query.weight]\rLoading weights:  28%|\u2588\u2588\u258a       | 29/103 [00:00<00:00, 2837.43it/s, Materializing param=encoder.layer.1.attention.self.query.weight]\rLoading weights:  29%|\u2588\u2588\u2589       | 30/103 [00:00<00:00, 2935.27it/s, Materializing param=encoder.layer.1.attention.self.value.bias]  \rLoading weights:  29%|\u2588\u2588\u2589       | 30/103 [00:00<00:00, 2935.27it/s, Materializing param=encoder.layer.1.attention.self.value.bias]\rLoading weights:  30%|\u2588\u2588\u2588       | 31/103 [00:00<00:00, 3033.11it/s, Materializing param=encoder.layer.1.attention.self.value.weight]\rLoading weights:  30%|\u2588\u2588\u2588       | 31/103 [00:00<00:00, 3033.11it/s, Materializing param=encoder.layer.1.attention.self.value.weight]\rLoading weights:  31%|\u2588\u2588\u2588       | 32/103 [00:00<00:00, 3130.95it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]    \rLoading weights:  31%|\u2588\u2588\u2588       | 32/103 [00:00<00:00, 3130.95it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]\rLoading weights:  32%|\u2588\u2588\u2588\u258f      | 33/103 [00:00<00:00, 3228.80it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]\rLoading weights:  32%|\u2588\u2588\u2588\u258f      | 33/103 [00:00<00:00, 3228.80it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]\rLoading weights:  33%|\u2588\u2588\u2588\u258e      | 34/103 [00:00<00:00, 3326.64it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]    \rLoading weights:  33%|\u2588\u2588\u2588\u258e      | 34/103 [00:00<00:00, 3326.64it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]\rLoading weights:  34%|\u2588\u2588\u2588\u258d      | 35/103 [00:00<00:00, 3424.48it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]\rLoading weights:  34%|\u2588\u2588\u2588\u258d      | 35/103 [00:00<00:00, 3424.48it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]\rLoading weights:  35%|\u2588\u2588\u2588\u258d      | 36/103 [00:00<00:00, 3522.32it/s, Materializing param=encoder.layer.1.output.dense.bias]      \rLoading weights:  35%|\u2588\u2588\u2588\u258d      | 36/103 [00:00<00:00, 3522.32it/s, Materializing param=encoder.layer.1.output.dense.bias]\rLoading weights:  36%|\u2588\u2588\u2588\u258c      | 37/103 [00:00<00:00, 3620.17it/s, Materializing param=encoder.layer.1.output.dense.weight]\rLoading weights:  36%|\u2588\u2588\u2588\u258c      | 37/103 [00:00<00:00, 3620.17it/s, Materializing param=encoder.layer.1.output.dense.weight]\rLoading weights:  37%|\u2588\u2588\u2588\u258b      | 38/103 [00:00<00:00, 3718.01it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]\rLoading weights:  37%|\u2588\u2588\u2588\u258b      | 38/103 [00:00<00:00, 3718.01it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]\rLoading weights:  38%|\u2588\u2588\u2588\u258a      | 39/103 [00:00<00:00, 3815.85it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]\rLoading weights:  38%|\u2588\u2588\u2588\u258a      | 39/103 [00:00<00:00, 3815.85it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]\rLoading weights:  39%|\u2588\u2588\u2588\u2589      | 40/103 [00:00<00:00, 3913.69it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]      \rLoading weights:  39%|\u2588\u2588\u2588\u2589      | 40/103 [00:00<00:00, 3913.69it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]\rLoading weights:  40%|\u2588\u2588\u2588\u2589      | 41/103 [00:00<00:00, 4011.53it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]\rLoading weights:  40%|\u2588\u2588\u2588\u2589      | 41/103 [00:00<00:00, 4011.53it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]\rLoading weights:  41%|\u2588\u2588\u2588\u2588      | 42/103 [00:00<00:00, 4109.38it/s, Materializing param=encoder.layer.2.attention.self.key.bias]      \rLoading weights:  41%|\u2588\u2588\u2588\u2588      | 42/103 [00:00<00:00, 4109.38it/s, Materializing param=encoder.layer.2.attention.self.key.bias]\rLoading weights:  42%|\u2588\u2588\u2588\u2588\u258f     | 43/103 [00:00<00:00, 4207.22it/s, Materializing param=encoder.layer.2.attention.self.key.weight]\rLoading weights:  42%|\u2588\u2588\u2588\u2588\u258f     | 43/103 [00:00<00:00, 4207.22it/s, Materializing param=encoder.layer.2.attention.self.key.weight]\rLoading weights:  43%|\u2588\u2588\u2588\u2588\u258e     | 44/103 [00:00<00:00, 4305.06it/s, Materializing param=encoder.layer.2.attention.self.query.bias]\rLoading weights:  43%|\u2588\u2588\u2588\u2588\u258e     | 44/103 [00:00<00:00, 4305.06it/s, Materializing param=encoder.layer.2.attention.self.query.bias]\rLoading weights:  44%|\u2588\u2588\u2588\u2588\u258e     | 45/103 [00:00<00:00, 4402.90it/s, Materializing param=encoder.layer.2.attention.self.query.weight]\rLoading weights:  44%|\u2588\u2588\u2588\u2588\u258e     | 45/103 [00:00<00:00, 4402.90it/s, Materializing param=encoder.layer.2.attention.self.query.weight]\rLoading weights:  45%|\u2588\u2588\u2588\u2588\u258d     | 46/103 [00:00<00:00, 4500.75it/s, Materializing param=encoder.layer.2.attention.self.value.bias]  \rLoading weights:  45%|\u2588\u2588\u2588\u2588\u258d     | 46/103 [00:00<00:00, 4500.75it/s, Materializing param=encoder.layer.2.attention.self.value.bias]\rLoading weights:  46%|\u2588\u2588\u2588\u2588\u258c     | 47/103 [00:00<00:00, 1818.13it/s, Materializing param=encoder.layer.2.attention.self.value.weight]\rLoading weights:  46%|\u2588\u2588\u2588\u2588\u258c     | 47/103 [00:00<00:00, 1818.13it/s, Materializing param=encoder.layer.2.attention.self.value.weight]\rLoading weights:  47%|\u2588\u2588\u2588\u2588\u258b     | 48/103 [00:00<00:00, 1856.81it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]    \rLoading weights:  47%|\u2588\u2588\u2588\u2588\u258b     | 48/103 [00:00<00:00, 1856.81it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]\rLoading weights:  48%|\u2588\u2588\u2588\u2588\u258a     | 49/103 [00:00<00:00, 1895.49it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]\rLoading weights:  48%|\u2588\u2588\u2588\u2588\u258a     | 49/103 [00:00<00:00, 1895.49it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]\rLoading weights:  49%|\u2588\u2588\u2588\u2588\u258a     | 50/103 [00:00<00:00, 1896.98it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]    \rLoading weights:  49%|\u2588\u2588\u2588\u2588\u258a     | 50/103 [00:00<00:00, 1896.98it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]\rLoading weights:  50%|\u2588\u2588\u2588\u2588\u2589     | 51/103 [00:00<00:00, 1921.87it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]\rLoading weights:  50%|\u2588\u2588\u2588\u2588\u2589     | 51/103 [00:00<00:00, 1921.87it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]\rLoading weights:  50%|\u2588\u2588\u2588\u2588\u2588     | 52/103 [00:00<00:00, 1959.55it/s, Materializing param=encoder.layer.2.output.dense.bias]      \rLoading weights:  50%|\u2588\u2588\u2588\u2588\u2588     | 52/103 [00:00<00:00, 1959.55it/s, Materializing param=encoder.layer.2.output.dense.bias]\rLoading weights:  51%|\u2588\u2588\u2588\u2588\u2588\u258f    | 53/103 [00:00<00:00, 1997.23it/s, Materializing param=encoder.layer.2.output.dense.weight]\rLoading weights:  51%|\u2588\u2588\u2588\u2588\u2588\u258f    | 53/103 [00:00<00:00, 1997.23it/s, Materializing param=encoder.layer.2.output.dense.weight]\rLoading weights:  52%|\u2588\u2588\u2588\u2588\u2588\u258f    | 54/103 [00:00<00:00, 2034.92it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]\rLoading weights:  52%|\u2588\u2588\u2588\u2588\u2588\u258f    | 54/103 [00:00<00:00, 2034.92it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]\rLoading weights:  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 55/103 [00:00<00:00, 2072.60it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]\rLoading weights:  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 55/103 [00:00<00:00, 2072.60it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]\rLoading weights:  54%|\u2588\u2588\u2588\u2588\u2588\u258d    | 56/103 [00:00<00:00, 2110.28it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]      \rLoading weights:  54%|\u2588\u2588\u2588\u2588\u2588\u258d    | 56/103 [00:00<00:00, 2110.28it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]\rLoading weights:  55%|\u2588\u2588\u2588\u2588\u2588\u258c    | 57/103 [00:00<00:00, 2147.97it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]\rLoading weights:  55%|\u2588\u2588\u2588\u2588\u2588\u258c    | 57/103 [00:00<00:00, 2147.97it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]\rLoading weights:  56%|\u2588\u2588\u2588\u2588\u2588\u258b    | 58/103 [00:00<00:00, 2185.65it/s, Materializing param=encoder.layer.3.attention.self.key.bias]      \rLoading weights:  56%|\u2588\u2588\u2588\u2588\u2588\u258b    | 58/103 [00:00<00:00, 2185.65it/s, Materializing param=encoder.layer.3.attention.self.key.bias]\rLoading weights:  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 59/103 [00:00<00:00, 2223.34it/s, Materializing param=encoder.layer.3.attention.self.key.weight]\rLoading weights:  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 59/103 [00:00<00:00, 2223.34it/s, Materializing param=encoder.layer.3.attention.self.key.weight]\rLoading weights:  58%|\u2588\u2588\u2588\u2588\u2588\u258a    | 60/103 [00:00<00:00, 2261.02it/s, Materializing param=encoder.layer.3.attention.self.query.bias]\rLoading weights:  58%|\u2588\u2588\u2588\u2588\u2588\u258a    | 60/103 [00:00<00:00, 2261.02it/s, Materializing param=encoder.layer.3.attention.self.query.bias]\rLoading weights:  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 61/103 [00:00<00:00, 2298.70it/s, Materializing param=encoder.layer.3.attention.self.query.weight]\rLoading weights:  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 61/103 [00:00<00:00, 2298.70it/s, Materializing param=encoder.layer.3.attention.self.query.weight]\rLoading weights:  60%|\u2588\u2588\u2588\u2588\u2588\u2588    | 62/103 [00:00<00:00, 2336.39it/s, Materializing param=encoder.layer.3.attention.self.value.bias]  \rLoading weights:  60%|\u2588\u2588\u2588\u2588\u2588\u2588    | 62/103 [00:00<00:00, 2336.39it/s, Materializing param=encoder.layer.3.attention.self.value.bias]\rLoading weights:  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 63/103 [00:00<00:00, 2374.07it/s, Materializing param=encoder.layer.3.attention.self.value.weight]\rLoading weights:  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 63/103 [00:00<00:00, 2374.07it/s, Materializing param=encoder.layer.3.attention.self.value.weight]\rLoading weights:  62%|\u2588\u2588\u2588\u2588\u2588\u2588\u258f   | 64/103 [00:00<00:00, 2411.75it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]    \rLoading weights:  62%|\u2588\u2588\u2588\u2588\u2588\u2588\u258f   | 64/103 [00:00<00:00, 2411.75it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]\rLoading weights:  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 65/103 [00:00<00:00, 2449.44it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]\rLoading weights:  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 65/103 [00:00<00:00, 2449.44it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]\rLoading weights:  64%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 66/103 [00:00<00:00, 2487.12it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]    \rLoading weights:  64%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 66/103 [00:00<00:00, 2487.12it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]\rLoading weights:  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258c   | 67/103 [00:00<00:00, 2524.80it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]\rLoading weights:  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258c   | 67/103 [00:00<00:00, 2524.80it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]\rLoading weights:  66%|\u2588\u2588\u2588\u2588\u2588\u2588\u258c   | 68/103 [00:00<00:00, 2562.49it/s, Materializing param=encoder.layer.3.output.dense.bias]      \rLoading weights:  66%|\u2588\u2588\u2588\u2588\u2588\u2588\u258c   | 68/103 [00:00<00:00, 2562.49it/s, Materializing param=encoder.layer.3.output.dense.bias]\rLoading weights:  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 69/103 [00:00<00:00, 2600.17it/s, Materializing param=encoder.layer.3.output.dense.weight]\rLoading weights:  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 69/103 [00:00<00:00, 2333.74it/s, Materializing param=encoder.layer.3.output.dense.weight]\rLoading weights:  68%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 70/103 [00:00<00:00, 2367.56it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]\rLoading weights:  68%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 70/103 [00:00<00:00, 2367.56it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]\rLoading weights:  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u2589   | 71/103 [00:00<00:00, 2401.38it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]\rLoading weights:  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u2589   | 71/103 [00:00<00:00, 2401.38it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]\rLoading weights:  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2589   | 72/103 [00:00<00:00, 2435.21it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]      \rLoading weights:  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2589   | 72/103 [00:00<00:00, 2435.21it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]\rLoading weights:  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 73/103 [00:00<00:00, 2469.03it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]\rLoading weights:  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 73/103 [00:00<00:00, 2469.03it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]\rLoading weights:  72%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f  | 74/103 [00:00<00:00, 2502.85it/s, Materializing param=encoder.layer.4.attention.self.key.bias]      \rLoading weights:  72%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f  | 74/103 [00:00<00:00, 2502.85it/s, Materializing param=encoder.layer.4.attention.self.key.bias]\rLoading weights:  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 75/103 [00:00<00:00, 2536.67it/s, Materializing param=encoder.layer.4.attention.self.key.weight]\rLoading weights:  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 75/103 [00:00<00:00, 2536.67it/s, Materializing param=encoder.layer.4.attention.self.key.weight]\rLoading weights:  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 76/103 [00:00<00:00, 2570.50it/s, Materializing param=encoder.layer.4.attention.self.query.bias]\rLoading weights:  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 76/103 [00:00<00:00, 2570.50it/s, Materializing param=encoder.layer.4.attention.self.query.bias]\rLoading weights:  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 77/103 [00:00<00:00, 2604.32it/s, Materializing param=encoder.layer.4.attention.self.query.weight]\rLoading weights:  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 77/103 [00:00<00:00, 2604.32it/s, Materializing param=encoder.layer.4.attention.self.query.weight]\rLoading weights:  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 78/103 [00:00<00:00, 2638.14it/s, Materializing param=encoder.layer.4.attention.self.value.bias]  \rLoading weights:  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 78/103 [00:00<00:00, 2638.14it/s, Materializing param=encoder.layer.4.attention.self.value.bias]\rLoading weights:  77%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 79/103 [00:00<00:00, 2671.96it/s, Materializing param=encoder.layer.4.attention.self.value.weight]\rLoading weights:  77%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 79/103 [00:00<00:00, 2671.96it/s, Materializing param=encoder.layer.4.attention.self.value.weight]\rLoading weights:  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 80/103 [00:00<00:00, 2705.78it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]    \rLoading weights:  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 80/103 [00:00<00:00, 2705.78it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]\rLoading weights:  79%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 81/103 [00:00<00:00, 2739.61it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]\rLoading weights:  79%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 81/103 [00:00<00:00, 2739.61it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]\rLoading weights:  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589  | 82/103 [00:00<00:00, 2773.43it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]    \rLoading weights:  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589  | 82/103 [00:00<00:00, 2773.43it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]\rLoading weights:  81%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 83/103 [00:00<00:00, 2807.25it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]\rLoading weights:  81%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 83/103 [00:00<00:00, 2807.25it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]\rLoading weights:  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 84/103 [00:00<00:00, 2841.07it/s, Materializing param=encoder.layer.4.output.dense.bias]      \rLoading weights:  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 84/103 [00:00<00:00, 2841.07it/s, Materializing param=encoder.layer.4.output.dense.bias]\rLoading weights:  83%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e | 85/103 [00:00<00:00, 2874.90it/s, Materializing param=encoder.layer.4.output.dense.weight]\rLoading weights:  83%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e | 85/103 [00:00<00:00, 2874.90it/s, Materializing param=encoder.layer.4.output.dense.weight]\rLoading weights:  83%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e | 86/103 [00:00<00:00, 2908.72it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]\rLoading weights:  83%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e | 86/103 [00:00<00:00, 2908.72it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]\rLoading weights:  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 87/103 [00:00<00:00, 2942.54it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]\rLoading weights:  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 87/103 [00:00<00:00, 2942.54it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]\rLoading weights:  85%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 88/103 [00:00<00:00, 2976.36it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]      \rLoading weights:  85%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 88/103 [00:00<00:00, 2976.36it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]\rLoading weights:  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 89/103 [00:00<00:00, 3010.19it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]\rLoading weights:  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 89/103 [00:00<00:00, 3010.19it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]\rLoading weights:  87%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 90/103 [00:00<00:00, 3044.01it/s, Materializing param=encoder.layer.5.attention.self.key.bias]      \rLoading weights:  87%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 90/103 [00:00<00:00, 3044.01it/s, Materializing param=encoder.layer.5.attention.self.key.bias]\rLoading weights:  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 91/103 [00:00<00:00, 3077.83it/s, Materializing param=encoder.layer.5.attention.self.key.weight]\rLoading weights:  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 91/103 [00:00<00:00, 3077.83it/s, Materializing param=encoder.layer.5.attention.self.key.weight]\rLoading weights:  89%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589 | 92/103 [00:00<00:00, 3111.65it/s, Materializing param=encoder.layer.5.attention.self.query.bias]\rLoading weights:  89%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589 | 92/103 [00:00<00:00, 3111.65it/s, Materializing param=encoder.layer.5.attention.self.query.bias]\rLoading weights:  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 93/103 [00:00<00:00, 3145.47it/s, Materializing param=encoder.layer.5.attention.self.query.weight]\rLoading weights:  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 93/103 [00:00<00:00, 3145.47it/s, Materializing param=encoder.layer.5.attention.self.query.weight]\rLoading weights:  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 94/103 [00:00<00:00, 3179.30it/s, Materializing param=encoder.layer.5.attention.self.value.bias]  \rLoading weights:  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 94/103 [00:00<00:00, 3179.30it/s, Materializing param=encoder.layer.5.attention.self.value.bias]\rLoading weights:  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 95/103 [00:00<00:00, 3213.12it/s, Materializing param=encoder.layer.5.attention.self.value.weight]\rLoading weights:  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 95/103 [00:00<00:00, 3213.12it/s, Materializing param=encoder.layer.5.attention.self.value.weight]\rLoading weights:  93%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e| 96/103 [00:00<00:00, 3246.94it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]    \rLoading weights:  93%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e| 96/103 [00:00<00:00, 3246.94it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]\rLoading weights:  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 97/103 [00:00<00:00, 3280.76it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]\rLoading weights:  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 97/103 [00:00<00:00, 3280.76it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]\rLoading weights:  95%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 98/103 [00:00<00:00, 3314.59it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]    \rLoading weights:  95%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 98/103 [00:00<00:00, 3314.59it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]\rLoading weights:  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 99/103 [00:00<00:00, 3348.41it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]\rLoading weights:  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 99/103 [00:00<00:00, 3348.41it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]\rLoading weights:  97%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b| 100/103 [00:00<00:00, 3382.23it/s, Materializing param=encoder.layer.5.output.dense.bias]     \rLoading weights:  97%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b| 100/103 [00:00<00:00, 3382.23it/s, Materializing param=encoder.layer.5.output.dense.bias]\rLoading weights:  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 101/103 [00:00<00:00, 3416.05it/s, Materializing param=encoder.layer.5.output.dense.weight]\rLoading weights:  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 101/103 [00:00<00:00, 3416.05it/s, Materializing param=encoder.layer.5.output.dense.weight]\rLoading weights:  99%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589| 102/103 [00:00<00:00, 3449.88it/s, Materializing param=pooler.dense.bias]                  \rLoading weights:  99%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589| 102/103 [00:00<00:00, 3449.88it/s, Materializing param=pooler.dense.bias]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 103/103 [00:00<00:00, 3483.70it/s, Materializing param=pooler.dense.weight]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 103/103 [00:00<00:00, 3483.70it/s, Materializing param=pooler.dense.weight]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 103/103 [00:00<00:00, 3483.70it/s, Materializing param=pooler.dense.weight]\n\x1b[1mBertModel LOAD REPORT\x1b[0m from: sentence-transformers/all-MiniLM-L6-v2\nKey                     | Status     |  | \n------------------------+------------+--+-\nembeddings.position_ids | UNEXPECTED |  | \n\n\x1b[3mNotes:\n- UNEXPECTED\x1b[3m\t:can be ignored when loading from different task/architecture; not ok if you expect identical arch.\x1b[0m
+============================== warnings summary ===============================
+tests/test_brain.py::TestPyReason::test_returns_tuple
+  C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\__init__.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    from pkg_resources import get_distribution, DistributionNotFound
+
+tests/test_brain.py::TestPyReason::test_base_fact_always_present
+tests/test_brain.py::TestPyReason::test_security_rule_fires
+  C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\pyreason.py:646: UserWarning: Rule popular_rule has already been added. Duplicate rule names will lead to an ambiguous rule trace.
+    warnings.warn(f"Rule {pr_rule.rule.get_rule_name()} has already been added. Duplicate rule names will lead to an ambiguous rule trace.")
+
+tests/test_brain.py::TestPyReason::test_base_fact_always_present
+tests/test_brain.py::TestPyReason::test_security_rule_fires
+  C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pyreason\__init__.py:32: UserWarning: Fact popular_fact has already been added. Duplicate fact names will lead to an ambiguous node and atom traces.
+    add_fact(Fact('popular(Mary)', 'popular_fact', 0, 2))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_brain.py::TestPyReason::test_returns_tuple - numba.core.err...
+FAILED tests/test_brain.py::TestPyReason::test_base_fact_always_present - num...
+FAILED tests/test_brain.py::TestPyReason::test_security_rule_fires - numba.co...
+FAILED tests/test_coo_e2e.py::TestE2EFullPipeline::test_green_event_auto_executes
+FAILED tests/test_coo_e2e.py::TestE2EFullPipeline::test_pending_decisions_returns_unresolved_only
+FAILED tests/test_coo_e2e.py::TestE2EFullPipeline::test_full_pipeline_green_yellow_red
+FAILED tests/test_e2e.py::TestLanes::test_coding_lane - openai.APIStatusError...
+FAILED tests/test_e2e.py::TestLanes::test_business_logic_lane - openai.APISta...
+FAILED tests/test_e2e.py::TestLanes::test_cross_domain_lane - openai.APIStatu...
+FAILED tests/test_e2e.py::TestAPIServer::test_health_endpoint - TypeError: Cl...
+FAILED tests/test_e2e.py::TestAPIServer::test_task_endpoint - TypeError: Clie...
+FAILED tests/test_e2e.py::TestAPIServer::test_skills_endpoint - TypeError: Cl...
+FAILED tests/test_gemma_integration.py::TestGemmaIntegrationRouter::test_generate_text_via_gemma
+FAILED tests/test_gemma_integration.py::TestGemmaIntegrationRouter::test_generate_code_via_gemma
+FAILED tests/test_gemma_integration.py::TestGemmaIntegrationBackend::test_llm_fallback_prefers_gemma
+FAILED tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_health_check
+FAILED tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_text_generation
+FAILED tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_json_parsing
+FAILED tests/test_gemma_integration.py::TestGemmaEndToEnd::test_gemma_code_generation
+FAILED tests/test_math_engine.py::TestPreAudit::test_reasonable_length_pass
+FAILED tests/test_math_engine.py::Test_check_injection::test_shell_chars - As...
+FAILED tests/test_math_engine.py::TestReasoningEngine::test_decide_blocks_on_audit_failure
+====== 22 failed, 422 passed, 3 skipped, 5 warnings in 201.20s (0:03:21) ======
+
+EXIT=1
