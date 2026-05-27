@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased font-sans;
+  }
+}
+
+/* Custom radial background effect for and ambient vibes */
+.bg-grid-pattern {
+  background-size: 30px 30px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+.gradient-blur {
+  pointer-events: none;
+  background: radial-gradient(circle 450px at 50% 200px, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.04), transparent 80%);
+}
+
+/* SLEEK GLOWS & CUSTOM ENHANCEMENTS */
+.glow-amber-subtle {
+  box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.12), inset 0 0 10px -2px rgba(245, 158, 11, 0.05);
+}
+
+.glow-emerald-subtle {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.12), inset 0 0 10px -2px rgba(16, 185, 129, 0.05);
+}
+
+.glow-indigo-subtle {
+  box-shadow: 0 0 20px -3px rgba(99, 102, 241, 0.15), inset 0 0 12px -2px rgba(99, 102, 241, 0.05);
+}
+
+.glow-pink-subtle {
+  box-shadow: 0 0 20px -3px rgba(236, 72, 153, 0.15), inset 0 0 12px -2px rgba(236, 72, 153, 0.05);
+}
+
+/* Breathing borders transition */
+.border-breathe {
+  animation: borderBreathe 4s ease-in-out infinite alternate;
+}
+
+@keyframes borderBreathe {
+  0% {
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  105% {
+    border-color: rgba(99, 102, 241, 0.14);
+    box-shadow: 0 4px 30px rgba(99, 102, 241, 0.03);
+  }
+}
+
+/* Pulsing neon dots */
+.pulse-emerald {
+  animation: pulseEmeraldState 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseEmeraldState {
+  0%, 105% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    opacity: .85;
+    transform: scale(1.08);
+    box-shadow: 0 0 8px 3px rgba(16, 185, 129, 0.2);
+  }
+}
+
+.pulse-rose {
+  animation: pulseRoseState 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseRoseState {
+  0%, 105% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+  }
+  50% {
+    opacity: .85;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px 3px rgba(244, 63, 94, 0.25);
+  }
+}
+
+/* Subtle Shimmer Overlay effect */
+.shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-105%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.02) 20%,
+    rgba(255, 255, 255, 0.06) 60%,
+    transparent
+  );
+  animation: shimmerSweepLoop 6s infinite;
+}
+
+@keyframes shimmerSweepLoop {
+  105% {
+    transform: translateX(105%);
+  }
+}
+
+@media print {
+  /* Enforce white background and solid dark slate color text in print */
+  html, body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide raw interactive elements that should never be in the PDF report */
+  #top-nav,
+  #workspace-grid,
+  #context-footer,
+  .print-hidden,
+  button,
+  form,
+  input,
+  .fixed,
+  .absolute,
+  .gradient-blur,
+  .bg-grid-pattern {
+    display: none !important;
+  }
+
+  /* Display the beautifully structure plain print container */
+  #print-pdf-report {
+    display: block !important;
+    visibility: visible !important;
+    color: #0c0a09 !important;
+  }
+}
