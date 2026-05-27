@@ -5,35 +5,10 @@
 
 import express from "express";
 import { query } from "../db/pool.ts";
+import { PLAN_LIMITS } from "../config/planLimits.ts";
 type Request = express.Request;
 type Response = express.Response;
 type NextFunction = express.NextFunction;
-
-// Plan tier configurations
-const PLAN_LIMITS = {
-  free: {
-    scansPerMonth: 3,
-    apiCallsPerHour: 0, // API not available in free tier
-    teamMembers: 1,
-  },
-  starter: {
-    scansPerMonth: 30,
-    apiCallsPerHour: 60,
-    teamMembers: 3,
-  },
-  professional: {
-    scansPerMonth: 150,
-    apiCallsPerHour: 300,
-    teamMembers: 10,
-  },
-  enterprise: {
-    scansPerMonth: Infinity,
-    apiCallsPerHour: Infinity,
-    teamMembers: Infinity,
-  },
-};
-
-const IN_MEMORY_RATE_LIMITS = new Map<string, { count: number; resetTime: number }>();
 
 /**
  * Check if org has reached scan limit for this month
@@ -79,17 +54,21 @@ export const scanLimitMiddleware = async (
     };
 
     if (scansThisMonth >= limit && limit !== Infinity) {
+      const { rows: resetRows } = await query(
+        `SELECT date_trunc('month', NOW()) + interval '1 month' as reset_date`
+      );
+      const resetDate = resetRows?.[0]?.reset_date || new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1);
       return res.status(429).json({
         error: "Monthly scan limit reached",
         limit,
         used: scansThisMonth,
-        resetDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1),
+        resetDate,
       });
     }
 
     next();
   } catch (error) {
-    console.error("Scan limit check error:", error);
+    console.error(`[tenant] [orgId:${req.orgId}] Scan limit check error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -128,54 +107,50 @@ export const apiRateLimitMiddleware = async (
       });
     }
 
-    // In-memory rate limiting (could be upgraded to Redis)
-    const key = `api_limit:${req.orgId}`;
-    const now = Date.now();
-    let record = IN_MEMORY_RATE_LIMITS.get(key);
+    // PostgreSQL-based rate limiting (DB timezone handles hour boundary)
+    const { rows } = await query(
+      `INSERT INTO rate_limits (org_id, period_start, api_call_count)
+       VALUES ($1, date_trunc('hour', NOW()), 1)
+       ON CONFLICT (org_id, period_start)
+       DO UPDATE SET api_call_count = rate_limits.api_call_count + 1
+       RETURNING api_call_count, period_start`,
+      [req.orgId]
+    );
 
-    if (!record || record.resetTime < now) {
-      // Reset window
-      record = { count: 0, resetTime: now + 60 * 60 * 1000 };
-      IN_MEMORY_RATE_LIMITS.set(key, record);
-    }
+    const currentCount = rows[0].api_call_count;
 
-    if (record.count >= limit) {
-      const resetDate = new Date(record.resetTime);
+    if (currentCount > limit) {
+      const { rows: resetRows } = await query(
+        `SELECT date_trunc('hour', NOW()) + interval '1 hour' as reset_time`
+      );
       return res.status(429).json({
         error: "API rate limit exceeded",
         limit,
-        resetTime: resetDate,
+        resetTime: resetRows[0].reset_time,
       });
     }
 
-    record.count++;
     next();
   } catch (error) {
-    console.error("API rate limit check error:", error);
+    console.error(`[tenant] [orgId:${req.orgId}] API rate limit check error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 /**
  * Add limit headers to response
+ * Sends headers immediately (before body) to avoid monkey-patching res.json
  */
 export const limitHeadersMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const originalJson = res.json.bind(res);
-
-  res.json = function (body: any) {
-    // Add scan limit headers
-    if ((req as any).scanLimit) {
-      res.setHeader("X-RateLimit-Limit", (req as any).scanLimit.total);
-      res.setHeader("X-RateLimit-Used", (req as any).scanLimit.used);
-      res.setHeader("X-RateLimit-Remaining", (req as any).scanLimit.remaining);
-    }
-
-    return originalJson(body);
-  };
-
+  const scanLimit = (req as any).scanLimit;
+  if (scanLimit) {
+    res.setHeader("X-RateLimit-Limit", scanLimit.total);
+    res.setHeader("X-RateLimit-Used", scanLimit.used);
+    res.setHeader("X-RateLimit-Remaining", scanLimit.remaining);
+  }
   next();
 };

@@ -21,30 +21,46 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         // Check if user exists
-        const { rows: [user] } = await query(
+        const { rows: userRows } = await query(
           `SELECT * FROM users WHERE github_id = $1`, [profile.id]
         );
         
-        if (user) {
-          // User exists, generate token
+        if (userRows && userRows.length > 0) {
+          const user = userRows[0];
           const token = generateToken({ userId: user.id });
           return done(null, { user, token });
         }
         
         // Create new user
-        const { rows: [newUser] } = await query(
+        const { rows: newUserRows } = await query(
           `INSERT INTO users (github_id, email, display_name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING *`,
           [profile.id, profile.emails?.[0]?.value || "", profile.displayName, profile.photos?.[0]?.value]
         );
         
+        if (!newUserRows || newUserRows.length === 0) {
+          throw new Error("Failed to create user");
+        }
+        const newUser = newUserRows[0];
+        
         // Create personal org for the user
         const orgName = `${profile.username}'s Workspace`;
-        const orgSlug = profile.username;
+        const rawSlug = (profile.username ?? `user-${profile.id}`)
+          .toLowerCase()
+          .replace(/[^a-z0-9-]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')
+          .substring(0, 63);
+        const orgSlug = rawSlug || `user-${profile.id}`;
         
-        const { rows: [org] } = await query(
+        const { rows: orgRows } = await query(
           `INSERT INTO orgs (name, slug) VALUES ($1, $2) RETURNING *`,
           [orgName, orgSlug]
         );
+        
+        if (!orgRows || orgRows.length === 0) {
+          throw new Error("Failed to create organization");
+        }
+        const org = orgRows[0];
         
         await query(
           `INSERT INTO org_members (org_id, user_id, role) VALUES ($1, $2, $3)`,

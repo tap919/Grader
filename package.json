@@ -17,7 +17,6 @@
     "@types/passport": "^1.0.17",
     "@types/passport-github2": "^1.2.9",
     "@vitejs/plugin-react": "^5.0.4",
-    "better-sqlite3": "^12.10.0",
     "cors": "^2.8.6",
     "cwe-sdk": "^1.1.19",
     "dotenv": "^17.2.3",
@@ -35,6 +34,7 @@
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "react-router-dom": "^7.15.1",
+    "resend": "^6.12.4",
     "stripe": "^22.1.1",
     "vite": "^6.2.3",
     "zod": "^4.4.3"

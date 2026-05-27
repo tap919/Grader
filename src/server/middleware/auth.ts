@@ -24,6 +24,58 @@ declare global {
 }
 
 /**
+ * CSRF protection middleware
+ * Validates Origin/Referer on state-changing requests.
+ * API clients with Authorization header are exempt.
+ */
+export const csrfMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // Skip webhook paths (Stripe doesn't send Origin/Referer)
+  if (req.path.endsWith("/webhook") || req.originalUrl.includes("/webhook")) {
+    return next();
+  }
+
+  // Only check state-changing methods
+  if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+    return next();
+  }
+
+  // Skip if Authorization header is present (API clients)
+  if (req.headers.authorization) {
+    return next();
+  }
+
+  // Check Origin or Referer header
+  const origin = req.headers.origin;
+  const referer = req.headers.referer;
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
+  const allowedOrigins = [frontendUrl, "http://localhost:5173", "http://localhost:3000"];
+
+  const requestOrigin = origin || referer;
+  if (!requestOrigin) {
+    return res.status(403).json({ error: "CSRF validation failed: no origin header" });
+  }
+
+  const isAllowed = allowedOrigins.some((allowed) => {
+    try {
+      const parsed = new URL(requestOrigin);
+      return parsed.origin === allowed || requestOrigin === allowed;
+    } catch {
+      return requestOrigin.startsWith(allowed + "/") || requestOrigin === allowed;
+    }
+  });
+  if (!isAllowed) {
+    return res.status(403).json({ error: "CSRF validation failed: origin not allowed" });
+  }
+
+  next();
+};
+
+/**
  * Middleware to authenticate via JWT or API Key
  * Sets req.userId and req.orgId on success
  */
@@ -35,7 +87,11 @@ function parseCookies(header: string | undefined): Record<string, string> {
     if (eqIdx > -1) {
       const name = part.slice(0, eqIdx).trim();
       const val = part.slice(eqIdx + 1).trim();
-      cookies[name] = decodeURIComponent(val);
+      try {
+        cookies[name] = decodeURIComponent(val);
+      } catch {
+        cookies[name] = val;
+      }
     }
   }
   return cookies;
@@ -96,18 +152,18 @@ export const authMiddleware = async (
 
         query(`UPDATE api_keys SET last_used_at = NOW() WHERE id = $1`, [
           apiKeyRecord.id,
-        ]).catch(console.error);
+        ]).catch((err) => console.error(`[auth] Update last_used_at error:`, err));
 
         return next();
       } catch (err) {
-        console.error("API key verification error:", err);
+        console.error(`[auth] API key verification error:`, err);
         return res.status(401).json({ error: "API key verification failed" });
       }
     }
 
     return res.status(401).json({ error: "Invalid authorization format" });
   } catch (error) {
-    console.error("Auth middleware error:", error);
+    console.error(`[auth] Auth middleware error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -143,7 +199,7 @@ export const orgAccessMiddleware = async (
 
     next();
   } catch (error) {
-    console.error("Org access check error:", error);
+    console.error(`[auth] [userId:${req.userId}] Org access check error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

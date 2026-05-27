@@ -149,9 +149,27 @@ export class GradingService {
   }
 
   private static buildGradingPrompt(input: GradeInput, repoData?: any): string {
-    const dataSection = repoData ? `
+    const truncatedData = repoData ? {
+      ...repoData,
+      readmeStr: repoData.readmeStr?.slice(0, 10000) || "",
+      packageJsonStr: repoData.packageJsonStr?.slice(0, 5000) || "",
+      fileList: repoData.fileList?.slice(0, 50) || [],
+      repoMeta: repoData.repoMeta ? {
+        name: repoData.repoMeta.name,
+        full_name: repoData.repoMeta.full_name,
+        description: repoData.repoMeta.description,
+        language: repoData.repoMeta.language,
+        stargazers_count: repoData.repoMeta.stargazers_count,
+        forks_count: repoData.repoMeta.forks_count,
+        open_issues_count: repoData.repoMeta.open_issues_count,
+        topics: repoData.repoMeta.topics,
+        default_branch: repoData.repoMeta.default_branch,
+        license: repoData.repoMeta.license,
+      } : null,
+    } : null;
+    const dataSection = truncatedData ? `
 ## Repository Data
-${JSON.stringify(repoData, null, 2)}
+${JSON.stringify(truncatedData, null, 2)}
 ` : "";
     return `
 You are an expert codebase auditor. Grade the GitHub repository "${input.owner}/${input.repo}".

@@ -44,7 +44,7 @@ router.get(
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days to match JWT expiry
       })
       .redirect("/dashboard");
   }
@@ -52,9 +52,10 @@ router.get(
 
 /**
  * POST /api/v1/auth/logout
- * Logout endpoint (client-side actually deletes token)
+ * Logout endpoint - clears the auth cookie.
+ * Doesn't require auth middleware so users with expired cookies can still log out.
  */
-router.post("/logout", authMiddleware, (_req: Request, res: Response) => {
+router.post("/logout", (_req: Request, res: Response) => {
   res.clearCookie("token").json({ message: "Logged out successfully" });
 });
 
@@ -101,7 +102,7 @@ router.get("/me", authMiddleware, async (req: Request, res: Response) => {
       orgs: orgRows || [],
     });
   } catch (error) {
-    console.error("Auth me error:", error);
+    console.error(`[auth] [userId:${req.userId}] Me error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -117,7 +118,7 @@ router.post("/api-keys", authMiddleware, async (req: Request, res: Response) => 
     }
 
     const { name } = req.body;
-    if (!name) {
+    if (!name || !name.trim()) {
       return res.status(400).json({ error: "API key name required" });
     }
 
@@ -127,10 +128,10 @@ router.post("/api-keys", authMiddleware, async (req: Request, res: Response) => 
 
     // Store hashed key
     const { rows } = await query(
-      `INSERT INTO api_keys (org_id, key_hash, prefix, name, created_at)
-        VALUES ($1, $2, $3, $4, NOW())
+      `INSERT INTO api_keys (org_id, user_id, key_hash, prefix, name, created_at)
+        VALUES ($1, $2, $3, $4, $5, NOW())
         RETURNING id, prefix, name, created_at`,
-      [req.orgId, keyHash, prefix, name]
+      [req.orgId, req.userId, keyHash, prefix, name]
     );
 
     if (!rows || rows.length === 0) {
@@ -147,14 +148,14 @@ router.post("/api-keys", authMiddleware, async (req: Request, res: Response) => 
       warning: "Save this key securely. You won't see it again.",
     });
   } catch (error) {
-    console.error("Create API key error:", error);
+    console.error(`[auth] [userId:${req.userId}] Create API key error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 /**
  * GET /api/v1/auth/api-keys
- * List API keys (prefix only, not full key)
+ * List API keys for the current org
  */
 router.get("/api-keys", authMiddleware, async (req: Request, res: Response) => {
   try {
@@ -163,7 +164,7 @@ router.get("/api-keys", authMiddleware, async (req: Request, res: Response) => {
     }
 
     const { rows } = await query(
-      `SELECT id, prefix, name, last_used_at, created_at
+      `SELECT id, prefix, name, created_at, last_used_at
         FROM api_keys
         WHERE org_id = $1
         ORDER BY created_at DESC`,
@@ -172,14 +173,14 @@ router.get("/api-keys", authMiddleware, async (req: Request, res: Response) => {
 
     res.json(rows || []);
   } catch (error) {
-    console.error("List API keys error:", error);
+    console.error(`[auth] [userId:${req.userId}] List API keys error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 /**
  * DELETE /api/v1/auth/api-keys/:id
- * Revoke API key
+ * Revoke an API key
  */
 router.delete("/api-keys/:id", authMiddleware, async (req: Request, res: Response) => {
   try {
@@ -187,12 +188,9 @@ router.delete("/api-keys/:id", authMiddleware, async (req: Request, res: Respons
       return res.status(401).json({ error: "Not authenticated" });
     }
 
-    const { id } = req.params;
-
-    // Ensure key belongs to user's org
     const { rows } = await query(
       `DELETE FROM api_keys WHERE id = $1 AND org_id = $2 RETURNING id`,
-      [id, req.orgId]
+      [req.params.id, req.orgId]
     );
 
     if (!rows || rows.length === 0) {
@@ -201,7 +199,7 @@ router.delete("/api-keys/:id", authMiddleware, async (req: Request, res: Respons
 
     res.json({ message: "API key revoked" });
   } catch (error) {
-    console.error("Revoke API key error:", error);
+    console.error(`[auth] [userId:${req.userId}] Revoke API key error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

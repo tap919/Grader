@@ -1,7 +1,7 @@
 -- Grader SaaS Schema (PostgreSQL)
 
 -- Auth & Multi-Tenancy
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT UNIQUE NOT NULL,
   github_id TEXT UNIQUE NOT NULL,
@@ -10,16 +10,17 @@ CREATE TABLE users (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE orgs (
+CREATE TABLE IF NOT EXISTS orgs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
   stripe_customer_id TEXT,
   plan_tier TEXT DEFAULT 'free',
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE org_members (
+CREATE TABLE IF NOT EXISTS org_members (
   org_id UUID REFERENCES orgs(id) ON DELETE CASCADE,
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
   role TEXT DEFAULT 'member', -- admin, member, viewer
@@ -27,7 +28,7 @@ CREATE TABLE org_members (
   PRIMARY KEY (org_id, user_id)
 );
 
-CREATE TABLE api_keys (
+CREATE TABLE IF NOT EXISTS api_keys (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   key_hash TEXT UNIQUE NOT NULL, -- Hashed key
   prefix TEXT NOT NULL,          -- Plaintext prefix for display
@@ -39,7 +40,7 @@ CREATE TABLE api_keys (
 );
 
 -- Scans & Persistence
-CREATE TABLE scans (
+CREATE TABLE IF NOT EXISTS scans (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id UUID REFERENCES orgs(id) ON DELETE CASCADE,
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
@@ -49,10 +50,11 @@ CREATE TABLE scans (
   score INTEGER NOT NULL,
   grade_category TEXT NOT NULL,
   report JSONB NOT NULL, -- Full HealthReport JSON
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE scan_queue (
+CREATE TABLE IF NOT EXISTS scan_queue (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   status TEXT DEFAULT 'pending', -- pending, processing, completed, failed
   org_id UUID REFERENCES orgs(id) ON DELETE CASCADE,
@@ -64,7 +66,7 @@ CREATE TABLE scan_queue (
 );
 
 -- Usage Tracking
-CREATE TABLE usage_log (
+CREATE TABLE IF NOT EXISTS usage_log (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id UUID REFERENCES orgs(id) ON DELETE CASCADE,
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
@@ -73,18 +75,19 @@ CREATE TABLE usage_log (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE rate_limits (
-  org_id UUID REFERENCES orgs(id) PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS rate_limits (
+  org_id UUID REFERENCES orgs(id),
   period_start TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   scan_count INTEGER DEFAULT 0,
-  api_call_count INTEGER DEFAULT 0
+  api_call_count INTEGER DEFAULT 0,
+  PRIMARY KEY (org_id, period_start)
 );
 
 -- ============================================================================
 -- Phase 2: Notifications & Billing
 -- ============================================================================
 
-CREATE TABLE notifications_config (
+CREATE TABLE IF NOT EXISTS notifications_config (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
   type TEXT NOT NULL, -- 'email', 'slack', 'webhook'
@@ -94,7 +97,7 @@ CREATE TABLE notifications_config (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE subscriptions (
+CREATE TABLE IF NOT EXISTS subscriptions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
   stripe_subscription_id TEXT UNIQUE,
@@ -107,7 +110,7 @@ CREATE TABLE subscriptions (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE invoices (
+CREATE TABLE IF NOT EXISTS invoices (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
   stripe_invoice_id TEXT UNIQUE,
@@ -120,28 +123,28 @@ CREATE TABLE invoices (
 -- INDEXES FOR PERFORMANCE
 -- ============================================================================
 
-CREATE INDEX idx_scans_org_created ON scans(org_id, created_at DESC);
-CREATE INDEX idx_scans_repo ON scans(owner, name);
-CREATE INDEX idx_scans_user ON scans(user_id);
+CREATE INDEX IF NOT EXISTS idx_scans_org_created ON scans(org_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scans_repo ON scans(owner, name);
+CREATE INDEX IF NOT EXISTS idx_scans_user ON scans(user_id);
 
-CREATE INDEX idx_api_keys_org ON api_keys(org_id);
-CREATE INDEX idx_api_keys_key_hash ON api_keys(key_hash);
+CREATE INDEX IF NOT EXISTS idx_api_keys_org ON api_keys(org_id);
+CREATE INDEX IF NOT EXISTS idx_api_keys_key_hash ON api_keys(key_hash);
 
-CREATE INDEX idx_org_members_user ON org_members(user_id);
-CREATE INDEX idx_org_members_org ON org_members(org_id);
+CREATE INDEX IF NOT EXISTS idx_org_members_user ON org_members(user_id);
+CREATE INDEX IF NOT EXISTS idx_org_members_org ON org_members(org_id);
 
-CREATE INDEX idx_usage_log_org_created ON usage_log(org_id, created_at DESC);
-CREATE INDEX idx_usage_log_user ON usage_log(user_id);
+CREATE INDEX IF NOT EXISTS idx_usage_log_org_created ON usage_log(org_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_usage_log_user ON usage_log(user_id);
 
-CREATE INDEX idx_scan_queue_status ON scan_queue(status);
-CREATE INDEX idx_scan_queue_created ON scan_queue(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scan_queue_status ON scan_queue(status);
+CREATE INDEX IF NOT EXISTS idx_scan_queue_created ON scan_queue(created_at DESC);
 
 -- Phase 3: ISO 5055 Compliance
 ALTER TABLE scans ADD COLUMN IF NOT EXISTS compliance_report JSONB;
 
-CREATE INDEX idx_notifications_org ON notifications_config(org_id);
-CREATE INDEX idx_subscriptions_org ON subscriptions(org_id);
-CREATE INDEX idx_subscriptions_stripe_id ON subscriptions(stripe_subscription_id);
+CREATE INDEX IF NOT EXISTS idx_notifications_org ON notifications_config(org_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_org ON subscriptions(org_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_id ON subscriptions(stripe_subscription_id);
 
 -- ============================================================================
 -- CONSTRAINTS & VALIDATIONS

@@ -10,6 +10,40 @@ import { query } from "../db/pool.ts";
 import { GradingService } from "../services/gradingService.ts";
 import { ComplianceService } from "../services/compliance/complianceService.ts";
 const { Router } = express;
+
+// Bounded in-memory cache for GitHub API responses with 1-hour TTL
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const MAX_CACHE_SIZE = 500;
+const MAX_FILE_LIST_LENGTH = 80;
+const gitHubCache = new Map<string, { data: any; timestamp: number }>();
+
+function getFromCache<T>(key: string): T | null {
+  const cached = gitHubCache.get(key);
+  if (!cached) return null;
+  
+  if (Date.now() - cached.timestamp > CACHE_TTL_MS) {
+    gitHubCache.delete(key);
+    return null;
+  }
+  
+  return cached.data as T;
+}
+
+function setInCache<T>(key: string, data: T): void {
+  gitHubCache.set(key, { data, timestamp: Date.now() });
+  if (gitHubCache.size > MAX_CACHE_SIZE) {
+    const oldest = gitHubCache.entries().next().value;
+    if (oldest) gitHubCache.delete(oldest[0]);
+  }
+}
+
+// Periodic cache cleanup every 10 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of gitHubCache) {
+    if (now - value.timestamp > CACHE_TTL_MS) gitHubCache.delete(key);
+  }
+}, 10 * 60 * 1000).unref();
 type Request = express.Request;
 type Response = express.Response;
 
@@ -23,6 +57,7 @@ router.post(
   "/",
   authMiddleware,
   scanLimitMiddleware,
+  apiRateLimitMiddleware,
   async (req: Request, res: Response) => {
     try {
       if (!req.orgId || !req.userId) {
@@ -35,7 +70,7 @@ router.post(
       }
 
       // Parse repo URL
-      const repoMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\.]+)/);
+      const repoMatch = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+?)(?:\.git)?(?:\/|$)/);
       if (!repoMatch) {
         return res.status(400).json({ error: "Invalid GitHub URL" });
       }
@@ -68,7 +103,7 @@ router.post(
         createdAt: scan.created_at,
       });
     } catch (error) {
-      console.error("Submit scan error:", error);
+      console.error(`[scans] [userId:${req.userId}] Submit scan error:`, error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
@@ -114,7 +149,7 @@ router.get("/", authMiddleware, async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    console.error("List scans error:", error);
+    console.error(`[scans] [userId:${req.userId}] List scans error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -156,7 +191,7 @@ router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
       updatedAt: scan.updated_at,
     });
   } catch (error) {
-    console.error("Get scan error:", error);
+    console.error(`[scans] [scanId:${req.params.id}] [userId:${req.userId}] Get scan error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -184,7 +219,7 @@ router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
 
     res.json({ message: "Scan deleted" });
   } catch (error) {
-    console.error("Delete scan error:", error);
+    console.error(`[scans] [scanId:${req.params.id}] [userId:${req.userId}] Delete scan error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -199,6 +234,16 @@ async function gradeRepoAsync(
   repoUrl: string,
   orgId: string
 ) {
+  // Mark scan as processing
+  try {
+    await query(
+      `UPDATE scans SET grade_category = 'processing', updated_at = NOW() WHERE id = $1`,
+      [scanId]
+    );
+  } catch (updateError) {
+    console.error(`Failed to update scan ${scanId} to processing:`, updateError);
+  }
+
   try {
     const ghHeaders: Record<string, string> = {
       "User-Agent": "Grader-App",
@@ -208,56 +253,117 @@ async function gradeRepoAsync(
       ghHeaders["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
+    // Timeout for GitHub API calls
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
 
-    const metaRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-      headers: ghHeaders,
-      signal: controller.signal,
-    });
+    // Check cache for repo metadata
+    const metaCacheKey = `github:meta:${owner}/${repo}`;
+    let repoMeta = getFromCache<Record<string, unknown> | null>(metaCacheKey);
+    
+    if (repoMeta === null) {
+      const metaRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+        headers: ghHeaders,
+        signal: controller.signal,
+      });
+
+      if (metaRes.status === 404) {
+        clearTimeout(timeout);
+        throw new Error(`Repository ${owner}/${repo} not found`);
+      }
+      if (metaRes.status === 403 || metaRes.status === 429) {
+        clearTimeout(timeout);
+        throw new Error("GitHub API rate limit exceeded");
+      }
+
+      repoMeta = metaRes.ok ? await metaRes.json() : null;
+      setInCache(metaCacheKey, repoMeta);
+    }
     clearTimeout(timeout);
-
-    if (metaRes.status === 404) {
-      throw new Error(`Repository ${owner}/${repo} not found`);
-    }
-    if (metaRes.status === 403 || metaRes.status === 429) {
-      throw new Error("GitHub API rate limit exceeded");
-    }
-
-    const repoMeta = metaRes.ok ? await metaRes.json() : null;
 
     let packageJsonStr = "";
     let readmeStr = "";
     let fileList: string[] = [];
 
     if (repoMeta) {
-      const branches = ["main", "master", "dev"];
-      for (const branch of branches) {
-        const pkgRes = await fetch(
-          `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/package.json`,
-          { headers: ghHeaders }
-        );
-        if (pkgRes.ok) { packageJsonStr = await pkgRes.text(); break; }
+      // Check cache for package.json
+      const pkgCacheKey = `github:pkg:${owner}/${repo}`;
+      let cachedPackageJson = getFromCache<string>(pkgCacheKey);
+      
+      if (cachedPackageJson === null) {
+        const pkgController = new AbortController();
+        const pkgTimeout = setTimeout(() => pkgController.abort(), 30000);
+        try {
+          const branches = ["main", "master", "dev"];
+          for (const branch of branches) {
+            const pkgRes = await fetch(
+              `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/package.json`,
+              { headers: ghHeaders, signal: pkgController.signal }
+            );
+            if (pkgRes.ok) { 
+              packageJsonStr = await pkgRes.text(); 
+              setInCache(pkgCacheKey, packageJsonStr);
+              break; 
+            }
+          }
+        } finally {
+          clearTimeout(pkgTimeout);
+        }
+      } else {
+        packageJsonStr = cachedPackageJson;
       }
 
-      for (const branch of branches) {
-        const readmeRes = await fetch(
-          `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/README.md`,
-          { headers: ghHeaders }
-        );
-        if (readmeRes.ok) { readmeStr = await readmeRes.text(); break; }
+      // Check cache for README
+      const readmeCacheKey = `github:readme:${owner}/${repo}`;
+      let cachedReadme = getFromCache<string>(readmeCacheKey);
+      
+      if (cachedReadme === null) {
+        const readmeController = new AbortController();
+        const readmeTimeout = setTimeout(() => readmeController.abort(), 30000);
+        try {
+          const branches = ["main", "master", "dev"];
+          for (const branch of branches) {
+            const readmeRes = await fetch(
+              `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/README.md`,
+              { headers: ghHeaders, signal: readmeController.signal }
+            );
+            if (readmeRes.ok) { 
+              readmeStr = await readmeRes.text(); 
+              setInCache(readmeCacheKey, readmeStr);
+              break; 
+            }
+          }
+        } finally {
+          clearTimeout(readmeTimeout);
+        }
+      } else {
+        readmeStr = cachedReadme;
       }
 
       const defaultBranch = (repoMeta.default_branch as string) ?? "main";
-      const treeRes = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`,
-        { headers: ghHeaders }
-      );
-      if (treeRes.ok) {
-        const treeData = await treeRes.json() as { tree?: Array<{ path: string }> };
-        if (Array.isArray(treeData.tree)) {
-          fileList = treeData.tree.map((f) => f.path).slice(0, 80);
+      const treeCacheKey = `github:tree:${owner}/${repo}:${defaultBranch}`;
+      let cachedFileList = getFromCache<string[]>(treeCacheKey);
+      
+      if (cachedFileList === null) {
+        const treeController = new AbortController();
+        const treeTimeout = setTimeout(() => treeController.abort(), 30000);
+        try {
+          const treeRes = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`,
+            { headers: ghHeaders, signal: treeController.signal }
+          );
+          if (treeRes.ok) {
+            const treeData = await treeRes.json() as { tree?: Array<{ path: string }> };
+            if (Array.isArray(treeData.tree)) {
+              fileList = treeData.tree.map((f) => f.path).slice(0, MAX_FILE_LIST_LENGTH);
+              setInCache(treeCacheKey, fileList);
+            }
+          }
+        } finally {
+          clearTimeout(treeTimeout);
         }
+      } else {
+        fileList = cachedFileList;
       }
     }
 
@@ -295,9 +401,21 @@ async function gradeRepoAsync(
       [orgId, `${owner}/${repo}`]
     );
 
-    console.log(`Scan ${scanId} completed successfully`);
+    console.log(`[scans] [scanId:${scanId}] Scan completed successfully`);
   } catch (error) {
     console.error(`Error grading repo for scan ${scanId}:`, error);
+
+    // Determine appropriate error status
+    let errorStatus = "error";
+    if (error instanceof Error) {
+      if (error.message.includes("rate limit") || error.message.includes("429")) {
+        errorStatus = "rate_limited";
+      } else if (error.message.includes("not found") || error.message.includes("404")) {
+        errorStatus = "not_found";
+      } else if (error.name === "AbortError") {
+        errorStatus = "timeout";
+      }
+    }
 
     try {
       await query(
@@ -305,7 +423,7 @@ async function gradeRepoAsync(
           SET grade_category = $1, report = $2, updated_at = NOW()
           WHERE id = $3`,
       [
-        "error",
+        errorStatus,
         JSON.stringify({
           status: "error",
           error: error instanceof Error ? error.message : "Unknown error",

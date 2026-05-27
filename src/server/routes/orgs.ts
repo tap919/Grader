@@ -6,6 +6,7 @@
 import express from "express";
 import { authMiddleware, orgAccessMiddleware } from "../middleware/auth.ts";
 import { query } from "../db/pool.ts";
+import { PLAN_LIMITS } from "../config/planLimits.ts";
 const { Router } = express;
 type Request = express.Request;
 type Response = express.Response;
@@ -33,7 +34,7 @@ router.get("/", authMiddleware, async (req: Request, res: Response) => {
 
     res.json(rows || []);
   } catch (error) {
-    console.error("List orgs error:", error);
+    console.error(`[orgs] [userId:${req.userId}] List orgs error:`, error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -54,8 +55,8 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Name and slug required" });
     }
 
-    if (!/^[a-z0-9-]+$/.test(slug)) {
-      return res.status(400).json({ error: "Slug must contain only lowercase letters, numbers, and hyphens" });
+    if (!/^[a-z0-9-]{1,63}$/.test(slug)) {
+      return res.status(400).json({ error: "Slug must be 1-63 characters and contain only lowercase letters, numbers, and hyphens" });
     }
 
     // Create org
@@ -81,11 +82,11 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
 
     res.status(201).json(org);
   } catch (error: any) {
-    if (error.message?.includes("unique constraint")) {
+    if ((error as any)?.code === "23505") {
       return res.status(409).json({ error: "Organization slug already exists" });
     }
 
-    console.error("Create org error:", error);
+    console.error("[orgs] Create org error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -142,14 +143,7 @@ router.get("/:id/usage", authMiddleware, orgAccessMiddleware, async (req: Reques
     }
 
     const planTier = orgRows[0].plan_tier || "free";
-    const PLAN_LIMITS: any = {
-      free: { scansPerMonth: 3 },
-      starter: { scansPerMonth: 30 },
-      professional: { scansPerMonth: 150 },
-      enterprise: { scansPerMonth: Infinity },
-    };
-
-    const limit = PLAN_LIMITS[planTier].scansPerMonth;
+    const limit = (PLAN_LIMITS as any)[planTier]?.scansPerMonth || 3;
     const scansUsed = parseInt(scanRows[0].count, 10) || 0;
 
     res.json({
