@@ -38,18 +38,18 @@ describe("API E2E — server.ts endpoints", () => {
     Object.assign(process.env, ORIGINAL_ENV);
   });
 
-  describe("GET /healthz", () => {
+  describe("GET /api/healthz", () => {
     it("returns 200 with status healthy", async () => {
-      const res = await request(app).get("/healthz");
+      const res = await request(app).get("/api/healthz");
       expect(res.status).toBe(200);
       expect(res.body.status).toBe("healthy");
       expect(res.body.timestamp).toBeDefined();
     });
   });
 
-  describe("GET /readyz", () => {
+  describe("GET /api/readyz", () => {
     it("returns 503 when database is unavailable (test environment)", async () => {
-      const res = await request(app).get("/readyz");
+      const res = await request(app).get("/api/readyz");
       // In test environment without real database, this will be 503
       // In production with database connection, this will be 200
       expect([200, 503]).toContain(res.status);

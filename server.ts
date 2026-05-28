@@ -25,11 +25,11 @@ app.use(
 );
 app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173", credentials: true }));
 
-app.get("/healthz", (_req, res) => {
+app.get("/api/healthz", (_req, res) => {
   res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
 });
 
-app.get("/readyz", async (_req, res) => {
+app.get("/api/readyz", async (_req, res) => {
   try {
     await query("SELECT 1");
     res.status(200).json({ status: "ready", timestamp: new Date().toISOString() });
