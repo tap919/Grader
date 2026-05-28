@@ -15,10 +15,14 @@ export const initDb = async () => {
   });
   
   if (!process.env.SKIP_SCHEMA_ON_BOOT) {
-    const schemaPath = path.join(process.cwd(), "src/server/db/schema.sql");
-    const schema = fs.readFileSync(schemaPath, "utf-8");
-    await pgPool.query(schema);
-    console.log("[initDb] PostgreSQL Database initialized and schema applied.");
+    try {
+      const schemaPath = path.join(process.cwd(), "src/server/db/schema.sql");
+      const schema = fs.readFileSync(schemaPath, "utf-8");
+      await pgPool.query(schema);
+      console.log("[initDb] PostgreSQL Database initialized and schema applied.");
+    } catch (err) {
+      console.error("[initDb] Schema application skipped:", err instanceof Error ? err.message : String(err));
+    }
   } else {
     console.log("[initDb] PostgreSQL Database initialized (schema boot skipped).");
   }
