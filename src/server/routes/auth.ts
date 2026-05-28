@@ -29,7 +29,7 @@ router.get("/github", githubAuth);
  */
 router.get(
   "/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login?error=auth_failed" }),
+  passport.authenticate("github", { failureRedirect: "/login?error=auth_failed", session: false }),
   (req: Request, res: Response) => {
     const authResult = req.user as { user?: unknown; token?: string } | undefined;
     const user = authResult?.user;
