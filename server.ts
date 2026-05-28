@@ -33,7 +33,8 @@ app.get("/api/readyz", async (_req, res) => {
   try {
     await query("SELECT 1");
     res.status(200).json({ status: "ready", timestamp: new Date().toISOString() });
-  } catch {
+  } catch (err) {
+    console.error("[readyz] DB check failed:", err instanceof Error ? err.message : String(err));
     res.status(503).json({ status: "not ready" });
   }
 });
