@@ -3,12 +3,13 @@
   "outputDirectory": "dist",
   "installCommand": "npm ci",
   "functions": {
-    "api/[...catchall].js": {
+    "api/index.js": {
       "memory": 1024,
       "maxDuration": 60
     }
   },
   "rewrites": [
+    { "source": "/api/(.*)", "dest": "/api/index" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "git": {

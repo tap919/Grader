@@ -2,7 +2,7 @@ const { app, initDb } = require("../dist/server.cjs");
 
 let dbInitialized = false;
 
-module.exports = async function handler(req, res) {
+module.exports = async (req, res) => {
   if (!dbInitialized) {
     dbInitialized = true;
     try {
@@ -12,5 +12,5 @@ module.exports = async function handler(req, res) {
       console.error("[Vercel] Database init failed:", err);
     }
   }
-  app(req, res);
+  return app(req, res);
 };
