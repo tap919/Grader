@@ -211,7 +211,7 @@ async function startServer() {
   process.on("SIGINT", shutdown);
 }
 
-export { app };
+export { app, initDb };
 
 const isMainModule = typeof require !== "undefined" && require.main === module;
 if (isMainModule) {

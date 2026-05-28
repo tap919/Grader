@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "installCommand": "npm ci",
   "functions": {
-    "api/[...catchall].ts": {
+    "api/[...catchall].js": {
       "memory": 1024,
       "maxDuration": 60
     }

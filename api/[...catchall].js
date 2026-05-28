@@ -1,10 +1,8 @@
-import { app } from "../server";
-import { initDb } from "../src/server/db/pool";
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+const { app, initDb } = require("../dist/server.cjs");
 
 let dbInitialized = false;
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+module.exports = async function handler(req, res) {
   if (!dbInitialized) {
     dbInitialized = true;
     try {
@@ -15,4 +13,4 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
   app(req, res);
-}
+};
