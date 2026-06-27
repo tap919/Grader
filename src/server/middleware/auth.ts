@@ -7,6 +7,11 @@ import express from "express";
 import { verifyToken } from "../auth/jwt.ts";
 import { query } from "../db/pool.ts";
 import { ApiKeyService } from "../services/apiKeyService.ts";
+import {
+  CSRF_COOKIE,
+  CSRF_HEADER,
+  parseCookies,
+} from "../lib/csrf.ts";
 type Request = express.Request;
 type Response = express.Response;
 type NextFunction = express.NextFunction;
@@ -76,6 +81,14 @@ export const csrfMiddleware = (
     return res.status(403).json({ error: "CSRF validation failed: origin not allowed" });
   }
 
+  // Double-submit: cookie session must send matching CSRF header
+  const cookies = parseCookies(req.headers.cookie);
+  const cookieToken = cookies[CSRF_COOKIE];
+  const headerToken = req.headers[CSRF_HEADER] as string | undefined;
+  if (!cookieToken || !headerToken || cookieToken !== headerToken) {
+    return res.status(403).json({ error: "CSRF validation failed: token mismatch" });
+  }
+
   next();
 };
 
@@ -83,23 +96,7 @@ export const csrfMiddleware = (
  * Middleware to authenticate via JWT or API Key
  * Sets req.userId and req.orgId on success
  */
-function parseCookies(header: string | undefined): Record<string, string> {
-  const cookies: Record<string, string> = {};
-  if (!header) return cookies;
-  for (const part of header.split(";")) {
-    const eqIdx = part.indexOf("=");
-    if (eqIdx > -1) {
-      const name = part.slice(0, eqIdx).trim();
-      const val = part.slice(eqIdx + 1).trim();
-      try {
-        cookies[name] = decodeURIComponent(val);
-      } catch {
-        cookies[name] = val;
-      }
-    }
-  }
-  return cookies;
-}
+export { parseCookies } from "../lib/csrf.ts";
 
 export const authMiddleware = async (
   req: Request,

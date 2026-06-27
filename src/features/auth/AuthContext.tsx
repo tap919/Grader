@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { apiFetch } from "../../lib/apiClient";
+import { apiFetch, bootstrapSession, stopProactiveSessionRefresh } from "../../lib/apiClient";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,18 +15,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     apiFetch("/api/v1/auth/me")
-      .then((res) => {
-        if (res.ok) setIsAuthenticated(true);
-        else setIsAuthenticated(false);
+      .then(async (res) => {
+        if (res.ok) {
+          await bootstrapSession();
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       })
       .catch(() => setIsAuthenticated(false))
       .finally(() => setLoading(false));
+
+    return () => stopProactiveSessionRefresh();
   }, []);
 
   const logout = useCallback(async () => {
     try {
       await apiFetch("/api/v1/auth/logout", { method: "POST" });
     } catch { /* ignore */ }
+    stopProactiveSessionRefresh();
     setIsAuthenticated(false);
   }, []);
 

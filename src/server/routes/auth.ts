@@ -6,6 +6,7 @@
 import express from "express";
 import passport from "passport";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../auth/jwt.ts";
+import { csrfCookieOptions, CSRF_COOKIE, generateCsrfToken } from "../lib/csrf.ts";
 import { query } from "../db/pool.ts";
 import { ApiKeyService } from "../services/apiKeyService.ts";
 import { authMiddleware } from "../middleware/auth.ts";
@@ -59,9 +60,20 @@ router.get(
         maxAge: refreshMaxAge,
         path: "/api/v1/auth/refresh",
       })
+      .cookie(CSRF_COOKIE, generateCsrfToken(), csrfCookieOptions(isProd))
       .redirect("/dashboard");
   }
 );
+
+/**
+ * GET /api/v1/auth/csrf
+ * Issue a CSRF token for double-submit cookie protection.
+ */
+router.get("/csrf", (_req: Request, res: Response) => {
+  const token = generateCsrfToken();
+  const isProd = process.env.NODE_ENV === "production";
+  res.cookie(CSRF_COOKIE, token, csrfCookieOptions(isProd)).json({ csrfToken: token });
+});
 
 /**
  * POST /api/v1/auth/logout
