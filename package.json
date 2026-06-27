@@ -7,7 +7,12 @@
     "clean": "rimraf dist server.js",
     "lint": "tsc --noEmit",
     "test": "dotenv -e .env.test -- vitest run",
-    "test:watch": "dotenv -e .env.test -- vitest"
+    "test:watch": "dotenv -e .env.test -- vitest",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "predeploy": "npm run db:migrate"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

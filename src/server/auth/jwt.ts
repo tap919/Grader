@@ -1,5 +1,13 @@
 import jwt from "jsonwebtoken";
 import { z } from "zod";
+import { assertEnv } from "@overlay365/config/env-guard";
+
+// Startup env validation
+assertEnv({
+  service: "Grader",
+  required: ["JWT_SECRET", "DATABASE_URL"],
+  recommended: ["GITHUB_TOKEN", "GEMINI_API_KEY", "RESEND_API_KEY"],
+});
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET || JWT_SECRET.length < 32) {
