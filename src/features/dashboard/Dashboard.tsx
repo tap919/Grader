@@ -6,6 +6,7 @@ import QuickWinsList from "../../components/QuickWinsList";
 import RoadmapBoard from "../../components/RoadmapBoard";
 import type { HealthReport, QuickWin, RoadmapItem, IsoCompliance } from "../../types";
 import IsoComplianceCert from "../../components/IsoComplianceCert";
+import { apiFetch } from "../../lib/apiClient";
 
 interface Scan {
   id: string;
@@ -46,7 +47,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    fetch("/api/v1/scans", { credentials: "include" })
+    apiFetch("/api/v1/scans")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch scans");
         return res.json();
@@ -73,8 +74,8 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   const fetchDetail = async (id: string) => {
     try {
       const [detailRes, complianceRes] = await Promise.all([
-        fetch(`/api/v1/scans/${id}`, { credentials: "include" }),
-        fetch(`/api/v1/scans/${id}/compliance`, { credentials: "include" }),
+        apiFetch(`/api/v1/scans/${id}`),
+        apiFetch(`/api/v1/scans/${id}/compliance`),
       ]);
       if (!detailRes.ok) return;
       const detail = await detailRes.json();
@@ -95,9 +96,8 @@ export default function Dashboard({ onLogout }: DashboardProps) {
     setIsRescanning(true);
     setError(null);
     try {
-      const res = await fetch("/api/v1/scans", {
+      const res = await apiFetch("/api/v1/scans", {
         method: "POST",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ repoUrl: selectedScan.repoUrl }),
       });

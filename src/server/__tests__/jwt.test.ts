@@ -49,4 +49,16 @@ describe("JWT utilities", () => {
   it("throws for empty string", () => {
     expect(() => mod.verifyToken("")).toThrow();
   });
+
+  it("generates and verifies refresh tokens", () => {
+    const refresh = mod.generateRefreshToken({ userId: "user-1", orgId: "org-1" });
+    const payload = mod.verifyRefreshToken(refresh);
+    expect(payload.userId).toBe("user-1");
+    expect(payload.orgId).toBe("org-1");
+  });
+
+  it("rejects access token used as refresh token", () => {
+    const access = mod.generateAccessToken({ userId: "user-1" });
+    expect(() => mod.verifyRefreshToken(access)).toThrow();
+  });
 });

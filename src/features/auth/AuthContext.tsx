@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { apiFetch } from "../../lib/apiClient";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -13,7 +14,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/v1/auth/me", { credentials: "include" })
+    apiFetch("/api/v1/auth/me")
       .then((res) => {
         if (res.ok) setIsAuthenticated(true);
         else setIsAuthenticated(false);
@@ -24,7 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(async () => {
     try {
-      await fetch("/api/v1/auth/logout", { method: "POST", credentials: "include" });
+      await apiFetch("/api/v1/auth/logout", { method: "POST" });
     } catch { /* ignore */ }
     setIsAuthenticated(false);
   }, []);

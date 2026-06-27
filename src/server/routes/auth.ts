@@ -5,7 +5,7 @@
 
 import express from "express";
 import passport from "passport";
-import { generateToken } from "../auth/jwt.ts";
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../auth/jwt.ts";
 import { query } from "../db/pool.ts";
 import { ApiKeyService } from "../services/apiKeyService.ts";
 import { authMiddleware } from "../middleware/auth.ts";
@@ -31,21 +31,33 @@ router.get(
   "/github/callback",
   passport.authenticate("github", { failureRedirect: "/login?error=auth_failed", session: false }),
   (req: Request, res: Response) => {
-    const authResult = req.user as { user?: unknown; token?: string } | undefined;
+    const authResult = req.user as { user?: unknown; token?: string; refreshToken?: string } | undefined;
     const user = authResult?.user;
     const token = authResult?.token;
+    const refreshToken = authResult?.refreshToken;
 
-    if (!user || !token) {
+    if (!user || !token || !refreshToken) {
       return res.redirect("/login?error=token_generation_failed");
     }
 
-    // Set token as httpOnly cookie and redirect to dashboard
+    const isProd = process.env.NODE_ENV === "production";
+    const accessMaxAge = 60 * 60 * 1000; // 1 hour
+    const refreshMaxAge = 7 * 24 * 60 * 60 * 1000;
+
+    // Set short-lived access token + long-lived refresh token as httpOnly cookies
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days to match JWT expiry
+        secure: isProd,
+        sameSite: isProd ? "strict" : "lax",
+        maxAge: accessMaxAge,
+      })
+      .cookie("refresh_token", refreshToken, {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? "strict" : "lax",
+        maxAge: refreshMaxAge,
+        path: "/api/v1/auth/refresh",
       })
       .redirect("/dashboard");
   }
@@ -57,7 +69,43 @@ router.get(
  * Doesn't require auth middleware so users with expired cookies can still log out.
  */
 router.post("/logout", (_req: Request, res: Response) => {
-  res.clearCookie("token").json({ message: "Logged out successfully" });
+  res
+    .clearCookie("token")
+    .clearCookie("refresh_token", { path: "/api/v1/auth/refresh" })
+    .json({ message: "Logged out successfully" });
+});
+
+/**
+ * POST /api/v1/auth/refresh
+ * Issue a new access token using the httpOnly refresh cookie.
+ */
+router.post("/refresh", (req: Request, res: Response) => {
+  const cookieHeader = req.headers.cookie ?? "";
+  const refreshMatch = cookieHeader.match(/(?:^|;\s*)refresh_token=([^;]+)/);
+  const refreshToken = refreshMatch?.[1]
+    ? decodeURIComponent(refreshMatch[1])
+    : undefined;
+
+  if (!refreshToken) {
+    return res.status(401).json({ error: "Missing refresh token" });
+  }
+
+  try {
+    const payload = verifyRefreshToken(refreshToken);
+    const accessToken = generateAccessToken(payload);
+    const isProd = process.env.NODE_ENV === "production";
+
+    res
+      .cookie("token", accessToken, {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? "strict" : "lax",
+        maxAge: 60 * 60 * 1000,
+      })
+      .json({ ok: true });
+  } catch {
+    res.status(401).json({ error: "Invalid or expired refresh token" });
+  }
 });
 
 /**

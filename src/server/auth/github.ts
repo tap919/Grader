@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
-import { generateToken } from "./jwt.ts";
+import { generateAccessToken, generateRefreshToken } from "./jwt.ts";
 import { query } from "../db/pool.ts";
 
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
@@ -32,8 +32,9 @@ passport.use(
             [user.id]
           );
           const orgId = memberRows?.[0]?.org_id;
-          const token = generateToken({ userId: user.id, orgId });
-          return done(null, { user, token });
+          const accessToken = generateAccessToken({ userId: user.id, orgId });
+          const refreshToken = generateRefreshToken({ userId: user.id, orgId });
+          return done(null, { user, token: accessToken, refreshToken });
         }
         
         // Create new user
@@ -80,8 +81,9 @@ passport.use(
           [org.id, newUser.id, "admin"]
         );
         
-        const token = generateToken({ userId: newUser.id, orgId: org.id });
-        return done(null, { user: newUser, token });
+        const accessToken = generateAccessToken({ userId: newUser.id, orgId: org.id });
+        const refreshToken = generateRefreshToken({ userId: newUser.id, orgId: org.id });
+        return done(null, { user: newUser, token: accessToken, refreshToken });
       } catch (err) {
         console.error("GitHub authentication error:", err);
         return done(err);
