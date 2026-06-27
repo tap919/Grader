@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+build/
+dist/
+out/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# Test artifacts
+coverage/
+test-results/
+playwright-report/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Logs
+*.log
+*.err.log
+
+# OS / editor
+.DS_Store
+.vscode/
+!.vscode/settings.json
+.idea/

@@ -1,0 +1,6 @@
+{
+  "name": "Grader",
+  "description": "An honest, data-backed second opinion for any codebase, evaluating quality, security, and market potential.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
