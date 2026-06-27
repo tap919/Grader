@@ -463,6 +463,32 @@ async function gradeRepoAsync(
       console.error(`Compliance analysis failed for scan ${scanId}:`, complianceError);
     }
 
+    // Push scan result to RepoRank for scoring
+    try {
+      const reporankUrl = process.env.REPORANK_URL;
+      const reporankKey = process.env.REPORANK_API_KEY || process.env.INTERNAL_API_KEY;
+      if (reporankUrl) {
+        const headers: Record<string, string> = { "Content-Type": "application/json" };
+        if (reporankKey) headers["Authorization"] = `Bearer ${reporankKey}`;
+        await fetch(`${reporankUrl}/api/scores`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            repoUrl,
+            scanId,
+            score: report.overallScore,
+            gradeCategory: report.gradeCategory,
+            issues: report.openIssuesCount ?? 0,
+            scannedAt: new Date().toISOString(),
+          }),
+          signal: AbortSignal.timeout(10_000),
+        });
+        console.log(`[scans] [scanId:${scanId}] Pushed score to RepoRank`);
+      }
+    } catch (reporankErr) {
+      console.error(`[scans] [scanId:${scanId}] RepoRank push failed:`, reporankErr);
+    }
+
     await query(
       `INSERT INTO usage_log (org_id, user_id, action, resource, created_at)
         VALUES ($1, $2, 'scan_completed', $3, NOW())`,
@@ -470,6 +496,45 @@ async function gradeRepoAsync(
     );
 
     console.log(`[scans] [scanId:${scanId}] Scan completed successfully`);
+
+    // Send email notification via Resend (if configured)
+    try {
+      const resendKey = process.env.RESEND_API_KEY;
+      const notifyEmail = process.env.SCAN_NOTIFY_EMAIL;
+      if (resendKey && notifyEmail) {
+        const esc = (s: string) => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] ?? c));
+        const safeOwner = esc(owner);
+        const safeRepo = esc(repo);
+        const safeScanId = esc(scanId);
+        const safeScore = String(report.overallScore);
+        const safeGrade = esc(report.gradeCategory);
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${resendKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: process.env.SCAN_NOTIFY_FROM || "Grader <onboarding@resend.dev>",
+            to: [notifyEmail],
+            subject: `Scan Complete: ${safeOwner}/${safeRepo} — Score ${safeScore}/100 (${safeGrade})`,
+            html: `
+              <h2>Repository Scan Complete</h2>
+              <p><strong>${safeOwner}/${safeRepo}</strong></p>
+              <table style="border-collapse:collapse">
+                <tr><td style="padding:4px 12px;border:1px solid #ddd">Score</td><td style="padding:4px 12px;border:1px solid #ddd"><strong>${safeScore}/100</strong></td></tr>
+                <tr><td style="padding:4px 12px;border:1px solid #ddd">Grade</td><td style="padding:4px 12px;border:1px solid #ddd">${safeGrade}</td></tr>
+                <tr><td style="padding:4px 12px;border:1px solid #ddd">Scan ID</td><td style="padding:4px 12px;border:1px solid #ddd">${safeScanId}</td></tr>
+              </table>
+            `,
+          }),
+          signal: AbortSignal.timeout(10_000),
+        });
+        console.log(`[scans] [scanId:${scanId}] Email notification sent`);
+      }
+    } catch (emailErr) {
+      console.error(`[scans] [scanId:${scanId}] Email notification failed:`, emailErr);
+    }
   } catch (error) {
     console.error(`Error grading repo for scan ${scanId}:`, error);
 

@@ -2,8 +2,10 @@ import jwt from "jsonwebtoken";
 import { z } from "zod";
 
 const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not defined");
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+  throw new Error(
+    "JWT_SECRET environment variable must be set and at least 32 characters long"
+  );
 }
 
 /** Short-lived access token — limits exposure if stolen. */
